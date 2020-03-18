@@ -6,7 +6,7 @@
     </v-toolbar-title>
     <v-spacer />
     <span class="mr-5 hidden-sm-and-down" v-html='$d(date,"long")'></span>
-<!--    <LanguageSwitcher /> _______________язык -->
+<!--    "<LanguageSwitcher />" _______________язык -->
     <v-tooltip bottom>
       <template v-slot:activator="{ on }">
         <v-btn icon v-on="on" @click="LogOut()">
