@@ -48,7 +48,7 @@ const dateTimeFormats = {
 
 export default new VueI18n({
   //locale: localStorage.getItem("locale") || "ru",
-  fallbackLocale: "ru",
+  // fallbackLocale: "ru",
   // silentFallbackWarn: true,
   dateTimeFormats,
   messages,
