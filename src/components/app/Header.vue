@@ -6,7 +6,7 @@
     </v-toolbar-title>
     <v-spacer />
     <span class="mr-5 hidden-sm-and-down" v-html='$d(date,"long")'></span>
-    <LanguageSwitcher />
+//    <LanguageSwitcher /> _______________язык
     <v-tooltip bottom>
       <template v-slot:activator="{ on }">
         <v-btn icon v-on="on" @click="LogOut()">
@@ -19,12 +19,12 @@
 </template>
 
 <script>
-import LanguageSwitcher from "@/components/header/LanguageSwitcher.vue";
+//import LanguageSwitcher from "@/components/header/LanguageSwitcher.vue"; _______________язык
 import { mapActions } from "vuex";
 
 export default {
   name: "Header",
-  components: { LanguageSwitcher },
+//  components: { LanguageSwitcher }, _______________язык 
   data: () => ({
     date: new Date(),
     interval: null
