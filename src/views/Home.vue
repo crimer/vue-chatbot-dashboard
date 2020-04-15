@@ -22,6 +22,7 @@ export default {
       loading: true,
       headers: [
         { text: "Id", value: "id", align: "left" },
+        { text: "Ключи", value: "keys" },
         { text: "Вопрос", value: "title" },
         { text: "Ответ", value: "body" },
         { text: "Действия", value: "action", sortable: false }
@@ -37,6 +38,8 @@ export default {
   },
   // первая загрузка данный
   mounted() {
+    console.log(process.env.VUE_APP_ADMIN_KEY);
+    
     if (!this.isFirstDataLoaded) {
       this.loading = true;
       setTimeout(() => {

@@ -8,8 +8,7 @@
             v-if="errors.length"
             icon="$vuetify.icons.close"
             max-width="500px"
-            title="Opss..."
-          >
+            title="Opss...">
             <p v-for="(item, index) in errors" :key="index" class="mb-3">
               {{ item }}
             </p>
@@ -25,14 +24,14 @@
             </v-overlay>
             <v-toolbar color="primary" dark flat>
               <v-toolbar-title>
-                {{ $t("LoginPage.title") }}
+                Вход
               </v-toolbar-title>
             </v-toolbar>
 
             <v-card-text>
               <v-form v-model="valid">
                 <v-text-field
-                  :label="$t('LoginPage.login')"
+                  label="Логин"
                   name="login"
                   clearable
                   v-model.trim="userLogin"
@@ -44,7 +43,7 @@
 
                 <v-text-field
                   id="password"
-                  :label="$t('LoginPage.password')"
+                  label="Пароль"
                   name="password"
                   v-model.trim="userPassword"
                   prepend-icon="$vuetify.icons.lock"
@@ -62,15 +61,11 @@
               </v-form>
             </v-card-text>
             <v-card-actions class="d-flex justify-space-between">
-              <router-link :to="{ path: 'register' }">{{
-                $t("LoginPage.registerLink")
-              }}</router-link>
+              <router-link :to="{ path: 'register' }">Создать аккаунт</router-link>
               <v-btn
                 @click.prevent="logIn()"
                 :disabled="!valid"
-                color="primary"
-                >{{ $t("LoginPage.loginBtn") }}</v-btn
-              >
+                color="primary">Войти</v-btn>
             </v-card-actions>
           </v-card>
         </v-col>
@@ -99,14 +94,14 @@ export default {
   computed: {
     loginRules() {
       return [
-        v => !!v || this.$t("LoginPage.loginRequired"),
-        v => /.+@.+\..+/.test(v) || this.$t("LoginPage.loginValid")
+        v => !!v || 'Логин обязателен',
+        v => /.+@.+\..+/.test(v) || 'Логин должен быть валидным (test@mail.ru)'
       ];
     },
     passwordRules() {
       return [
-        v => !!v || this.$t("LoginPage.passwordRequired"),
-        v => (v && v.length >= 3) || this.$t("LoginPage.passwordMore")
+        v => !!v || 'Пароль обязателен',
+        v => (v && v.length >= 3) || 'Пароль должен быть больше чем 3 символов'
       ];
     }
   },
@@ -121,7 +116,7 @@ export default {
         this.$router.push("/");
         this.OPEN_SNACKBAR({
           color: "info",
-          text: this.$t("Snackbar.logIn")
+          text: 'Вы вошли в свой аккаунт'
         });
       }, 3000);
     }

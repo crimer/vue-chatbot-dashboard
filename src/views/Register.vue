@@ -24,14 +24,14 @@
             </v-overlay>
             <v-toolbar color="primary" dark flat>
               <v-toolbar-title>
-                {{ $t("RegisterPage.title") }}
+                Регистрация
               </v-toolbar-title>
             </v-toolbar>
 
             <v-card-text>
               <v-form v-model="valid">
                 <v-text-field
-                  :label="$t('RegisterPage.login')"
+                  label="Логин"
                   name="login"
                   prepend-icon="$vuetify.icons.account"
                   type="text"
@@ -42,7 +42,7 @@
 
                 <v-text-field
                   id="password"
-                  :label="$t('RegisterPage.password')"
+                  label="Пароль"
                   name="password"
                   prepend-icon="$vuetify.icons.lock"
                   clearable
@@ -59,7 +59,7 @@
 
                 <v-text-field
                   id="confirmPassword"
-                  :label="$t('RegisterPage.confirmPassword')"
+                  label="Повторите пароль"
                   name="confirmPassword"
                   v-model="userConfirmPassword"
                   clearable
@@ -77,14 +77,14 @@
             </v-card-text>
             <v-card-actions class="d-flex justify-space-between">
               <router-link :to="{ path: 'login' }">
-                {{ $t("RegisterPage.loginLink") }}
+                Есть аккаунт?
               </router-link>
               <v-btn
                 color="primary"
                 :disabled="!valid"
                 @click.prevent="register()"
               >
-                {{ $t("RegisterPage.registerBtn") }}
+                Создать аккаунт
               </v-btn>
             </v-card-actions>
           </v-card>
@@ -125,21 +125,21 @@ export default {
   computed: {
     loginRules() {
       return [
-        v => !!v || this.$t("RegisterPage.loginRequired"),
-        v => /.+@.+\..+/.test(v) || this.$t("RegisterPage.loginValid")
+        v => !!v || 'Логин обязателен',
+        v => /.+@.+\..+/.test(v) || 'Логин должен быть валидным (test@mail.ru)'
       ];
     },
     passwordRules() {
       return [
-        v => !!v || this.$t("RegisterPage.passwordRequired"),
-        v => (v && v.length >= 3) || this.$t("RegisterPage.passwordMore")
+        v => !!v || 'Пароль обязателен',
+        v => (v && v.length >= 3) || 'Пароль должен быть больше чем 3 символов'
       ];
     },
     confirmPasswordRules() {
       return [
-        v => !!v || this.$t("RegisterPage.passwordRequired"),
-        v => (v && v.length >= 3) || this.$t("RegisterPage.passwordMore"),
-        v => v === this.userPassword || this.$t("RegisterPage.passwordNotMatch")
+        v => !!v || 'Пароль обязателен',
+        v => (v && v.length >= 3) || 'Пароль должен быть больше чем 3 символов',
+        v => v === this.userPassword || 'Пароли не совподают'
       ];
     }
   },
@@ -157,7 +157,7 @@ export default {
         this.$router.push("/login");
         this.OPEN_SNACKBAR({
           color: "info",
-          text: this.$t("Snackbar.registerAccount")
+          text: 'Вы успешно создали аккаунт. Теперь войдите'
         });
       }, 3000);
     }

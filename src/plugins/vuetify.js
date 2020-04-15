@@ -46,7 +46,6 @@ const MY_ICONS = {
 const MY_THEME = {
   light: {
     primary: "#4A76A8",
-
     success: "#4CAF50",
     warning: "#FB8C00",
     info: "#2196F3",

@@ -14,8 +14,7 @@
       <v-list-item-content>
         <v-list-item-title
           class="title"
-          v-html="$t('Sidebar.dashboardTitle')"
-        ></v-list-item-title>
+        >Админ панель<br>Чат Бота</v-list-item-title>
       </v-list-item-content>
     </v-list-item>
     <v-list dense nav>

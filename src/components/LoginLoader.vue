@@ -1,13 +1,10 @@
 <template>
-  <div class="lds-roller">
-    <div></div>
-    <div></div>
-    <div></div>
-    <div></div>
-    <div></div>
-    <div></div>
-    <div></div>
-    <div></div>
+  <div class="text-center">
+    <v-progress-circular
+      :size="50"
+      color="primary"
+      indeterminate
+    ></v-progress-circular>
   </div>
 </template>
 
@@ -17,6 +14,4 @@ export default {
 };
 </script>
 
-<style lang="sass">
-@import '@/assets/styles/LoginLoader.sass'
-</style>
+<style></style>

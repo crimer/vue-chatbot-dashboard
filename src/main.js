@@ -5,7 +5,6 @@ import store from "./store";
 import vuetify from "@/plugins/vuetify";
 import dateFilter from "@/filters/date.filter.js";
 import Vuelidate from "vuelidate";
-import i18n from "@/plugins/i18n.js";
 import VueTreeList from 'vue-tree-list'
 
 Vue.use(VueTreeList)
@@ -24,6 +23,5 @@ new Vue({
   store,
   router,
   vuetify,
-  i18n,
   render: h => h(App)
 }).$mount("#app");

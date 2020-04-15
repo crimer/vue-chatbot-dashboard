@@ -1,4 +1,5 @@
 import Axios from "axios";
+import { getQuestions } from "../api/something.api";
 
 export default {
   namespaced: true,
@@ -21,24 +22,9 @@ export default {
     }
   },
   actions: {
-    // LOAD_QUESTION({ commit }) {
-    //     return new Promise((resolve, reject) => {
-    //         Axios.get("https://jsonplaceholder.typicode.com/posts")
-    //             .then(response => {
-    //                 commit("LOAD_QUESTION", response.data);
-    //                 resolve();
-    //             })
-    //             .catch(errors => {
-    //                 console.log(errors);
-    //                 reject();
-    //             });
-    //     });
-    // },
     async LOAD_QUESTIONS({ commit }) {
       try {
-        const { data } = await Axios.get(
-          "https://jsonplaceholder.typicode.com/posts"
-        );
+        const { data } = await getQuestions();
         commit("LOAD_QUESTION", data);
       } catch (error) {
         console.log(error);

@@ -4,7 +4,7 @@ import questions from "./questions";
 import auth from "./auth";
 import snackbar from "./snackbar";
 import modal from "./modal";
-import main from "./main";
+import tree from "./tree";
 
 Vue.use(Vuex);
 
@@ -14,6 +14,6 @@ export default new Vuex.Store({
     AuthStore: auth,
     SnackbarStore: snackbar,
     CreateEditModal: modal,
-    MainStore: main
+    TreeStore: tree
   }
 });

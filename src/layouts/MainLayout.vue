@@ -3,7 +3,7 @@
     <Snackbar />
     <Header @sidebar-toggle="sidebarToggle = !sidebarToggle" :pages="pages"/>
     <Sidebar v-model="sidebarToggle" :pages="pages"/>
-    <v-content class="ma-5">
+    <v-content>
       <transition name="fade" mode="out-in">
         <router-view />
       </transition>
@@ -27,26 +27,29 @@ export default {
     sidebarToggle: true
   }),
   computed: {
+    routeName() {
+      return this.$route.meta.name;
+    },
     pages() {
       return [
         {
-          title: this.$t("Routes.table"),
+          title: 'Таблица вопросов',
           icon: "$vuetify.icons.table",
           route: "/",
           exact: true
         },
         {
-          title: this.$t("Routes.tree"),
+          title: 'Дерево вопросов',
           icon: "$vuetify.icons.tree",
           route: "/tree"
         },
         {
-          title: this.$t("Routes.about"),
+          title: 'О нас',
           icon: "$vuetify.icons.history",
           route: "/about"
         },
         {
-          title: this.$t("Routes.setting"),
+          title: 'Настройки',
           icon: "$vuetify.icons.settings",
           route: "/settings"
         }

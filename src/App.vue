@@ -16,7 +16,7 @@ export default {
   name: "App",
   components: {
     EmptyLayout,
-    MainLayout
+    MainLayout,
   },
   computed: {
     layout() {

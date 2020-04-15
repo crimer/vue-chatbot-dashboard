@@ -1,8 +1,6 @@
 import Vue from "vue";
-import store from "@/store/index";
 import VueRouter from "vue-router";
 import Home from "../views/Home.vue";
-import i18n from "@/plugins/i18n.js";
 
 Vue.use(VueRouter);
 
@@ -14,7 +12,7 @@ const routes = [
     // beforeEnter: isAuthenticated,
     meta: {
       layout: "Main",
-      name: i18n.t("Routes.table"),
+      name: 'Таблица'
     }
   },
   {
@@ -22,7 +20,7 @@ const routes = [
     name: "404",
     meta: {
       layout: "Empty",
-      name: i18n.t("Routes.error404"),
+      name: '404'
     },
     component: () => import("../views/Error404.vue")
   },
@@ -31,8 +29,7 @@ const routes = [
     name: "about",
     meta: {
       layout: "Main",
-      name: i18n.t("Routes.about"),
-      // name: 'о нас',
+      name: 'О нас'
     },
     component: () => import("../views/About.vue")
   },
@@ -41,7 +38,7 @@ const routes = [
     name: "login",
     meta: {
       layout: "Empty",
-      name: i18n.t("Routes.login"),
+      name: 'Вход'
     },
     // beforeEnter: isNotAuthenticated,
     component: () => import("../views/Login.vue")
@@ -51,7 +48,7 @@ const routes = [
     name: "register",
     meta: {
       layout: "Empty",
-      name: i18n.t("Routes.register"),
+      name: 'Регистрация'
     },
     component: () => import("../views/Register.vue")
   },
@@ -60,7 +57,7 @@ const routes = [
     name: "tree",
     meta: {
       layout: "Main",
-      name: i18n.t("Routes.tree"),
+      name: 'Дерево вопросов'
     },
     component: () => import("../views/Tree.vue")
   },
