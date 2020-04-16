@@ -6,7 +6,6 @@
       loading-text="Загрузка..."
       no-data-text="Нет данных"
       no-results-text="Не найдено"
-      show-select
       hide-default-footer
       @page-count="pageCount = $event"
       :headers="head"
@@ -14,8 +13,7 @@
       :search="searchByQuestion"
       :loading="loading"
       :page.sync="page"
-      :items-per-page="itemsPerPage"
-    >
+      :items-per-page="itemsPerPage">
       <template #top>
         <v-toolbar flat color="white">
           <!-- TODO: доделать иконки у поисков  и добавить max-width к поиску-->
@@ -35,23 +33,6 @@
             </template>
             <span>Add new</span>
           </v-tooltip>
-          <v-tooltip bottom>
-            <template v-slot:activator="{ on }">
-              <v-btn
-                v-on="on"
-                @click="deleteSelected()"
-                fab
-                dark
-                color="danger"
-                small
-                class="mr-5"
-              >
-                <v-icon dark>$vuetify.icons.delete</v-icon>
-              </v-btn>
-            </template>
-            <span>Delete selected</span>
-          </v-tooltip>
-
           <v-text-field
             v-model="searchByQuestion"
             label="Поиск по вопросу"

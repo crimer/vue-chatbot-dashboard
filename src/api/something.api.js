@@ -1,10 +1,5 @@
-import axios from "axios";
-import url from "./url.js";
-
-// экземпляр axios для обращения к api
-const http = axios.create({
-  baseURL: url.domain
-});
+import url, { http } from "./url.js";
+import Axios from "axios";
 
 export const getAll = () => {
   return false;
@@ -15,7 +10,8 @@ export const getTree = key => {
   return http.get(url.paths.tree, { params: { key } });
 };
 
+// TODO: удалить
 export const getQuestions = () => {
-  return http.get(url.paths.questions);
+  return Axios.get(url.paths.questions);
 };
 // ?key=f9sl2e

@@ -29,24 +29,14 @@
             </v-toolbar>
 
             <v-card-text>
-              <v-form v-model="valid">
-                <v-text-field
-                  label="Логин"
-                  name="login"
-                  prepend-icon="$vuetify.icons.account"
-                  type="text"
-                  clearable
-                  :rules="loginRules"
-                  v-model="userLogin"
-                />
-
+              <v-form v-model="valid" @keydown.prevent.enter>
                 <v-text-field
                   id="password"
                   label="Пароль"
                   name="password"
                   prepend-icon="$vuetify.icons.lock"
                   clearable
-                  v-model="userPassword"
+                  v-model="password"
                   :rules="passwordRules"
                   :append-icon="
                     showPassword
@@ -61,7 +51,7 @@
                   id="confirmPassword"
                   label="Повторите пароль"
                   name="confirmPassword"
-                  v-model="userConfirmPassword"
+                  v-model="confirmPassword"
                   clearable
                   prepend-icon="$vuetify.icons.lock"
                   :rules="confirmPasswordRules"
@@ -107,39 +97,32 @@ export default {
       valid: true,
       errors: [],
 
-      userLogin: null,
-      userPassword: null,
-      userConfirmPassword: null,
+      password: null,
+      confirmPassword: null,
 
       showPassword: false,
       showConfirmPassword: false
     };
   },
   watch: {
-    userPassword() {
-      return this.userPassword === this.userConfirmPassword
-        ? (this.valid = true)
-        : (this.valid = false);
+    password(){
+      // return this.valid = this.userPassword === this.userConfirmPassword ? true : false;
+
     }
   },
   computed: {
-    loginRules() {
-      return [
-        v => !!v || 'Логин обязателен',
-        v => /.+@.+\..+/.test(v) || 'Логин должен быть валидным (test@mail.ru)'
-      ];
-    },
     passwordRules() {
       return [
-        v => !!v || 'Пароль обязателен',
-        v => (v && v.length >= 3) || 'Пароль должен быть больше чем 3 символов'
+        v => !!v || "Пароль обязателен",
+        v => (v && v.length >= 6) || "Пароль должен быть больше чем 6 символов",
+        // v => this.confirmPassword || 'Пароли не совподают',
       ];
     },
     confirmPasswordRules() {
       return [
-        v => !!v || 'Пароль обязателен',
-        v => (v && v.length >= 3) || 'Пароль должен быть больше чем 3 символов',
-        v => v === this.userPassword || 'Пароли не совподают'
+        v => !!v || "Пароль обязателен",
+        v => (v && v.length >= 6) || "Пароль должен быть больше чем 6 символов",
+        v => v === this.password && this.password === v || 'Пароли не совподают',
       ];
     }
   },
@@ -151,13 +134,13 @@ export default {
       setTimeout(() => {
         this.overlay = false;
 
-        const { userLogin, userPassword } = this;
-        console.log({ userLogin, userPassword });
+        const { userLogin, password } = this;
+        console.log({ userLogin, password });
 
         this.$router.push("/login");
         this.OPEN_SNACKBAR({
           color: "info",
-          text: 'Вы успешно создали аккаунт. Теперь войдите'
+          text: "Вы успешно создали аккаунт. Теперь войдите"
         });
       }, 3000);
     }

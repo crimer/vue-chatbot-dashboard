@@ -1,6 +1,6 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-import Home from "../views/Home.vue";
+import HomePage from "../views/HomePage.vue";
 
 Vue.use(VueRouter);
 
@@ -8,12 +8,21 @@ const routes = [
   {
     path: "/",
     name: "home",
-    component: Home,
+    component: HomePage,
     // beforeEnter: isAuthenticated,
     meta: {
       layout: "Main",
-      name: 'Таблица'
+      name: 'Таблица вопросов'
     }
+  },
+  {
+    path: "/keystable",
+    name: "kaysTable",
+    meta: {
+      layout: "Main",
+      name: 'Таблица ключей'
+    },
+    component: () => import("../views/KeysPage.vue")
   },
   {
     path: "*",
@@ -22,7 +31,7 @@ const routes = [
       layout: "Empty",
       name: '404'
     },
-    component: () => import("../views/Error404.vue")
+    component: () => import("../views/Error404Page.vue")
   },
   {
     path: "/about",
@@ -31,7 +40,7 @@ const routes = [
       layout: "Main",
       name: 'О нас'
     },
-    component: () => import("../views/About.vue")
+    component: () => import("../views/AboutPage.vue")
   },
   {
     path: "/login",
@@ -41,7 +50,7 @@ const routes = [
       name: 'Вход'
     },
     // beforeEnter: isNotAuthenticated,
-    component: () => import("../views/Login.vue")
+    component: () => import("../views/LoginPage.vue")
   },
   {
     path: "/register",
@@ -50,7 +59,7 @@ const routes = [
       layout: "Empty",
       name: 'Регистрация'
     },
-    component: () => import("../views/Register.vue")
+    component: () => import("../views/RegisterPage.vue")
   },
   {
     path: "/tree",
@@ -59,7 +68,7 @@ const routes = [
       layout: "Main",
       name: 'Дерево вопросов'
     },
-    component: () => import("../views/Tree.vue")
+    component: () => import("../views/TreePage.vue")
   },
   
 ];

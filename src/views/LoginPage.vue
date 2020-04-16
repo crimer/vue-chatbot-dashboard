@@ -17,8 +17,7 @@
             class="elevation-9"
             style="margin: auto;"
             width="100%"
-            max-width="550px"
-          >
+            max-width="550px">
             <v-overlay absolute :value="overlay">
               <LoginLoader />
             </v-overlay>
@@ -29,18 +28,7 @@
             </v-toolbar>
 
             <v-card-text>
-              <v-form v-model="valid">
-                <v-text-field
-                  label="Логин"
-                  name="login"
-                  clearable
-                  v-model.trim="userLogin"
-                  prepend-icon="$vuetify.icons.account"
-                  type="text"
-                  :rules="loginRules"
-                  required
-                />
-
+              <v-form v-model="valid" @keydown.prevent.enter>
                 <v-text-field
                   id="password"
                   label="Пароль"
@@ -86,22 +74,15 @@ export default {
     user: {},
     valid: true,
     overlay: false,
-    userLogin: null,
     userPassword: null,
     showPassword: false,
     errors: []
   }),
   computed: {
-    loginRules() {
-      return [
-        v => !!v || 'Логин обязателен',
-        v => /.+@.+\..+/.test(v) || 'Логин должен быть валидным (test@mail.ru)'
-      ];
-    },
     passwordRules() {
       return [
         v => !!v || 'Пароль обязателен',
-        v => (v && v.length >= 3) || 'Пароль должен быть больше чем 3 символов'
+        v => (v && v.length >= 6) || 'Пароль должен быть больше чем 6 символов'
       ];
     }
   },

@@ -1,8 +1,8 @@
 <template>
   <v-app>
     <Snackbar />
-    <Header @sidebar-toggle="sidebarToggle = !sidebarToggle" :pages="pages"/>
-    <Sidebar v-model="sidebarToggle" :pages="pages"/>
+    <Header @sidebar-toggle="sidebarToggle = !sidebarToggle"/>
+    <Sidebar v-model="sidebarToggle"/>
     <v-content>
       <transition name="fade" mode="out-in">
         <router-view />
@@ -30,31 +30,7 @@ export default {
     routeName() {
       return this.$route.meta.name;
     },
-    pages() {
-      return [
-        {
-          title: 'Таблица вопросов',
-          icon: "$vuetify.icons.table",
-          route: "/",
-          exact: true
-        },
-        {
-          title: 'Дерево вопросов',
-          icon: "$vuetify.icons.tree",
-          route: "/tree"
-        },
-        {
-          title: 'О нас',
-          icon: "$vuetify.icons.history",
-          route: "/about"
-        },
-        {
-          title: 'Настройки',
-          icon: "$vuetify.icons.settings",
-          route: "/settings"
-        }
-      ];
-    }
+    
   }
 };
 </script>

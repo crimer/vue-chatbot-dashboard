@@ -32,6 +32,7 @@ const MY_ICONS = {
   theme: "mdi-brightness-6",
   arrorLeft: "mdi-chevron-left",
   send: "mdi-send",
+  key: "mdi-key",
   
   // for Tree Table
   tree: "mdi-file-tree",

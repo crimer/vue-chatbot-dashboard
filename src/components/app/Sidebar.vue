@@ -12,9 +12,9 @@
         <v-img src="@/assets/svg/man.svg"></v-img>
       </v-list-item-avatar>
       <v-list-item-content>
-        <v-list-item-title
-          class="title"
-        >Админ панель<br>Чат Бота</v-list-item-title>
+        <v-list-item-title class="title"
+          >Админ панель<br />Чат Бота</v-list-item-title
+        >
       </v-list-item-content>
     </v-list-item>
     <v-list dense nav>
@@ -38,15 +38,39 @@ export default {
   name: "Sidebar",
   props: {
     value: Boolean,
-    pages:{
-      required: true,
-      value: Array,
-    }
   },
   data() {
-    return {};
-  },
-  
+    return {
+      pages: [
+        {
+          title: "Таблица вопросов",
+          icon: "$vuetify.icons.table",
+          route: "/",
+          exact: true
+        },
+        {
+          title: "Таблица аккаунтов",
+          icon: "$vuetify.icons.key",
+          route: "/keystable",
+        },
+        {
+          title: "Дерево вопросов",
+          icon: "$vuetify.icons.tree",
+          route: "/tree"
+        },
+        {
+          title: "О нас",
+          icon: "$vuetify.icons.history",
+          route: "/about"
+        },
+        {
+          title: "Настройки",
+          icon: "$vuetify.icons.settings",
+          route: "/settings"
+        }
+      ]
+    };
+  }
 };
 </script>
 
