@@ -5,12 +5,26 @@ export default {
   state: {
     // ключ вошедшего юзера (который сейчас работаем в админке)
     currentUserKey: "",
+    isAdmin: true,
+    logged: false,
     keysList: [],
-    isFirstDataLoaded: false
+    isFirstDataLoaded: false,
+    errors: [],
+  },
+  getters: {
+    GET_ALL_KEYS: (state) => {
+      return state.keysList.keys;
+    },
+    IS_ADMIN: state => state.isAdmin,
+    IS_LOGGED: state => state.logged,
   },
   mutations: {
+    SET_LOGGED(state, payload){
+      state.currentUserKey = payload;
+      state.logged = true;
+    },
     SET_KEYS_LIST(state, payload) {
-      state.keysList = payload;
+      state.keysList = payload.keys;
     },
     SET_CURRENT_USER_KEY(state, payload) {
       state.currentUserKey = payload;
@@ -30,7 +44,7 @@ export default {
         // TODO:
       }
     },
-    async GERISTER_NEW_KEY({ newKey }) {
+    async REGISTER_NEW_KEY({ newKey }) {
       try {
         const res = await api.registerNewKey(newKey);
         if (res.status === 200) {

@@ -31,6 +31,7 @@ const MY_ICONS = {
   settings: "mdi-settings",
   theme: "mdi-brightness-6",
   arrorLeft: "mdi-chevron-left",
+  arrorRight: "mdi-arrow-right",
   send: "mdi-send",
   key: "mdi-key",
   

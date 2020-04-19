@@ -32,7 +32,7 @@ export default {
     }
   },
   methods: {
-    ...mapActions("SnackbarStore", ["OPEN_SNACKBAR"]),
+    ...mapActions("snackbar", ["OPEN_SNACKBAR"]),
     LogOut() {
       this.$router.push("/login");
       this.OPEN_SNACKBAR({ color: "info", text: 'Вы вышли из системы' });

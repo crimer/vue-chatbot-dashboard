@@ -4,28 +4,11 @@
       <v-card-title>
         <span class="headline">{{ modalData.title }}</span>
       </v-card-title>
-
       <v-card-text>
-        <v-text-field label="Вопрос" :value="modalData.question"></v-text-field>
-        <v-textarea
-          name="input-answer"
-          label="Ответ"
-          rows="1"
-          auto-grow
-          :value="modalData.answer"
-        ></v-textarea>
+        <slot name="body"></slot>
       </v-card-text>
-
       <v-card-actions>
-        <v-spacer></v-spacer>
-        <v-btn color="primary" @click="CLOSE_MODAL">
-          <v-icon>$vuetify.icons.arrorLeft</v-icon>
-          Отмена
-        </v-btn>
-        <v-btn color="success" @click="SAVE_MODAL">
-          Сохранить
-          <v-icon class="ml-3">$vuetify.icons.send</v-icon>
-        </v-btn>
+        <slot name="footer"></slot>
       </v-card-actions>
     </v-card>
   </v-dialog>
@@ -36,10 +19,10 @@ import { mapState, mapMutations } from "vuex";
 export default {
   name: "CreateEditModal",
   computed: {
-    ...mapState("CreateEditModal", ["modalData"])
+    ...mapState("modal", ["modalData"])
   },
   methods: {
-    ...mapMutations("CreateEditModal", ["CLOSE_MODAL", "SAVE_MODAL"])
+    ...mapMutations("modal", ["CLOSE_MODAL", "SAVE_MODAL"])
   }
 };
 </script>

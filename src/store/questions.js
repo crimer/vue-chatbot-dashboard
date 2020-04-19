@@ -1,4 +1,3 @@
-import Axios from "axios";
 import { getQuestions } from "../api/something.api";
 
 export default {

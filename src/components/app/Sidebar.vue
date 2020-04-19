@@ -5,8 +5,7 @@
     stateless
     disable-resize-watcher
     touchless
-    app
-  >
+    app>
     <v-list-item>
       <v-list-item-avatar color="grey">
         <v-img src="@/assets/svg/man.svg"></v-img>
@@ -18,26 +17,42 @@
       </v-list-item-content>
     </v-list-item>
     <v-list dense nav>
+
+      <v-list-item to="/keystable" v-if="IS_ADMIN">
+        <v-list-item-icon>
+          <v-icon>$vuetify.icons.key</v-icon>
+        </v-list-item-icon>
+        <v-list-item-content>
+          <v-list-item-title>
+            Таблица аккаунтов
+          </v-list-item-title>
+        </v-list-item-content>
+      </v-list-item>
+
       <v-list-item v-for="(page, index) in pages" :key="index" :to="page.route">
         <v-list-item-icon>
           <v-icon>{{ page.icon }}</v-icon>
         </v-list-item-icon>
-
         <v-list-item-content>
           <v-list-item-title>
             {{ page.title }}
           </v-list-item-title>
         </v-list-item-content>
       </v-list-item>
+
     </v-list>
   </v-navigation-drawer>
 </template>
 
 <script>
+import { mapGetters } from "vuex";
 export default {
   name: "Sidebar",
   props: {
-    value: Boolean,
+    value: Boolean
+  },
+  computed: {
+    ...mapGetters("keys", ["IS_ADMIN"]),
   },
   data() {
     return {
@@ -49,19 +64,9 @@ export default {
           exact: true
         },
         {
-          title: "Таблица аккаунтов",
-          icon: "$vuetify.icons.key",
-          route: "/keystable",
-        },
-        {
           title: "Дерево вопросов",
           icon: "$vuetify.icons.tree",
           route: "/tree"
-        },
-        {
-          title: "О нас",
-          icon: "$vuetify.icons.history",
-          route: "/about"
         },
         {
           title: "Настройки",
