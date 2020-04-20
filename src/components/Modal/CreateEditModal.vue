@@ -1,8 +1,8 @@
 <template>
-  <v-dialog v-model="modalData.show" max-width="700px" persistent>
+  <v-dialog v-model="modalOptions.show" max-width="700px" persistent>
     <v-card>
       <v-card-title>
-        <span class="headline">{{ modalData.title }}</span>
+        <span class="headline">{{ modalOptions.title }}</span>
       </v-card-title>
       <v-card-text>
         <slot name="body"></slot>
@@ -19,7 +19,7 @@ import { mapState, mapMutations } from "vuex";
 export default {
   name: "CreateEditModal",
   computed: {
-    ...mapState("modal", ["modalData"])
+    ...mapState("modal", ["modalOptions"])
   },
   methods: {
     ...mapMutations("modal", ["CLOSE_MODAL", "SAVE_MODAL"])

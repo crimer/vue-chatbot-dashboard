@@ -8,8 +8,7 @@
             v-if="errors.length"
             icon="$vuetify.icons.close"
             max-width="500px"
-            title="Opss..."
-          >
+            title="Opss...">
             <p v-for="(item, index) in errors" :key="index" class="mb-3">
               {{ item }}
             </p>
@@ -18,10 +17,15 @@
             class="elevation-9"
             style="margin: auto;"
             width="100%"
-            max-width="550px"
-          >
+            max-width="550px">
             <v-overlay absolute :value="overlay">
-              <LoginLoader />
+              <div class="text-center">
+                <v-progress-circular
+                  :size="50"
+                  color="primary"
+                  indeterminate
+                ></v-progress-circular>
+              </div>
             </v-overlay>
             <v-toolbar color="primary" dark flat>
               <v-toolbar-title>
@@ -62,13 +66,11 @@
 </template>
 
 <script>
-import LoginLoader from "@/components/LoginLoader.vue";
-import { mapActions, mapGetters } from "vuex";
+import { mapActions, mapGetters, mapMutations } from "vuex";
 import Axios from "axios";
 
 export default {
   name: "LoginPage",
-  components: { LoginLoader },
   data: () => ({
     userKey: "",
     valid: true,
@@ -84,6 +86,7 @@ export default {
 
   methods: {
     ...mapActions("snackbar", ["OPEN_SNACKBAR"]),
+    ...mapMutations('keys',['SET_LOGGED']),
     logIn() {
       let registerFormValid = this.$refs.form.validate();
       if (!registerFormValid) return;
@@ -91,15 +94,15 @@ export default {
       this.overlay = true;
       const { userKey } = this;
 
-      setTimeout(() => {
+      // setTimeout(() => {
         this.overlay = false;
-        this.$store.commit('keys/SET_LOGGED',userKey);
+        this.SET_LOGGED(userKey);
         this.$router.push("/");
         this.OPEN_SNACKBAR({
           color: "info",
           text: "Вы вошли в свой аккаунт"
         });
-      }, 3000);
+      // }, 1000);
     }
   }
 };

@@ -6,18 +6,16 @@
       loading-text="Загрузка..."
       no-data-text="Нет данных"
       no-results-text="Не найдено"
-      hide-default-footer
-      @page-count="pageCount = $event"
       :headers="head"
       :items="data"
       :search="searchByQuestion"
       :loading="loading"
       :page.sync="page"
-      :items-per-page="itemsPerPage">
+      :items-per-page="10">
       <template #top>
         <v-toolbar flat color="white">
           <v-tooltip bottom>
-            <template v-slot:activator="{ on }">
+            <template #activator="{ on }">
               <v-btn
                 v-on="on"
                 @click="$emit('add-new-item',item)"
@@ -42,7 +40,7 @@
           <v-spacer></v-spacer>
 
           <v-tooltip bottom>
-            <template v-slot:activator="{ on }">
+            <template #activator="{ on }">
               <v-btn
                 v-on="on"
                 @click="$emit('refresh-table')"
@@ -61,7 +59,7 @@
       <template #item.action="{ item }">
         <span class="d-flex">
           <v-tooltip top>
-            <template v-slot:activator="{ on }">
+            <template #activator="{ on }">
               <v-btn
                 v-on="on"
                 @click="$emit('edit-item',item)"
@@ -76,7 +74,7 @@
             <span>Изменить</span>
           </v-tooltip>
           <v-tooltip top>
-            <template v-slot:activator="{ on }">
+            <template #activator="{ on }">
               <v-btn
                 v-on="on"
                 @click="$emit('delete-item',item)"
@@ -96,10 +94,6 @@
         <v-btn color="primary" @click="$emit('refresh-table')">Перезагрузить</v-btn>
       </template>
     </v-data-table>
-    <div class="text-center pt-2">
-      <v-pagination v-model="page" :length="pageCount" total-visible="9">
-      </v-pagination>
-    </div>
   </div>
 </template>
 

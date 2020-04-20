@@ -12,8 +12,8 @@
 </template>
 
 <script>
-import Header from "@/components/app/Header";
-import Sidebar from "@/components/app/Sidebar";
+import Header from "@/components/App/Header";
+import Sidebar from "@/components/App/Sidebar";
 import Snackbar from "@/components/Snackbar.vue";
 
 export default {

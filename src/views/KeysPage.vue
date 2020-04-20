@@ -29,14 +29,17 @@
       :head="headers"
       :data="keysList"
       :loading="loading"
-      @refresh-data="FETCH_ALL_KEYS"
+      @add-new-item="addNewKey"
+      @edit-item="editKey"
+      @delete-item="deleteKey"
+      @refresh-table="FETCH_ALL_KEYS"
     />
   </div>
 </template>
 
 <script>
-import { mapActions, mapState } from "vuex";
-import CreateEditModal from "@/components/CreateEditModal.vue";
+import { mapGetters, mapActions, mapMutations, mapState } from "vuex";
+import CreateEditModal from "@/components/Modal/CreateEditModal.vue";
 import Table from "@/components/Table.vue";
 
 export default {
@@ -44,7 +47,11 @@ export default {
   components: { CreateEditModal, Table },
   data() {
     return {
+      modalValid: true,
       loading: false,
+      modalRule: [
+        v => !!v || 'Поле обязательно',
+      ],
       headers: [
         { text: "Id", value: "id", align: "left" },
         { text: "Ключ", value: "key" },
@@ -56,7 +63,37 @@ export default {
     ...mapState("keys", ["keysList", "isFirstDataLoaded"])
   },
   methods: {
-    ...mapActions("keys", ["FETCH_ALL_KEYS"])
+    ...mapActions("keys", ["FETCH_ALL_KEYS"]),
+    ...mapActions("questions", ["LOAD_QUESTIONS"]),
+    ...mapMutations("questions", ["SET_SELECTED_QUESTION_ID"]),
+    ...mapMutations("modal", ["OPEN_MODAL","CLOSE_MODAL"]),
+    ...mapActions("snackbar", ["OPEN_SNACKBAR"]),
+
+    addNewKey() {
+      this.OPEN_MODAL("Добавить вопрос");
+    },
+    editKey(item) {
+      this.SET_SELECTED_QUESTION_ID(item.id);
+      this.OPEN_MODAL('Изменить вопрос');
+    },
+    deleteKey(item) {
+      console.log(item);
+      this.OPEN_SNACKBAR({ color: "error", text: "Вы удалили вопрос" });
+    },
+    // MODAL
+    closeModal(item){
+      console.log(item);
+      
+      this.CLOSE_MODAL();
+    },
+    saveModal(item){
+      let validModal = this.$refs.modalForm.validate();
+      if(!validModal) return;
+
+      console.log(item);
+      
+      this.CLOSE_MODAL();
+    }
   },
   // первая загрузка данный
   mounted() {

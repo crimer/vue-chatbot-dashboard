@@ -5,22 +5,26 @@
         <v-form v-model="modalValid" ref="modalForm">
           <div class="d-flex flex-column">
             <v-textarea
+              v-model="modalData.title"
               :rules="modalRule"
               name="input-question"
               label="Вопрос"
               rows="1"
-              auto-grow/>
+              auto-grow
+            />
             <v-textarea
+              v-model="modalData.body"
               :rules="modalRule"
               name="input-answer"
               label="Ответ"
               rows="1"
-              auto-grow/>
+              auto-grow
+            />
           </div>
         </v-form>
       </template>
       <template #footer>
-        <v-spacer/>
+        <v-spacer />
         <v-btn color="primary" @click="closeModal(item)">
           <v-icon>$vuetify.icons.arrorLeft</v-icon>
           Отмена
@@ -31,6 +35,27 @@
         </v-btn>
       </template>
     </CreateEditModal>
+    <DeleteModal>
+      <template #body>
+        <v-form v-model="modalValid" ref="modalForm">
+          <div class="d-flex flex-column">
+            <p>Вы уверены?</p>
+            <p>Вопрос будет удален навсегда</p>
+          </div>
+        </v-form>
+      </template>
+      <template #footer>
+        <v-spacer />
+        <v-btn color="success" @click="cancelModal(item)">
+          <v-icon>$vuetify.icons.arrorLeft</v-icon>
+          Отменить
+        </v-btn>
+        <v-btn color="danger" @click="deleteModal(item)">
+          Удалить
+          <v-icon class="ml-3">$vuetify.icons.send</v-icon>
+        </v-btn>
+      </template>
+    </DeleteModal>
     <Table
       :head="headers"
       :data="questions"
@@ -38,26 +63,25 @@
       @add-new-item="addNewQuestion"
       @edit-item="editQuestion"
       @delete-item="deleteQuestion"
-      @refresh-table="LOAD_QUESTIONS"/>
+      @refresh-table="LOAD_QUESTIONS"
+    />
   </div>
 </template>
 
 <script>
 import { mapGetters, mapActions, mapMutations, mapState } from "vuex";
-import CreateEditModal from "@/components/CreateEditModal.vue";
+import CreateEditModal from "@/components/Modal/CreateEditModal.vue";
+import DeleteModal from "@/components/Modal/DeleteModal.vue";
 import Table from "@/components/Table.vue";
 
 export default {
   name: "HomePage",
-  components: { CreateEditModal, Table },
+  components: { CreateEditModal, DeleteModal, Table },
   data() {
     return {
       modalValid: true,
       loading: true,
-      modalRule: [
-        v => !!v || 'Поле обязательно',
-      ],
-      
+      modalRule: [v => !!v || "Поле обязательно"],
       headers: [
         { text: "Id", value: "id", align: "left" },
         { text: "Ключи", value: "keys" },
@@ -68,59 +92,53 @@ export default {
     };
   },
   computed: {
-    ...mapState("questions", ["questions", "isFirstDataLoaded"])
+    ...mapState("questions", ["questions", "isFirstDataLoaded"]),
+    ...mapState("modal", ["modalData"]),
+    ...mapGetters("questions", ["GET_QUESTION_BY_ID"])
   },
   methods: {
-    ...mapActions("questions", ["LOAD_QUESTIONS"]),
-    ...mapMutations("modal", ["OPEN_MODAL","CLOSE_MODAL"]),
+    ...mapActions("questions", ["LOAD_ALL_QUESTIONS",'LOAD_ALL_ANSWERS']),
+    ...mapMutations("questions", ["SET_SELECTED_QUESTION_ID"]),
+    ...mapMutations("modal", ["OPEN_MODAL", "CLOSE_MODAL"]),
     ...mapActions("snackbar", ["OPEN_SNACKBAR"]),
 
     addNewQuestion() {
       this.OPEN_MODAL("Добавить вопрос");
     },
     editQuestion(item) {
-      console.log(item);
-      this.OPEN_MODAL('Изменить вопрос',item);
+      this.OPEN_MODAL({ title: "Изменить вопрос", selectedItem: item });
       // this.OPEN_SNACKBAR({ color: "success", text: "Вы изменили вопрос" });
     },
     deleteQuestion(item) {
-      console.log("del");
+      console.log(item);
       // console.log(item);
       // this.OPEN_MODAL('Удалить вопрос');
       this.OPEN_SNACKBAR({ color: "error", text: "Вы удалили вопрос" });
     },
-    refresh() {
-      this.LOAD_QUESTIONS();
-      console.log("refreshed");
-    },
 
     // MODAL
-    closeModal(item){
-      console.log(item);
-      
+    closeModal() {
       this.CLOSE_MODAL();
     },
-    saveModal(item){
+    saveModal(item) {
       let validModal = this.$refs.modalForm.validate();
-      if(!validModal) return;
+      if (!validModal) return;
 
       console.log(item);
-      
+
       this.CLOSE_MODAL();
     }
   },
   // первая загрузка данный
   mounted() {
-    // console.log(process.env.VUE_APP_ADMIN_KEY);
-
     if (!this.isFirstDataLoaded) {
       this.loading = true;
       setTimeout(() => {
-        this.LOAD_QUESTIONS();
+        this.LOAD_ALL_QUESTIONS();
+        this.LOAD_ALL_ANSWERS();
         this.loading = false;
       }, 1000);
     } else {
-      console.log("questions already loaded");
       this.loading = false;
     }
   }
