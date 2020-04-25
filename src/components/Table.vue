@@ -18,7 +18,7 @@
             <template #activator="{ on }">
               <v-btn
                 v-on="on"
-                @click="$emit('add-new-item',item)"
+                @click="$emit('add-new-item')"
                 fab
                 dark
                 color="primary"

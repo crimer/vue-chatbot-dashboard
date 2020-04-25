@@ -4,8 +4,7 @@ export default {
     modalData: {},
     modalOptions: {
       show: false,
-      title: "",
-      icon: ""
+      title: ""
     }
   },
   mutations: {

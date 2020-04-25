@@ -86,17 +86,17 @@ export default {
 
   methods: {
     ...mapActions("snackbar", ["OPEN_SNACKBAR"]),
-    ...mapMutations('keys',['SET_LOGGED']),
+    ...mapMutations('keys',['SET_LOGGED',"SET_COOKIE"]),
     logIn() {
       let registerFormValid = this.$refs.form.validate();
       if (!registerFormValid) return;
 
       this.overlay = true;
       const { userKey } = this;
-
       // setTimeout(() => {
         this.overlay = false;
         this.SET_LOGGED(userKey);
+        this.SET_COOKIE(userKey);
         this.$router.push("/");
         this.OPEN_SNACKBAR({
           color: "info",

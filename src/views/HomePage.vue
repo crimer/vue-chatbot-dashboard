@@ -35,27 +35,7 @@
         </v-btn>
       </template>
     </CreateEditModal>
-    <DeleteModal>
-      <template #body>
-        <v-form v-model="modalValid" ref="modalForm">
-          <div class="d-flex flex-column">
-            <p>Вы уверены?</p>
-            <p>Вопрос будет удален навсегда</p>
-          </div>
-        </v-form>
-      </template>
-      <template #footer>
-        <v-spacer />
-        <v-btn color="success" @click="cancelModal(item)">
-          <v-icon>$vuetify.icons.arrorLeft</v-icon>
-          Отменить
-        </v-btn>
-        <v-btn color="danger" @click="deleteModal(item)">
-          Удалить
-          <v-icon class="ml-3">$vuetify.icons.send</v-icon>
-        </v-btn>
-      </template>
-    </DeleteModal>
+    <DeleteModal @cancel-delete="cancelDelete" @yes-delete="yesDelete" text="Вы уверены? Вопрос будет удален навсегда"/>
     <Table
       :head="headers"
       :data="questions"
@@ -93,17 +73,18 @@ export default {
   },
   computed: {
     ...mapState("questions", ["questions", "isFirstDataLoaded"]),
-    ...mapState("modal", ["modalData"]),
+    ...mapState("createEditModal", ["modalData"]),
     ...mapGetters("questions", ["GET_QUESTION_BY_ID"])
   },
   methods: {
     ...mapActions("questions", ["LOAD_ALL_QUESTIONS",'LOAD_ALL_ANSWERS']),
     ...mapMutations("questions", ["SET_SELECTED_QUESTION_ID"]),
-    ...mapMutations("modal", ["OPEN_MODAL", "CLOSE_MODAL"]),
+    ...mapMutations("createEditModal", ["OPEN_MODAL", "CLOSE_MODAL"]),
+    ...mapMutations("deleteModal", ["CLOSE_DELETE_MODAL", "OPEN_DELETE_MODAL"]),
     ...mapActions("snackbar", ["OPEN_SNACKBAR"]),
 
     addNewQuestion() {
-      this.OPEN_MODAL("Добавить вопрос");
+      this.OPEN_MODAL({ title: "Добавить вопрос", selectedItem: {} });
     },
     editQuestion(item) {
       this.OPEN_MODAL({ title: "Изменить вопрос", selectedItem: item });
@@ -127,7 +108,17 @@ export default {
       console.log(item);
 
       this.CLOSE_MODAL();
-    }
+    },
+    // delete modal
+    cancelDelete(){
+      console.log('cancel deleting');
+      this.CLOSE_DELETE_MODAL();
+    },
+    yesDelete(){
+      console.log('yes delete');
+      this.CLOSE_DELETE_MODAL();
+      
+    },
   },
   // первая загрузка данный
   mounted() {

@@ -19,10 +19,7 @@ import { mapState, mapMutations } from "vuex";
 export default {
   name: "CreateEditModal",
   computed: {
-    ...mapState("modal", ["modalOptions"])
-  },
-  methods: {
-    ...mapMutations("modal", ["CLOSE_MODAL", "SAVE_MODAL"])
+    ...mapState("createEditModal", ["modalOptions"])
   }
 };
 </script>

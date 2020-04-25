@@ -5,26 +5,33 @@
         <v-form v-model="modalValid" ref="modalForm">
           <div class="d-flex flex-column">
             <v-textarea
+              v-model="modalData.title"
               :rules="modalRule"
               name="input-question"
-              label="Вопрос"
+              label="Ключ"
               rows="1"
-              auto-grow/>
+              auto-grow
+            />
           </div>
         </v-form>
       </template>
       <template #footer>
-        <v-spacer/>
+        <v-spacer />
         <v-btn color="primary" @click="closeModal(item)">
           <v-icon>$vuetify.icons.arrorLeft</v-icon>
           Отмена
         </v-btn>
-        <v-btn color="success" @click="saveModal(item)">
+        <v-btn color="success" :disabled="!modalValid" @click="saveModal(modalData.title)">
           Сохранить
           <v-icon class="ml-3">$vuetify.icons.send</v-icon>
         </v-btn>
       </template>
     </CreateEditModal>
+    <DeleteModal
+      @cancel-delete="cancelDelete"
+      @yes-delete="yesDelete"
+      text="Вы уверены? Ключ будет удален навсегда"
+    />
     <Table
       :head="headers"
       :data="keysList"
@@ -40,17 +47,19 @@
 <script>
 import { mapGetters, mapActions, mapMutations, mapState } from "vuex";
 import CreateEditModal from "@/components/Modal/CreateEditModal.vue";
+import DeleteModal from "@/components/Modal/DeleteModal.vue";
 import Table from "@/components/Table.vue";
 
 export default {
   name: "KeysPage",
-  components: { CreateEditModal, Table },
+  components: { CreateEditModal, DeleteModal, Table },
   data() {
     return {
-      modalValid: true,
+      modalValid: false,
       loading: false,
       modalRule: [
-        v => !!v || 'Поле обязательно',
+        v => !!v || "Поле обязательно",
+        v => (v && v.length >= 6) || "Ключ должен быть больше чем 6 символов"
       ],
       headers: [
         { text: "Id", value: "id", align: "left" },
@@ -60,39 +69,47 @@ export default {
     };
   },
   computed: {
-    ...mapState("keys", ["keysList", "isFirstDataLoaded"])
+    ...mapState("keys", ["keysList", "isFirstDataLoaded"]),
+    ...mapState("createEditModal", ["modalData"])
   },
   methods: {
     ...mapActions("keys", ["FETCH_ALL_KEYS"]),
     ...mapActions("questions", ["LOAD_QUESTIONS"]),
     ...mapMutations("questions", ["SET_SELECTED_QUESTION_ID"]),
-    ...mapMutations("modal", ["OPEN_MODAL","CLOSE_MODAL"]),
+    ...mapMutations("createEditModal", ["OPEN_MODAL", "CLOSE_MODAL"]),
+    ...mapMutations("deleteModal", ["CLOSE_DELETE_MODAL", "OPEN_DELETE_MODAL"]),
     ...mapActions("snackbar", ["OPEN_SNACKBAR"]),
-
+    // table
     addNewKey() {
-      this.OPEN_MODAL("Добавить вопрос");
+      this.OPEN_MODAL({ title: "Добавить ключ", selectedItem: {} });
     },
     editKey(item) {
-      this.SET_SELECTED_QUESTION_ID(item.id);
-      this.OPEN_MODAL('Изменить вопрос');
+      this.OPEN_MODAL({ title: "Изменить ключ", selectedItem: item });
     },
     deleteKey(item) {
-      console.log(item);
-      this.OPEN_SNACKBAR({ color: "error", text: "Вы удалили вопрос" });
+      this.OPEN_DELETE_MODAL("Удалить ключ?");
+      // this.OPEN_SNACKBAR({ color: "error", text: "Вы удалили вопрос" });
     },
-    // MODAL
-    closeModal(item){
+    // create and edit modals
+    closeModal(item) {
       console.log(item);
-      
-      this.CLOSE_MODAL();
-    },
-    saveModal(item){
-      let validModal = this.$refs.modalForm.validate();
-      if(!validModal) return;
 
-      console.log(item);
-      
       this.CLOSE_MODAL();
+    },
+    saveModal(item) {
+      let validModal = this.$refs.modalForm.validate();
+      if (!validModal) return;
+      console.log(item);
+      this.CLOSE_MODAL();
+    },
+    // delete modal
+    cancelDelete() {
+      console.log("cancel deleting");
+      this.CLOSE_DELETE_MODAL();
+    },
+    yesDelete() {
+      console.log("yes delete");
+      this.CLOSE_DELETE_MODAL();
     }
   },
   // первая загрузка данный

@@ -1,10 +1,11 @@
+import VueCookie from "vue-cookie";
 import * as api from "../api/keys.api";
 
 export default {
   namespaced: true,
   state: {
     // ключ вошедшего юзера (который сейчас работаем в админке)
-    currentUserKey: "",
+    currentUserKey: VueCookie.get('key') || null,
     isAdmin: true,
     logged: false,
     keysList: [],
@@ -19,6 +20,12 @@ export default {
     IS_LOGGED: state => state.logged,
   },
   mutations: {
+    SET_COOKIE(state, payload) {
+      VueCookie.set("session", payload, { expires: "15m" });
+    },
+    CLEAR_COOKIE(state) {
+      VueCookie.delete("session");
+    },
     SET_LOGGED(state, payload){
       state.currentUserKey = payload;
       state.logged = true;

@@ -6,6 +6,7 @@ import vuetify from "@/plugins/vuetify";
 import dateFilter from "@/filters/date.filter.js";
 import Vuelidate from "vuelidate";
 import VueTreeList from 'vue-tree-list'
+import CreateEditModal from "@/components/Modal/CreateEditModal.vue";
 
 Vue.use(VueTreeList)
 Vue.use(Vuelidate);
@@ -14,10 +15,7 @@ Vue.filter("dateFilter", dateFilter);
 
 Vue.config.productionTip = false;
 
-const token = localStorage.getItem("user-token");
-if (token) {
-  axios.defaults.headers.common["Authorization"] = token;
-}
+Vue.component('CreateEditModal',CreateEditModal)
 
 new Vue({
   store,
