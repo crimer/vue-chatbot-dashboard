@@ -21,6 +21,7 @@
 import { mapGetters, mapActions, mapMutations, mapState } from "vuex";
 import DeleteModal from "@/components/Modal/DeleteModal.vue";
 import Table from "@/components/Table.vue";
+import store from "@/store/index.js";
 
 export default {
   name: "KeysPage",
@@ -53,8 +54,10 @@ export default {
       this.OPEN_SNACKBAR({ color: "success", text: "Вы добавили новый ключ" });
     },
     deleteKey(item) {
-      this.deleteKeyId = item.id;
-      this.OPEN_DELETE_MODAL("Удалить ключ?");
+      if (store.state.keys.currentUserKey != item.key){
+        this.deleteKeyId = item.id;
+        this.OPEN_DELETE_MODAL("Удалить ключ?");
+      }
     },
     // delete modal
     cancelDelete() {
