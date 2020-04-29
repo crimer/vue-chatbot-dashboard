@@ -1,4 +1,4 @@
-import url, { http } from "./url.js";
+import  { url, http } from "./url.js";
 
 export const getAllQuestions = key => {
   return http.post(url.paths.allQuestions, { key: key });

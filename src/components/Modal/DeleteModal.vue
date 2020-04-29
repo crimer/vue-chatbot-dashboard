@@ -5,11 +5,9 @@
         <span class="headline">{{ deleteModalOptions.title }}</span>
       </v-card-title>
       <v-card-text>
-        <v-form v-model="modalValid" ref="modalForm">
-          <div class="d-flex flex-column">
-            <p>{{ text }}</p>
-          </div>
-        </v-form>
+        <div class="d-flex flex-column">
+          <p>{{ text }}</p>
+        </div>
       </v-card-text>
       <v-card-actions>
         <v-spacer />

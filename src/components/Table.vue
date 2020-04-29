@@ -31,7 +31,7 @@
           </v-tooltip>
           <v-text-field
             v-model="searchByQuestion"
-            label="Поиск по вопросу"
+            label="Поиск"
             append-icon="$vuetify.icons.search"
             hide-details
             style="max-width: 400px;">
@@ -56,9 +56,10 @@
           </v-tooltip>
         </v-toolbar>
       </template>
+
       <template #item.action="{ item }">
         <span class="d-flex">
-          <v-tooltip top>
+          <v-tooltip top v-if="editable">
             <template #activator="{ on }">
               <v-btn
                 v-on="on"
@@ -73,6 +74,7 @@
             </template>
             <span>Изменить</span>
           </v-tooltip>
+
           <v-tooltip top>
             <template #activator="{ on }">
               <v-btn
@@ -90,6 +92,7 @@
           </v-tooltip>
         </span>
       </template>
+
       <template #no-data>
         <v-btn color="primary" @click="$emit('refresh-table')">Перезагрузить</v-btn>
       </template>
@@ -112,6 +115,10 @@ export default {
     loading: {
       type: Boolean,
       required: true
+    },
+    editable:{
+      type: Boolean,
+      default: true,
     }
   },
   data() {
@@ -123,6 +130,12 @@ export default {
       // search
       searchByQuestion: "",
     };
+  },
+  methods: {
+    sas(item){
+      console.log(item);
+      
+    }
   },
 };
 </script>

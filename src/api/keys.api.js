@@ -1,17 +1,21 @@
-import url, { http } from "./url.js";
+import { url, http } from "./url.js";
 
-export const getAllKeys = () => {
-  return http.post(url.paths.allKeys, { key: "f9sl2e" });
+export const getAllKeys = key => {
+  return http.post(url.paths.allKeys, { key });
 };
 
-export const registerNewKey = newKey => {
-  return http.post(url.paths.registerKey, { key: newKey });
+export const registerNewKey = key => {
+  return http.post(url.paths.registerKey, { key });
 };
 
-export const deleteKey = deleteKeyId => {
-  return http.post(url.paths.deleteKey, { key_id: deleteKeyId });
+export const deleteKey = (key, deleteKeyId) => {
+  return http.post(url.paths.deleteKey, { key, key_id: deleteKeyId });
 };
 
-export const keyInfo = () => {
-  return http.post(url.paths.keyInfo, { key: "f9sl2e" });
+export const keyInfo = key => {
+  return http.post(url.paths.keyInfo, { keykey });
+};
+
+export const keyCheck = key => {
+  return http.post(url.paths.keyCheck, { key });
 };

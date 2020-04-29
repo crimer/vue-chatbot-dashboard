@@ -18,10 +18,6 @@ const routes = [
   {
     path: "/keystable",
     name: "kaysTable",
-    beforeEnter: (to, from, next) => {
-      if (store.getters["keys/IS_ADMIN"]) next();
-      else next('404');
-    },
     meta: {
       layout: "Main",
       name: "Таблица ключей"
@@ -65,7 +61,7 @@ const router = new VueRouter({
 
 // middleware для проверки
 router.beforeEach((to, from, next) => {
-  if (to.name !== "login" && !store.getters["keys/IS_LOGGED"])
+  if (to.name !== "login" && !store.state.keys.currentUserKey)
     next({ name: "login" });
   else next();
 });

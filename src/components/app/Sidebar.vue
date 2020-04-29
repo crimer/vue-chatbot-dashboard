@@ -18,17 +18,6 @@
     </v-list-item>
     <v-list dense nav>
 
-      <v-list-item to="/keystable" v-if="IS_ADMIN">
-        <v-list-item-icon>
-          <v-icon>$vuetify.icons.key</v-icon>
-        </v-list-item-icon>
-        <v-list-item-content>
-          <v-list-item-title>
-            Таблица аккаунтов
-          </v-list-item-title>
-        </v-list-item-content>
-      </v-list-item>
-
       <v-list-item v-for="(page, index) in pages" :key="index" :to="page.route">
         <v-list-item-icon>
           <v-icon>{{ page.icon }}</v-icon>
@@ -62,6 +51,11 @@ export default {
           icon: "$vuetify.icons.table",
           route: "/",
           exact: true
+        },
+        {
+          title: "Таблица ключей",
+          icon: "$vuetify.icons.key",
+          route: "/keystable",
         },
         {
           title: "Дерево вопросов",

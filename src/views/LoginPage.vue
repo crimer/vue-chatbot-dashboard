@@ -8,7 +8,8 @@
             v-if="errors.length"
             icon="$vuetify.icons.close"
             max-width="500px"
-            title="Opss...">
+            title="Opss..."
+          >
             <p v-for="(item, index) in errors" :key="index" class="mb-3">
               {{ item }}
             </p>
@@ -17,7 +18,8 @@
             class="elevation-9"
             style="margin: auto;"
             width="100%"
-            max-width="550px">
+            max-width="550px"
+          >
             <v-overlay absolute :value="overlay">
               <div class="text-center">
                 <v-progress-circular
@@ -34,7 +36,11 @@
             </v-toolbar>
 
             <v-card-text>
-              <v-form v-model="valid" @submit.prevent="logIn" ref="form">
+              <v-form
+                v-model="valid"
+                @submit.prevent="logIn(userKey)"
+                ref="form"
+              >
                 <v-text-field
                   id="password"
                   label="Пароль"
@@ -47,14 +53,19 @@
                   :append-icon="
                     showPassword
                       ? '$vuetify.icons.eye'
-                      : '$vuetify.icons.eyeOff'"
+                      : '$vuetify.icons.eyeOff'
+                  "
                   :type="showPassword ? 'text' : 'password'"
-                  @click:append="showPassword = !showPassword"/>
+                  @click:append="showPassword = !showPassword"
+                />
                 <div class="d-flex justify-center">
-                  <v-btn type="submit"
+                  <v-btn
+                    type="submit"
                     :disabled="!valid"
                     width="200"
-                    color="primary">Войти</v-btn>
+                    color="primary"
+                    >Войти</v-btn
+                  >
                 </div>
               </v-form>
             </v-card-text>
@@ -80,20 +91,28 @@ export default {
     errors: [],
     passwordRules: [
       v => !!v || "Пароль обязателен",
-      v => (v && v.length >= 6) || "Пароль должен быть больше чем 6 символов"
+      v => (v && v.length === 6) || "Пароль должен быть равен 6 символам"
     ]
   }),
 
   methods: {
     ...mapActions("snackbar", ["OPEN_SNACKBAR"]),
-    ...mapMutations('keys',['SET_LOGGED',"SET_COOKIE"]),
-    logIn() {
+    ...mapMutations("keys", ["SET_LOGGED", "SET_COOKIE"]),
+    ...mapActions("keys", ["KEY_CHECK"]),
+
+    async logIn(userKey) {
       let registerFormValid = this.$refs.form.validate();
       if (!registerFormValid) return;
 
       this.overlay = true;
-      const { userKey } = this;
-      // setTimeout(() => {
+      let keyValid = await this.KEY_CHECK(userKey);
+
+      setTimeout(() => {
+        if (!keyValid) {
+          this.OPEN_SNACKBAR({ color: "error", text: "Пароль не верный" });
+          this.overlay = false;
+          return;
+        }
         this.overlay = false;
         this.SET_LOGGED(userKey);
         this.SET_COOKIE(userKey);
@@ -102,7 +121,7 @@ export default {
           color: "info",
           text: "Вы вошли в свой аккаунт"
         });
-      // }, 1000);
+      }, 1000);
     }
   }
 };

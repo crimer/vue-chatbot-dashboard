@@ -17,6 +17,6 @@ const store = new Vuex.Store({
     snackbar,
     tree,
     keys,
-  }
+  },
 });
 export default store;
