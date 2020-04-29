@@ -6,137 +6,101 @@
       loading-text="Загрузка..."
       no-data-text="Нет данных"
       no-results-text="Не найдено"
-      show-select
-      hide-default-footer
-      @page-count="pageCount = $event"
       :headers="head"
       :items="data"
       :search="searchByQuestion"
       :loading="loading"
       :page.sync="page"
-      :items-per-page="itemsPerPage"
-    >
+      :items-per-page="10">
       <template #top>
         <v-toolbar flat color="white">
-          <!-- TODO: доделать иконки у поисков  и добавить max-width к поиску-->
           <v-tooltip bottom>
-            <template v-slot:activator="{ on }">
+            <template #activator="{ on }">
               <v-btn
                 v-on="on"
-                @click="addNewItem()"
+                @click="$emit('add-new-item')"
                 fab
                 dark
                 color="primary"
                 small
-                class="mr-5"
-              >
+                class="mr-5">
                 <v-icon dark>$vuetify.icons.plus</v-icon>
               </v-btn>
             </template>
-            <span>Add new</span>
+            <span>Добавить</span>
           </v-tooltip>
-          <v-tooltip bottom>
-            <template v-slot:activator="{ on }">
-              <v-btn
-                v-on="on"
-                @click="deleteSelected()"
-                fab
-                dark
-                color="danger"
-                small
-                class="mr-5"
-              >
-                <v-icon dark>$vuetify.icons.delete</v-icon>
-              </v-btn>
-            </template>
-            <span>Delete selected</span>
-          </v-tooltip>
-
           <v-text-field
             v-model="searchByQuestion"
-            label="Поиск по вопросу"
+            label="Поиск"
             append-icon="$vuetify.icons.search"
             hide-details
-            style="max-width: 400px;"
-          >
+            style="max-width: 400px;">
           </v-text-field>
 
           <v-spacer></v-spacer>
 
           <v-tooltip bottom>
-            <template v-slot:activator="{ on }">
+            <template #activator="{ on }">
               <v-btn
                 v-on="on"
-                @click="$emit('refresh-data')"
+                @click="$emit('refresh-table')"
                 fab
                 dark
                 color="success"
                 small
-                class="mr-5"
-              >
+                class="mr-5">
                 <v-icon dark>$vuetify.icons.refresh</v-icon>
               </v-btn>
             </template>
-            <span>Refresh</span>
+            <span>Обновить</span>
           </v-tooltip>
         </v-toolbar>
       </template>
+
       <template #item.action="{ item }">
         <span class="d-flex">
-          <v-tooltip top>
-            <template v-slot:activator="{ on }">
+          <v-tooltip top v-if="editable">
+            <template #activator="{ on }">
               <v-btn
                 v-on="on"
-                @click="editItem(item)"
+                @click="$emit('edit-item',item)"
                 icon
                 dark
                 color="success"
                 small
-                class="mr-2"
-              >
+                class="mr-2">
                 <v-icon dark>$vuetify.icons.edit</v-icon>
               </v-btn>
             </template>
-            <span>Edit</span>
+            <span>Изменить</span>
           </v-tooltip>
+
           <v-tooltip top>
-            <template v-slot:activator="{ on }">
+            <template #activator="{ on }">
               <v-btn
                 v-on="on"
-                @click="deleteItem(item)"
+                @click="$emit('delete-item',item)"
                 icon
                 dark
                 color="danger"
                 small
-                class="mr-2"
-              >
+                class="mr-2">
                 <v-icon dark>$vuetify.icons.delete</v-icon>
               </v-btn>
             </template>
-            <span>Delete</span>
+            <span>Удалить</span>
           </v-tooltip>
         </span>
       </template>
+
       <template #no-data>
-        <v-btn color="primary" @click="refresh">Перезагрузить</v-btn>
+        <v-btn color="primary" @click="$emit('refresh-table')">Перезагрузить</v-btn>
       </template>
     </v-data-table>
-    <div class="text-center pt-2">
-      <v-pagination v-model="page" :length="pageCount" total-visible="9">
-      </v-pagination>
-      <!-- <v-text-field
-                :value="itemsPerPage"
-                label="Items per page"
-                type="number"
-                min="-1"
-                max="15"
-                @input="itemsPerPage = parseInt($event, 10)"></v-text-field> -->
-    </div>
   </div>
 </template>
 
 <script>
-import { mapGetters, mapActions, mapMutations, mapState } from "vuex";
 export default {
   name: "Table",
   props: {
@@ -151,6 +115,10 @@ export default {
     loading: {
       type: Boolean,
       required: true
+    },
+    editable:{
+      type: Boolean,
+      default: true,
     }
   },
   data() {
@@ -159,36 +127,16 @@ export default {
       page: 1,
       pageCount: 0,
       itemsPerPage: 10,
-
+      // search
       searchByQuestion: "",
-      dialog: false,
-      questionIndex: -1,
-      questionItem: {}
     };
   },
   methods: {
-    ...mapActions("QuestionsStore", ["LOAD_QUESTIONS"]),
-    ...mapMutations("CreateEditModal", ["OPEN_MODAL"]),
-    ...mapActions("SnackbarStore", ["OPEN_SNACKBAR"]),
-
-    addNewItem() {
-      this.OPEN_MODAL("New question");
-    },
-    editItem(item) {
-      // console.log(item);
-      this.OPEN_SNACKBAR({ color: "success", text: "Вы изменили вопрос" });
-    },
-    deleteItem(item) {
-      console.log("del");
-      // console.log(item);
-      this.OPEN_SNACKBAR({ color: "error", text: "Вы удалили вопрос" });
-    },
-    deleteSelected() {},
-    refresh() {
-      this.LOAD_QUESTIONS();
-      console.log("refreshed");
+    sas(item){
+      console.log(item);
+      
     }
-  }
+  },
 };
 </script>
 

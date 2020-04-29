@@ -21,32 +21,31 @@
             max-width="550px"
           >
             <v-overlay absolute :value="overlay">
-              <LoginLoader />
+              <div class="text-center">
+                <v-progress-circular
+                  :size="50"
+                  color="primary"
+                  indeterminate
+                ></v-progress-circular>
+              </div>
             </v-overlay>
             <v-toolbar color="primary" dark flat>
               <v-toolbar-title>
-                {{ $t("LoginPage.title") }}
+                Вход
               </v-toolbar-title>
             </v-toolbar>
 
             <v-card-text>
-              <v-form v-model="valid">
-                <v-text-field
-                  :label="$t('LoginPage.login')"
-                  name="login"
-                  clearable
-                  v-model.trim="userLogin"
-                  prepend-icon="$vuetify.icons.account"
-                  type="text"
-                  :rules="loginRules"
-                  required
-                />
-
+              <v-form
+                v-model="valid"
+                @submit.prevent="logIn(userKey)"
+                ref="form"
+              >
                 <v-text-field
                   id="password"
-                  :label="$t('LoginPage.password')"
+                  label="Пароль"
                   name="password"
-                  v-model.trim="userPassword"
+                  v-model="userKey"
                   prepend-icon="$vuetify.icons.lock"
                   clearable
                   required
@@ -59,19 +58,17 @@
                   :type="showPassword ? 'text' : 'password'"
                   @click:append="showPassword = !showPassword"
                 />
+                <div class="d-flex justify-center">
+                  <v-btn
+                    type="submit"
+                    :disabled="!valid"
+                    width="200"
+                    color="primary"
+                    >Войти</v-btn
+                  >
+                </div>
               </v-form>
             </v-card-text>
-            <v-card-actions class="d-flex justify-space-between">
-              <router-link :to="{ path: 'register' }">{{
-                $t("LoginPage.registerLink")
-              }}</router-link>
-              <v-btn
-                @click.prevent="logIn()"
-                :disabled="!valid"
-                color="primary"
-                >{{ $t("LoginPage.loginBtn") }}</v-btn
-              >
-            </v-card-actions>
           </v-card>
         </v-col>
       </v-row>
@@ -80,50 +77,51 @@
 </template>
 
 <script>
-import LoginLoader from "@/components/LoginLoader.vue";
-import { mapActions, mapGetters } from "vuex";
+import { mapActions, mapGetters, mapMutations } from "vuex";
 import Axios from "axios";
 
 export default {
   name: "LoginPage",
-  components: { LoginLoader },
   data: () => ({
-    user: {},
+    userKey: "",
     valid: true,
     overlay: false,
-    userLogin: null,
     userPassword: null,
     showPassword: false,
-    errors: []
+    errors: [],
+    passwordRules: [
+      v => !!v || "Пароль обязателен",
+      v => (v && v.length === 6) || "Пароль должен быть равен 6 символам"
+    ]
   }),
-  computed: {
-    loginRules() {
-      return [
-        v => !!v || this.$t("LoginPage.loginRequired"),
-        v => /.+@.+\..+/.test(v) || this.$t("LoginPage.loginValid")
-      ];
-    },
-    passwordRules() {
-      return [
-        v => !!v || this.$t("LoginPage.passwordRequired"),
-        v => (v && v.length >= 3) || this.$t("LoginPage.passwordMore")
-      ];
-    }
-  },
+
   methods: {
-    ...mapActions("SnackbarStore", ["OPEN_SNACKBAR"]),
-    requestToken(user) {},
-    logIn() {
+    ...mapActions("snackbar", ["OPEN_SNACKBAR"]),
+    ...mapMutations("keys", ["SET_LOGGED", "SET_COOKIE"]),
+    ...mapActions("keys", ["KEY_CHECK"]),
+
+    async logIn(userKey) {
+      let registerFormValid = this.$refs.form.validate();
+      if (!registerFormValid) return;
+
       this.overlay = true;
-      const { userLogin, userPassword } = this;
+      let keyValid = await this.KEY_CHECK(userKey);
+
       setTimeout(() => {
+        if (!keyValid) {
+          this.OPEN_SNACKBAR({ color: "error", text: "Пароль не верный" });
+          this.overlay = false;
+          return;
+        }
         this.overlay = false;
+        this.SET_LOGGED(userKey);
+        this.SET_COOKIE(userKey);
         this.$router.push("/");
         this.OPEN_SNACKBAR({
           color: "info",
-          text: this.$t("Snackbar.logIn")
+          text: "Вы вошли в свой аккаунт"
         });
-      }, 3000);
+      }, 1000);
     }
   }
 };

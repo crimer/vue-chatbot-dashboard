@@ -1,8 +1,7 @@
 import Vue from "vue";
-import store from "@/store/index";
 import VueRouter from "vue-router";
-import Home from "../views/Home.vue";
-import i18n from "@/plugins/i18n.js";
+import HomePage from "../views/HomePage.vue";
+import store from "@/store/index.js";
 
 Vue.use(VueRouter);
 
@@ -10,61 +9,48 @@ const routes = [
   {
     path: "/",
     name: "home",
-    component: Home,
-    // beforeEnter: isAuthenticated,
+    component: HomePage,
     meta: {
       layout: "Main",
-      name: i18n.t("Routes.table"),
+      name: "Таблица вопросов"
     }
+  },
+  {
+    path: "/keystable",
+    name: "kaysTable",
+    meta: {
+      layout: "Main",
+      name: "Таблица ключей"
+    },
+    component: () => import("../views/KeysPage.vue")
   },
   {
     path: "*",
     name: "404",
     meta: {
       layout: "Empty",
-      name: i18n.t("Routes.error404"),
+      name: "404"
     },
-    component: () => import("../views/Error404.vue")
-  },
-  {
-    path: "/about",
-    name: "about",
-    meta: {
-      layout: "Main",
-      name: i18n.t("Routes.about"),
-      // name: 'о нас',
-    },
-    component: () => import("../views/About.vue")
+    component: () => import("../views/Error404Page.vue")
   },
   {
     path: "/login",
     name: "login",
     meta: {
       layout: "Empty",
-      name: i18n.t("Routes.login"),
+      name: "Вход"
     },
-    // beforeEnter: isNotAuthenticated,
-    component: () => import("../views/Login.vue")
-  },
-  {
-    path: "/register",
-    name: "register",
-    meta: {
-      layout: "Empty",
-      name: i18n.t("Routes.register"),
-    },
-    component: () => import("../views/Register.vue")
+    component: () => import("../views/LoginPage.vue")
   },
   {
     path: "/tree",
     name: "tree",
     meta: {
       layout: "Main",
-      name: i18n.t("Routes.tree"),
+      name: "Дерево вопросов"
     },
-    component: () => import("../views/Tree.vue")
-  },
-  
+    component: () => import("../views/TreePage.vue")
+  }
 ];
 
 const router = new VueRouter({
@@ -72,20 +58,12 @@ const router = new VueRouter({
   base: process.env.BASE_URL,
   routes
 });
-// const ifNotAuthenticated = (to, from, next) => {
-//     if (!store.getters.isAuthenticated) {
-//         next();
-//         return;
-//     }
-//     next("/");
-// };
 
-// const ifAuthenticated = (to, from, next) => {
-//     if (store.getters.isAuthenticated) {
-//         next();
-//         return;
-//     }
-//     next("/login");
-// };
+// middleware для проверки
+router.beforeEach((to, from, next) => {
+  if (to.name !== "login" && !store.state.keys.currentUserKey)
+    next({ name: "login" });
+  else next();
+});
 
 export default router;

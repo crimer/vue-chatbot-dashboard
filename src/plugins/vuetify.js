@@ -31,7 +31,9 @@ const MY_ICONS = {
   settings: "mdi-settings",
   theme: "mdi-brightness-6",
   arrorLeft: "mdi-chevron-left",
+  arrorRight: "mdi-arrow-right",
   send: "mdi-send",
+  key: "mdi-key",
   
   // for Tree Table
   tree: "mdi-file-tree",
@@ -46,7 +48,6 @@ const MY_ICONS = {
 const MY_THEME = {
   light: {
     primary: "#4A76A8",
-
     success: "#4CAF50",
     warning: "#FB8C00",
     info: "#2196F3",

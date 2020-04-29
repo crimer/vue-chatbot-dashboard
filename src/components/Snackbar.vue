@@ -9,8 +9,7 @@
       :key="snackbar.text + Math.random()"
       :color="snackbar.color"
       :timeout="snackbar.timeout"
-      :style="`top: ${index * 60 + 8}px;`"
-    >
+      :style="`top: ${index * 60 + 8}px;`">
       {{ snackbar.text }}
       <v-btn icon @click="snackbar.show = false">
         <v-icon color="white">$vuetify.icons.close</v-icon>
@@ -25,7 +24,7 @@ import { mapState } from "vuex";
 export default {
   name: "Snackbar",
   computed: {
-    ...mapState("SnackbarStore", ["snackbars"])
+    ...mapState("snackbar", ["snackbars"])
   }
 };
 </script>
