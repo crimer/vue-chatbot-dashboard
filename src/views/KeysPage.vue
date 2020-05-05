@@ -55,15 +55,10 @@ export default {
       this.OPEN_SNACKBAR({ color: "success", text: "Вы добавили новый ключ" });
     },
     deleteKey(item) {
-<<<<<<< HEAD
-      this.deleteKeyId = item.id;
-      this.OPEN_DELETE_MODAL();
-=======
       if (store.state.keys.currentUserKey != item.key){
         this.deleteKeyId = item.id;
         this.OPEN_DELETE_MODAL("Удалить ключ?");
       }
->>>>>>> 328c30f59d1d523519ddffdc7b22603d4aadba4b
     },
     // delete modal
     cancelDelete() {
