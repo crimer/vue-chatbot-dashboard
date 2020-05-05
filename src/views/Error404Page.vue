@@ -2,7 +2,7 @@
   <div class="notFound text-center">
     <h1 class="display-4 font-weight-light">404</h1>
     <p class="display-1 mt-5">
-      OOps. Похоже страницы, которую вы ищите, нет.
+      Упсс. Похоже страницы, которую вы ищите, нет.
     </p>
     <v-btn
       color="primary mt-5"

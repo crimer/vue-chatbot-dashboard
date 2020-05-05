@@ -1,8 +1,8 @@
 <template>
-  <v-dialog v-model="deleteModalOptions.show" max-width="700px" persistent>
+  <v-dialog v-model="deleteModalShow" max-width="700px" persistent>
     <v-card>
       <v-card-title>
-        <span class="headline">{{ deleteModalOptions.title }}</span>
+        <span class="headline">{{ title }}</span>
       </v-card-title>
       <v-card-text>
         <div class="d-flex flex-column">
@@ -27,15 +27,19 @@
 <script>
 import { mapState, mapMutations } from "vuex";
 export default {
-  name: "CreateEditModal",
+  name: "DeleteModal",
   props: {
     text: {
       required: true,
-      type: String
+      type: String,
+    },
+    title:{
+      required: true,
+      type: String,
     }
   },
   computed: {
-    ...mapState("deleteModal", ["deleteModalOptions"])
+    ...mapState("deleteModal", ["deleteModalShow"])
   }
 };
 </script>

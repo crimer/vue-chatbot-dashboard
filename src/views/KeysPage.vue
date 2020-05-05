@@ -3,6 +3,7 @@
     <DeleteModal
       @cancel-delete="cancelDelete"
       @yes-delete="yesDelete"
+      title="Удалить ключ?"
       text="Вы уверены? Ключ будет удален навсегда"
     />
     <Table
@@ -34,7 +35,7 @@ export default {
         v => (v && v.length >= 6) || "Ключ должен быть больше чем 6 символов"
       ],
       headers: [
-        { text: "Id", value: "id", align: "left" },
+        { text: "Id", value: "id" },
         { text: "Ключ", value: "key" },
         { text: "Действия", value: "action", sortable: false }
       ]
@@ -48,13 +49,13 @@ export default {
     ...mapMutations("deleteModal", ["CLOSE_DELETE_MODAL", "OPEN_DELETE_MODAL"]),
     ...mapActions("snackbar", ["OPEN_SNACKBAR"]),
     // table
-    async addNewKey() {
-      await this.REGISTER_NEW_KEY();
+    addNewKey() {
+      this.REGISTER_NEW_KEY();
       this.OPEN_SNACKBAR({ color: "success", text: "Вы добавили новый ключ" });
     },
     deleteKey(item) {
       this.deleteKeyId = item.id;
-      this.OPEN_DELETE_MODAL("Удалить ключ?");
+      this.OPEN_DELETE_MODAL();
     },
     // delete modal
     cancelDelete() {
@@ -64,7 +65,7 @@ export default {
     async yesDelete() {
       await this.DELETE_KEY(this.deleteKeyId);
       this.CLOSE_DELETE_MODAL();
-      this.OPEN_SNACKBAR({ color: "success", text: "Вы удалили ключ" });
+      this.OPEN_SNACKBAR({ color: "error", text: "Вы удалили ключ" });
       this.deleteKeyId = null;
     }
   },
@@ -75,7 +76,7 @@ export default {
       this.FETCH_ALL_KEYS();
       this.loading = false;
     } else {
-      console.log("questions already loaded");
+      console.log("keys already loaded");
       this.loading = false;
     }
   }

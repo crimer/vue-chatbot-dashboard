@@ -1,18 +1,15 @@
 export default {
   namespaced: true,
   state: {
-    deleteModalOptions: {
-      show: false,
-      title: ""
-    }
+    deleteModalShow: false,
+    
   },
   mutations: {
-    OPEN_DELETE_MODAL(state, title) {
-      state.deleteModalOptions.show = true;
-      state.deleteModalOptions.title = title;
+    OPEN_DELETE_MODAL(state) {
+      state.deleteModalShow = true;
     },
     CLOSE_DELETE_MODAL(state) {
-      state.deleteModalOptions.show = false;
+      state.deleteModalShow = false;
     }
   },
   actions: {}

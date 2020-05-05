@@ -6,7 +6,7 @@ import vuetify from "@/plugins/vuetify";
 import dateFilter from "@/filters/date.filter.js";
 import Vuelidate from "vuelidate";
 import VueTreeList from 'vue-tree-list'
-import CreateEditModal from "@/components/Modal/CreateEditModal.vue";
+import Snackbar from '@/components/Snackbar.vue';
 
 Vue.use(VueTreeList)
 Vue.use(Vuelidate);
@@ -15,7 +15,7 @@ Vue.filter("dateFilter", dateFilter);
 
 Vue.config.productionTip = false;
 
-Vue.component('CreateEditModal',CreateEditModal)
+Vue.component('Snackbar',Snackbar)
 
 new Vue({
   store,

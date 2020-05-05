@@ -5,7 +5,7 @@
       v-model="snackbar.show"
       absolute
       top
-      right
+      center
       :key="snackbar.text + Math.random()"
       :color="snackbar.color"
       :timeout="snackbar.timeout"

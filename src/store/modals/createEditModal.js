@@ -2,24 +2,24 @@ export default {
   namespaced: true,
   state: {
     modalData: {},
-    modalOptions: {
-      show: false,
-      title: ""
-    }
+    modalShow: false,
+    modalTitle: ""
   },
   mutations: {
     CLOSE_MODAL(state) {
-      state.modalOptions.show = false;
+      state.modalTitle = "";
+      state.modalShow = false;
       state.modalData = {};
     },
     SAVE_MODAL(state) {
-      state.modalOptions.show = false;
+      state.modalTitle = "";
+      state.modalShow = false;
       state.modalData = {};
     },
     OPEN_MODAL(state, obj) {
-      state.modalOptions.title = obj.title;
       Object.assign(state.modalData, obj.selectedItem);
-      state.modalOptions.show = true;
+      state.modalShow = true;
+      state.modalTitle = obj.title;
     }
   },
   actions: {}

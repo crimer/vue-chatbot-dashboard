@@ -5,15 +5,12 @@ export default {
   state: {
     questions: [],
     answers: [],
-    isFirstDataLoaded: false,
+    isFirstDataLoaded: false
   },
   getters: {
-    GET_BY_ID: (state, id) => {
-      return state.questions.indexOf(id);
+    GET_QUESTION_WITH_KEYS: state => {
+      return state.answers.filter(item => item.keys !== null)
     },
-    GET_QUESTION_BY_ID: (state) => {
-      return state.questions.find(item => item.id === state.selectedQuestionId);
-    }
   },
   mutations: {
     SET_ALL_QUESTION: (state, payload) => {
@@ -26,27 +23,30 @@ export default {
     },
     SET_QUESTION: (state, payload) => {
       state.questions.push(payload);
-    },
+    }
   },
   actions: {
-    async LOAD_ALL_ANSWERS({ commit }) {
+    async LOAD_ALL_ANSWERS({ commit, rootGetters }) {
+      const key = rootGetters["keys/GET_KEY"];
       try {
-        const { data } = await api.getAllAnswers('f9sl2e');
-        commit("SET_ALL_ANSWERS", data);
+        const res = await api.getAllAnswers(key);
+        if (res.status === 200) {
+          commit("SET_ALL_ANSWERS", res.data.answers);
+        }
       } catch (error) {
         console.log(error);
       }
     },
-    async LOAD_ALL_QUESTIONS({ commit }) {
+    async LOAD_ALL_QUESTIONS({ rootGetters, commit }) {
+      const key = rootGetters["keys/GET_KEY"];
       try {
-        const { data } = await api.getAllQuestions('f9sl2e');
-        commit("SET_ALL_QUESTION", data);
+        const res = await api.getAllQuestions(key);
+        if (res.status === 200) {
+          commit("SET_ALL_QUESTION", res.data.questions);
+        }
       } catch (error) {
         console.log(error);
       }
-    },
-    ADD_NEW_QUESTION({ commit }) {
-      commit("SET_QUESTION", commit);
-    },
+    }
   }
 };

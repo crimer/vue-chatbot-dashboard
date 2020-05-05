@@ -12,26 +12,20 @@
 </template>
 
 <script>
+
 import Header from "@/components/App/Header.vue";
 import Sidebar from "@/components/App/Sidebar.vue";
-import Snackbar from "@/components/Snackbar.vue";
 
 export default {
   name: "MainLayout",
   components: {
     Sidebar,
     Header,
-    Snackbar
   },
   data: () => ({
     sidebarToggle: true
   }),
-  computed: {
-    routeName() {
-      return this.$route.meta.name;
-    },
-    
-  }
+
 };
 </script>
 

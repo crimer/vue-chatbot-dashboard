@@ -78,7 +78,6 @@
 
 <script>
 import { mapActions, mapGetters, mapMutations } from "vuex";
-import Axios from "axios";
 
 export default {
   name: "LoginPage",
@@ -119,7 +118,7 @@ export default {
         this.$router.push("/");
         this.OPEN_SNACKBAR({
           color: "info",
-          text: "Вы вошли в свой аккаунт"
+          text: "Вы вошли в систему"
         });
       }, 1000);
     }
