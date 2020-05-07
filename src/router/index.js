@@ -12,7 +12,7 @@ const routes = [
     component: HomePage,
     meta: {
       layout: "Main",
-      name: "Таблица вопросов"
+      name: "Таблица ответов на вопросы"
     }
   },
   {

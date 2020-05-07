@@ -48,7 +48,7 @@ export default {
     return {
       pages: [
         {
-          title: "Таблица вопросов",
+          title: "Таблица ответов",
           icon: "$vuetify.icons.table",
           route: "/",
           exact: true

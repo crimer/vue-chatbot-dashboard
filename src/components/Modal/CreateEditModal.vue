@@ -10,12 +10,14 @@
           <div class="d-flex flex-row">
             <v-text-field
               label="Id"
+              v-model="question.id"
               hide-details="auto"
               class="mr-10 small-width"
             />
             <v-textarea
               name="input-question"
               label="Вопрос"
+              v-model="question.text"
               rows="1"
               autofocus
               auto-grow
@@ -23,9 +25,9 @@
           </div>
           <v-subheader class="title pa-0">Варианты ответа</v-subheader>
           <div class="answer-choices">
-            <div class="answer-choice" v-for="(choice, i) in choicesCount" :key="i">
+            <div class="answer-choice" v-for="(choice, i) in choices" :key="i">
               <div class="d-flex flex-row">
-                <p class="subtitle-1">Вариант {{i+1}}</p>
+                <p class="subtitle-1">Вариант {{ i + 1 }}</p>
                 <v-btn icon dark color="danger" small class="ml-2" @click="deleteChoice(i)">
                   <v-icon dark>$vuetify.icons.delete</v-icon>
                 </v-btn>
@@ -33,19 +35,21 @@
               <div class="d-flex flex-row">
                 <v-text-field
                   label="Id"
+                  v-model="choice.id"
                   hide-details="auto"
                   class="mr-10 small-width"
                 />
                 <v-textarea
                   name="input-answer"
                   label="Вариант ответа"
+                  v-model="choice.answer"
                   rows="1"
                   auto-grow
                 />
               </div>
               <div class="d-flex flex-row">
                 <v-combobox
-                  v-model="keywords"
+                  v-model="choice.keywords"
                   label="Ключевые слова"
                   multiple
                   chips
@@ -75,7 +79,17 @@ export default {
     return {
       modalValid: true,
       keywords: [],
-      choicesCount: 1
+      question:{
+        id: null,
+        text: '',
+      },
+      choices: [
+        {
+          id: null,
+          answer: '',
+          keywords: [],
+        }
+      ]
     };
   },
   computed: {
@@ -83,10 +97,14 @@ export default {
   },
   methods: {
     addNewChoice() {
-      this.choicesCount++;
+      this.choices.push({
+        id: null,
+        answer: '',
+        keywords: [],
+      });
     },
     deleteChoice(choiceIndex){
-      this.choicesCount--;
+      this.choices.splice(choiceIndex,1);
     }
   }
 };

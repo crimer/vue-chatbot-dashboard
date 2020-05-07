@@ -23,7 +23,7 @@
       @add-new-item="addNewQuestion"
       @edit-item="editQuestion"
       @delete-item="deleteQuestion"
-      @refresh-table="LOAD_ALL_ANSWERS"/>
+      @refresh-table="refreshTable"/>
   </div>
 </template>
 
@@ -38,7 +38,7 @@ export default {
   components: { CreateEditModal, DeleteModal, Table },
   data() {
     return {
-      modalValid: true,
+      modalValid: false,
       deleteKeyId: null,
       loading: true,
       modalRule: [v => !!v || "Поле обязательно"],
@@ -70,11 +70,15 @@ export default {
     },
     deleteQuestion(item) {
       console.log(item);
-      
       this.deleteKeyId = item.id;
       this.OPEN_DELETE_MODAL();
     },
-
+    refreshTable(){
+      this.loading = true
+      this.LOAD_ALL_QUESTIONS()
+      this.LOAD_ALL_ANSWERS()
+      this.loading = false
+    },
     // create and edit modal
     closeModal() {
       this.CLOSE_MODAL();
@@ -105,12 +109,10 @@ export default {
       this.loading = true;
       this.LOAD_ALL_QUESTIONS();
       this.LOAD_ALL_ANSWERS();
-      this.loading = false;
     } else {
       console.log("questions already loaded");
-      this.loading = false;
     }
-    
+    this.loading = false;
   }
 };
 </script>
