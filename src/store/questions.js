@@ -9,8 +9,10 @@ export default {
   },
   getters: {
     GET_QUESTION_WITH_KEYS: state => {
-      return state.answers.filter(item => item.keys !== null)
-    },
+      return state.questions.map(
+        item => new { id: item.id, text: item.text }()
+      );
+    }
   },
   mutations: {
     SET_ALL_QUESTION: (state, payload) => {
@@ -46,6 +48,34 @@ export default {
         }
       } catch (error) {
         console.log(error);
+      }
+    },
+    async ADD_NEW_QUESTION({ rootGetters, commit }, text) {
+      const key = rootGetters["keys/GET_KEY"];
+      try {
+        const res = await api.addNewQuestion(key, text);
+        if (res.status === 200) {
+          console.log("res", res);
+
+          return true;
+        }
+      } catch (error) {
+        console.log(error);
+        return false;
+      }
+    },
+    async EDIT_QUESTION({ rootGetters, commit }, id, text) {
+      const key = rootGetters["keys/GET_KEY"];
+      try {
+        const res = await api.editQuestion(key, id, text);
+        if (res.status === 200) {
+          console.log("res", res);
+
+          return true;
+        }
+      } catch (error) {
+        console.log(error);
+        return false;
       }
     }
   }

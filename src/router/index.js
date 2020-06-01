@@ -47,7 +47,7 @@ const routes = [
     name: "addQuestion",
     meta: {
       layout: "Main",
-      name: "Добавить вопрос"
+      name: "Вопрос"
     },
     component: () => import("../views/AddQuestionPage.vue")
   },
@@ -56,7 +56,7 @@ const routes = [
     name: "addAnswers",
     meta: {
       layout: "Main",
-      name: "Добавить ответы на вопрос"
+      name: "Ответы"
     },
     component: () => import("../views/AddAnswersPage.vue")
   },

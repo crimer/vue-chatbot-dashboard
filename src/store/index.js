@@ -6,6 +6,7 @@ import deleteModal from "./modals/deleteModal";
 import createEditModal from "./modals/createEditModal";
 import tree from "./tree";
 import keys from "./keys";
+import addEditEntity from './addEditEntity'
 
 Vue.use(Vuex);
 
@@ -17,6 +18,7 @@ const store = new Vuex.Store({
     snackbar,
     tree,
     keys,
+    addEditEntity,
   },
 });
 export default store;

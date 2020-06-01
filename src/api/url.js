@@ -10,10 +10,14 @@ export const url = {
     registerKey: 'admin/key/create',
     deleteKey:'admin/key/remove',
     keyInfo:'admin/key/info',
-    keyCheck: '/admin/key/check',
+    keyCheck: 'admin/key/check',
 
     allQuestions: 'admin/chat/questions',
+    addNewQuestion: 'admin/chat/add/question',
+    editQuestion: 'admin/chat/edit/question',
+    
     allAnswers: 'admin/chat/answers',
+    addNewAnswers: 'admin/chat/add/answer'
   }
 };
 

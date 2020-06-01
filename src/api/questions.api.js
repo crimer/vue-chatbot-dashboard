@@ -13,3 +13,11 @@ export const getAllAnswers = key => {
 export const getTree = key => {
   return http.post(url.paths.tree, { key });
 };
+
+export const addNewQuestion = (key, text) => {
+  return http.post(url.paths.addNewQuestion, { key, text });
+};
+export const editQuestion = (key, id, text) => {
+  return http.post(url.paths.editQuestion, { key, id, text });
+};
+

@@ -13,17 +13,24 @@
       </template>
     </CreateEditModal>
 
-    <DeleteModal @cancel-delete="cancelDelete" @yes-delete="yesDelete" title="Удалить вопрос?" text="Вы уверены? Вопрос будет удален навсегда"/> 
-    
+    <DeleteModal
+      @cancel-delete="cancelDelete"
+      @yes-delete="yesDelete"
+      title="Удалить вопрос?"
+      text="Вы уверены? Вопрос будет удален навсегда"
+    />
+    <!--       @edit-item="editQuestion" -->
     <Table
       :head="headers"
       :data="questions"
       :loading="loading"
       expandable
       @add-new-item="addNewQuestion"
-      @edit-item="editQuestion"
+      @edit-question="editQuestion"
+      @edit-answers="editAnswers"
       @delete-item="deleteQuestion"
-      @refresh-table="refreshTable"/>
+      @refresh-table="refreshTable"
+    />
   </div>
 </template>
 
@@ -50,59 +57,47 @@ export default {
     };
   },
   computed: {
-    ...mapState("questions", ["answers","questions", "isFirstDataLoaded"]),
-    ...mapGetters("questions", ["GET_QUESTION_WITH_KEYS"]),
+    ...mapState("questions", ["answers", "questions", "isFirstDataLoaded"]),
   },
   methods: {
-    ...mapActions("questions", ["LOAD_ALL_QUESTIONS","LOAD_ALL_ANSWERS"]),
+    ...mapActions("questions", ["LOAD_ALL_QUESTIONS", "LOAD_ALL_ANSWERS"]),
     ...mapActions("snackbar", ["OPEN_SNACKBAR"]),
     ...mapMutations("deleteModal", ["CLOSE_DELETE_MODAL", "OPEN_DELETE_MODAL"]),
     ...mapMutations("createEditModal", ["OPEN_MODAL", "CLOSE_MODAL"]),
+    ...mapMutations("addEditEntity", ["SET_QUESTION", "SET_ANSWERS"]),
 
     addNewQuestion() {
-      const question = {
-        id: null,
-        text: '',
-        count: 0,
-        answers: [
-          {
-            id: null,
-            text: '',
-            keys: null,
-          }
-        ]
-      };
-
-      this.OPEN_MODAL({ title: "Добавить вопрос", selectedItem: question });
+      this.$router.push({name: 'addQuestion'});
     },
+
     editQuestion(item) {
+      this.SET_QUESTION(item);
+      this.$router.push({name: 'addQuestion'});
+    },
+    editAnswers(item) {
       console.log(item);
-      
-      this.OPEN_MODAL({ title: "Изменить вопрос", selectedItem: item });
-      // this.OPEN_SNACKBAR({ color: "success", text: "Вы изменили вопрос" });
+      this.SET_ANSWERS(item);
+      this.$router.push({name: 'addAnswers'});
     },
     deleteQuestion(item) {
       console.log(item);
       this.deleteKeyId = item.id;
       this.OPEN_DELETE_MODAL();
     },
-    refreshTable(){
-      this.loading = true
-      this.LOAD_ALL_QUESTIONS()
-      this.LOAD_ALL_ANSWERS()
-      this.loading = false
+    refreshTable() {
+      this.loading = true;
+      this.LOAD_ALL_QUESTIONS();
+      this.LOAD_ALL_ANSWERS();
+      this.loading = false;
     },
     // create and edit modal
     closeModal() {
       this.CLOSE_MODAL();
     },
     saveModal(item) {
-      // let validModal = this.$refs.modalForm.validate();
-      // if (!validModal) return;
       console.log(item);
       this.CLOSE_MODAL();
     },
-
 
     // delete modal
     cancelDelete() {
@@ -110,10 +105,10 @@ export default {
       this.deleteKeyId = null;
     },
     async yesDelete() {
-      await this.DELETE_KEY(this.deleteKeyId);
-      this.CLOSE_DELETE_MODAL();
-      this.OPEN_SNACKBAR({ color: "error", text: "Вы удалили ключ" });
-      this.deleteKeyId = null;
+      // await this.DELETE_KEY(this.deleteKeyId);
+      // this.CLOSE_DELETE_MODAL();
+      // this.OPEN_SNACKBAR({ color: "error", text: "Вы удалили ключ" });
+      // this.deleteKeyId = null;
     }
   },
   // первая загрузка данный
