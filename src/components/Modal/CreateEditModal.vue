@@ -10,14 +10,14 @@
           <div class="d-flex flex-row">
             <v-text-field
               label="Id"
-              v-model="question.id"
+              v-model="modalData.id"
               hide-details="auto"
               class="mr-10 small-width"
             />
             <v-textarea
               name="input-question"
               label="Вопрос"
-              v-model="question.text"
+              v-model="modalData.text"
               rows="1"
               autofocus
               auto-grow
@@ -25,7 +25,7 @@
           </div>
           <v-subheader class="title pa-0">Варианты ответа</v-subheader>
           <div class="answer-choices">
-            <div class="answer-choice" v-for="(choice, i) in choices" :key="i">
+            <div class="answer-choice" v-for="(answer, i) in modalData.answers" :key="i">
               <div class="d-flex flex-row">
                 <p class="subtitle-1">Вариант {{ i + 1 }}</p>
                 <v-btn icon dark color="danger" small class="ml-2" @click="deleteChoice(i)">
@@ -35,21 +35,21 @@
               <div class="d-flex flex-row">
                 <v-text-field
                   label="Id"
-                  v-model="choice.id"
+                  v-model="answer.id"
                   hide-details="auto"
                   class="mr-10 small-width"
                 />
                 <v-textarea
                   name="input-answer"
                   label="Вариант ответа"
-                  v-model="choice.answer"
+                  v-model="answer.text"
                   rows="1"
                   auto-grow
                 />
               </div>
               <div class="d-flex flex-row">
                 <v-combobox
-                  v-model="choice.keywords"
+                  v-model="answer.keys"
                   label="Ключевые слова"
                   multiple
                   chips
@@ -78,33 +78,25 @@ export default {
   data() {
     return {
       modalValid: true,
-      keywords: [],
-      question:{
-        id: null,
-        text: '',
-      },
-      choices: [
-        {
-          id: null,
-          answer: '',
-          keywords: [],
-        }
-      ]
+      questionObj: {},
     };
   },
   computed: {
-    ...mapState("createEditModal", ["modalShow", "modalTitle"])
+    ...mapState("createEditModal", ["modalShow", "modalTitle", "modalData"]),
+  },
+  mounted() {
+    Object.assign(this.questionObj, this.modalData);
   },
   methods: {
     addNewChoice() {
-      this.choices.push({
+      this.modalData.answers.push({
         id: null,
         answer: '',
         keywords: [],
       });
     },
     deleteChoice(choiceIndex){
-      this.choices.splice(choiceIndex,1);
+      this.modalData.answers.splice(choiceIndex,1);
     }
   }
 };

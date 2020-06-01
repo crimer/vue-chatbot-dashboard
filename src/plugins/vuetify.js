@@ -34,13 +34,14 @@ const MY_ICONS = {
   arrorRight: "mdi-arrow-right",
   send: "mdi-send",
   key: "mdi-key",
+  dotsVertical: "mdi-dots-vertical",
   
   // for Tree Table
   tree: "mdi-file-tree",
   addNode: 'mdi-folder-plus-outline',
   addLeaf: 'mdi-note-plus-outline',
   question: 'mdi-help',
-  answer: 'mdi-checkbox-blank-circle',
+  answer: 'mdi-forum',
   collapse: 'mdi-arrow-collapse',
   folder: 'mdi-folder',
 };

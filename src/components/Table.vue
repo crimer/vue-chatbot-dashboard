@@ -84,7 +84,7 @@
       </template>
       <template #item.action="{ item }">
         <span class="d-flex">
-          <v-tooltip top v-if="editable">
+          <!-- <v-tooltip top v-if="editable">
             <template #activator="{ on }">
               <v-btn
                 v-on="on"
@@ -98,7 +98,27 @@
               </v-btn>
             </template>
             <span>Изменить</span>
-          </v-tooltip>
+          </v-tooltip> -->
+          <v-menu bottom left>
+            <template v-slot:activator="{ on }">
+              <v-btn
+                dark
+                icon
+                v-on="on">
+                <v-icon dark color="primary">$vuetify.icons.dotsVertical</v-icon>
+              </v-btn>
+            </template>
+            <v-list>
+              <v-list-item
+                @click="$emit('edit-item', item)">
+                <v-list-item-title>Изменить вопрос</v-list-item-title>
+              </v-list-item>
+              <v-list-item
+                @click="$emit('edit-item', item)">
+                <v-list-item-title>Изменить ответы</v-list-item-title>
+              </v-list-item>
+            </v-list>
+          </v-menu>
 
           <v-tooltip top>
             <template #activator="{ on }">

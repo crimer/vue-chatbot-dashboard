@@ -59,8 +59,21 @@ export default {
     ...mapMutations("deleteModal", ["CLOSE_DELETE_MODAL", "OPEN_DELETE_MODAL"]),
     ...mapMutations("createEditModal", ["OPEN_MODAL", "CLOSE_MODAL"]),
 
-    addNewQuestion(item) {
-      this.OPEN_MODAL({ title: "Добавить вопрос", selectedItem: item });
+    addNewQuestion() {
+      const question = {
+        id: null,
+        text: '',
+        count: 0,
+        answers: [
+          {
+            id: null,
+            text: '',
+            keys: null,
+          }
+        ]
+      };
+
+      this.OPEN_MODAL({ title: "Добавить вопрос", selectedItem: question });
     },
     editQuestion(item) {
       console.log(item);

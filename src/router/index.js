@@ -43,6 +43,24 @@ const routes = [
     component: () => import("../views/LoginPage.vue")
   },
   {
+    path: "/addQuestion",
+    name: "addQuestion",
+    meta: {
+      layout: "Main",
+      name: "Добавить вопрос"
+    },
+    component: () => import("../views/AddQuestionPage.vue")
+  },
+  {
+    path: "/addAnswers",
+    name: "addAnswers",
+    meta: {
+      layout: "Main",
+      name: "Добавить ответы на вопрос"
+    },
+    component: () => import("../views/AddAnswersPage.vue")
+  },
+  {
     path: "/tree",
     name: "tree",
     meta: {
