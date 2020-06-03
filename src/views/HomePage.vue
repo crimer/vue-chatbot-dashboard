@@ -1,25 +1,11 @@
 <template>
   <div>
-    <CreateEditModal>
-      <template #footer>
-        <v-btn color="primary" @click="closeModal()">
-          <v-icon>$vuetify.icons.arrorLeft</v-icon>
-          Отмена
-        </v-btn>
-        <v-btn color="success" @click="saveModal(item)">
-          Сохранить
-          <v-icon class="ml-3">$vuetify.icons.send</v-icon>
-        </v-btn>
-      </template>
-    </CreateEditModal>
-
     <DeleteModal
       @cancel-delete="cancelDelete"
       @yes-delete="yesDelete"
       title="Удалить вопрос?"
       text="Вы уверены? Вопрос будет удален навсегда"
     />
-    <!--       @edit-item="editQuestion" -->
     <Table
       :head="headers"
       :data="questions"
@@ -36,18 +22,17 @@
 
 <script>
 import { mapGetters, mapActions, mapMutations, mapState } from "vuex";
-import CreateEditModal from "@/components/Modal/CreateEditModal.vue";
-import DeleteModal from "@/components/Modal/DeleteModal.vue";
+import DeleteModal from "@/components/DeleteModal.vue";
 import Table from "@/components/Table.vue";
 
 export default {
   name: "HomePage",
-  components: { CreateEditModal, DeleteModal, Table },
+  components: { DeleteModal, Table },
   data() {
     return {
       modalValid: false,
       deleteKeyId: null,
-      loading: true,
+      loading: false,
       modalRule: [v => !!v || "Поле обязательно"],
       headers: [
         { text: "Id", value: "id" },
@@ -57,7 +42,7 @@ export default {
     };
   },
   computed: {
-    ...mapState("questions", ["answers", "questions", "isFirstDataLoaded"]),
+    ...mapState("questions", ["questions", "isFirstDataLoaded"])
   },
   methods: {
     ...mapActions("questions", ["LOAD_ALL_QUESTIONS", "LOAD_ALL_ANSWERS"]),
@@ -67,17 +52,27 @@ export default {
     ...mapMutations("addEditEntity", ["SET_QUESTION", "SET_ANSWERS"]),
 
     addNewQuestion() {
-      this.$router.push({name: 'addQuestion'});
+      this.SET_QUESTION({
+        id: null,
+        text: ""
+      });
+      this.$router.push({ name: "addQuestion" });
     },
 
     editQuestion(item) {
-      this.SET_QUESTION(item);
-      this.$router.push({name: 'addQuestion'});
+      console.log(item);
+      
+      this.SET_QUESTION({
+        id: item.id,
+        text: item.text
+      });
+      this.$router.push({ name: "addQuestion" });
     },
     editAnswers(item) {
       console.log(item);
-      this.SET_ANSWERS(item);
-      this.$router.push({name: 'addAnswers'});
+
+      this.SET_ANSWERS(question);
+      this.$router.push({ name: "addAnswers" });
     },
     deleteQuestion(item) {
       console.log(item);
@@ -91,13 +86,13 @@ export default {
       this.loading = false;
     },
     // create and edit modal
-    closeModal() {
-      this.CLOSE_MODAL();
-    },
-    saveModal(item) {
-      console.log(item);
-      this.CLOSE_MODAL();
-    },
+    // closeModal() {
+    //   this.CLOSE_MODAL();
+    // },
+    // saveModal(item) {
+    //   console.log(item);
+    //   this.CLOSE_MODAL();
+    // },
 
     // delete modal
     cancelDelete() {
@@ -111,16 +106,9 @@ export default {
       // this.deleteKeyId = null;
     }
   },
-  // первая загрузка данный
   mounted() {
-    if (!this.isFirstDataLoaded) {
-      this.loading = true;
-      this.LOAD_ALL_QUESTIONS();
-      this.LOAD_ALL_ANSWERS();
-    } else {
-      console.log("questions already loaded");
-    }
-    this.loading = false;
+    this.LOAD_ALL_QUESTIONS();
+    this.LOAD_ALL_ANSWERS();
   }
 };
 </script>

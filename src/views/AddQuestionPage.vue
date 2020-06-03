@@ -20,6 +20,10 @@
           v-model="addEditQueston.text"
           :editor-toolbar="customToolbar"
         />
+        <!-- TODO: убрать -->
+        <div>
+          {{ addEditQueston.text }}
+        </div>
       </div>
     </v-form>
   </div>
@@ -52,16 +56,14 @@ export default {
 
     async saveQuestion() {
       const { id, text } = this.addEditQueston;
-
       if (text === "") {
         this.OPEN_SNACKBAR({ color: "error", text: "Текст должен быть" });
         return;
       }
-      if (id) {
-        let ok = await this.EDIT_QUESTION(id, text);
+      if (id !== null) {
+        let ok = await this.EDIT_QUESTION(this.addEditQueston);
         if (ok) {
           this.OPEN_SNACKBAR({ color: "success", text: "Вы изменили вопрос" });
-          console.log("ok");
         }
       } else {
         let ok = await this.ADD_NEW_QUESTION(text);
@@ -70,7 +72,6 @@ export default {
             color: "success",
             text: "Вы добавили новый вопрос"
           });
-          console.log("ok");
         }
       }
       this.CLEAR_QUESTION();

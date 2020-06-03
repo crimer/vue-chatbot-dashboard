@@ -10,7 +10,7 @@ export default {
   getters: {
     GET_QUESTION_WITH_KEYS: state => {
       return state.questions.map(
-        item => new { id: item.id, text: item.text }()
+        item => new { value: item.id, text: item.text }
       );
     }
   },
@@ -39,6 +39,7 @@ export default {
         console.log(error);
       }
     },
+
     async LOAD_ALL_QUESTIONS({ rootGetters, commit }) {
       const key = rootGetters["keys/GET_KEY"];
       try {
@@ -50,13 +51,12 @@ export default {
         console.log(error);
       }
     },
+
     async ADD_NEW_QUESTION({ rootGetters, commit }, text) {
       const key = rootGetters["keys/GET_KEY"];
       try {
         const res = await api.addNewQuestion(key, text);
         if (res.status === 200) {
-          console.log("res", res);
-
           return true;
         }
       } catch (error) {
@@ -64,13 +64,13 @@ export default {
         return false;
       }
     },
-    async EDIT_QUESTION({ rootGetters, commit }, id, text) {
+    
+    async EDIT_QUESTION({ rootGetters, commit }, question) {
       const key = rootGetters["keys/GET_KEY"];
+      
       try {
-        const res = await api.editQuestion(key, id, text);
+        const res = await api.editQuestion(key, question.id, question.text);
         if (res.status === 200) {
-          console.log("res", res);
-
           return true;
         }
       } catch (error) {

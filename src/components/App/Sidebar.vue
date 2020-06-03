@@ -64,12 +64,6 @@ export default {
           route: "/tree"
         },
         {
-          title: "Добавить вопрос",
-          icon: "$vuetify.icons.question",
-          route: "/addQuestion",
-          exact: true
-        },
-        {
           title: "Добавить ответ",
           icon: "$vuetify.icons.answer",
           route: "/addAnswers",
