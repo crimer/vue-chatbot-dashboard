@@ -11,7 +11,7 @@
             class="mb-5 form-wrapper__id"
           />
           <div class="ml-10">
-            <v-btn small color="success" @click="saveQuestion">Сохранить</v-btn>
+            <v-btn color="success" @click="saveQuestion">Сохранить</v-btn>
           </div>
         </div>
         <vue-editor

@@ -36,7 +36,7 @@
           multiple
           chips ></v-combobox>
         <div class="mt-5">
-          <v-btn small color="success" @click="saveQuestion">Сохранить</v-btn>
+          <v-btn color="success" @click="saveQuestion">Сохранить</v-btn>
         </div>
       </div>
     </v-form>

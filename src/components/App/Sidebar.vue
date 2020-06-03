@@ -63,12 +63,12 @@ export default {
           icon: "$vuetify.icons.tree",
           route: "/tree"
         },
-        {
-          title: "Добавить ответ",
-          icon: "$vuetify.icons.answer",
-          route: "/addAnswers",
-          exact: true
-        },
+        // {
+        //   title: "Добавить ответ",
+        //   icon: "$vuetify.icons.answer",
+        //   route: "/addAnswers",
+        //   exact: true
+        // },
       ]
     };
   }

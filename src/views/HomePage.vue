@@ -11,7 +11,8 @@
       :data="questions"
       :loading="loading"
       expandable
-      @add-new-item="addNewQuestion"
+      @add-new-question="addNewQuestion"
+      @add-new-answers="addNewAnswers"
       @edit-question="editQuestion"
       @edit-answers="editAnswers"
       @delete-item="deleteQuestion"
@@ -57,6 +58,13 @@ export default {
         text: ""
       });
       this.$router.push({ name: "addQuestion" });
+    },
+    addNewAnswers() {
+      // this.SET_QUESTION({
+      //   id: null,
+      //   text: ""
+      // });
+      this.$router.push({ name: "addAnswers" });
     },
 
     editQuestion(item) {
