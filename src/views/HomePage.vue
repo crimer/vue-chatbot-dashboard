@@ -60,16 +60,27 @@ export default {
       this.$router.push({ name: "addQuestion" });
     },
     addNewAnswers() {
-      // this.SET_QUESTION({
-      //   id: null,
-      //   text: ""
-      // });
+      const payload = {
+        type: "ADD",
+        data: {
+          id: null,
+          count: 1,
+          answers: [
+            {
+              id: null,
+              keys: [],
+              text: ""
+            }
+          ]
+        }
+      };
+      this.SET_ANSWERS(payload);
       this.$router.push({ name: "addAnswers" });
     },
 
     editQuestion(item) {
       console.log(item);
-      
+
       this.SET_QUESTION({
         id: item.id,
         text: item.text
@@ -78,8 +89,11 @@ export default {
     },
     editAnswers(item) {
       console.log(item);
-
-      this.SET_ANSWERS(question);
+      const payload = {
+        type: "EDIT",
+        data: Object.assign(item)
+      };
+      this.SET_ANSWERS(payload);
       this.$router.push({ name: "addAnswers" });
     },
     deleteQuestion(item) {
