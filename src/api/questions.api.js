@@ -25,7 +25,10 @@ export const deleteQuestion = (key, id) => {
 };
 
 // ANSWERS
-export const addNewAnswers = (key, text, question_id, next_question_id, sort) => {
-  return http.post(url.paths.addNewAnswers, { key, text, question_id, next_question_id, sort });
+export const addNewAnswers = (key, text, question_id, next_question_id,keys) => {
+  return http.post(url.paths.addNewAnswers, { key, text, question_id, next_question_id, keys });
+};
+export const editAnswers = (key, id, text, question_id, next_question_id,keys) => {
+  return http.post(url.paths.editAnswers, { key, id, text, keys, question_id, next_question_id });
 };
 

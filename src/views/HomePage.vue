@@ -53,7 +53,7 @@ export default {
     ]),
     ...mapActions("snackbar", ["OPEN_SNACKBAR"]),
     ...mapMutations("deleteModal", ["CLOSE_DELETE_MODAL", "OPEN_DELETE_MODAL"]),
-    ...mapMutations("createEditModal", ["OPEN_MODAL", "CLOSE_MODAL"]),
+    // ...mapMutations("createEditModal", ["OPEN_MODAL", "CLOSE_MODAL"]),
     ...mapMutations("addEditEntity", ["SET_QUESTION", "SET_ANSWERS"]),
     refreshTable() {
       this.loading = true;

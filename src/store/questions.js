@@ -98,12 +98,28 @@ export default {
 
     async ADD_NEW_ANSWERS({ rootGetters }, answersArray) {
       const key = rootGetters["keys/GET_KEY"];
+      console.log("answersArray",answersArray);
+      try {
+        answersArray.map(async (answer) => {
+          const res = await api.addNewAnswers(key, answer.text, answer.question_id, answer.next_question_id,answer.keys)
+          console.log(res);
+          
+        })
+
+        return true;
+      } catch (error) {
+        console.log(error);
+        return false;
+      }
+    },
+    async EDIT_ANSWERS({ rootGetters }, answersArray) {
+      const key = rootGetters["keys/GET_KEY"];
+      
       
       try {
         answersArray.map(async (answer) => {
-          const res = await api.addNewAnswers(key,answer.text,answer.question_id,answer.next_question_id,answer.keys)
+          const res = await api.editAnswers(key, answer.id, answer.text, answer.keys, answer.question_id, answer.next_question_id)
         })
-
         return true;
       } catch (error) {
         console.log(error);

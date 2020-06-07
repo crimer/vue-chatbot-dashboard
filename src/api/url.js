@@ -18,7 +18,8 @@ export const url = {
     deleteQuestion: 'admin/chat/remove/question',
     
     allAnswers: 'admin/chat/answers',
-    addNewAnswers: 'admin/chat/add/answer'
+    addNewAnswers: 'admin/chat/add/answer',
+    editAnswers: 'admin/chat/edit/answer',
   }
 };
 
