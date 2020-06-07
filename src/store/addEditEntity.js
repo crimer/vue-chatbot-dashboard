@@ -1,3 +1,16 @@
+const answersInitData = {
+  id: null,
+  count:1,
+  answers: [
+    {
+      id: null,
+      keys: [],
+      text: "",
+      next_question_id: null
+    }
+  ]
+};
+
 export default {
   namespaced: true,
   state: {
@@ -7,17 +20,7 @@ export default {
     },
     addEditAnswers: {
       type: 'ADD',
-      data: {
-        id: null,
-        count:1,
-        answers: [
-          {
-            id: null,
-            keys: [],
-            text: ""
-          }
-        ]
-      }
+      data: answersInitData
     }
   },
   mutations: {
@@ -30,17 +33,7 @@ export default {
     CLEAR_ANSWERS(state) {
       state.addEditAnswers = {
         type: 'ADD',
-        data: {
-          id: null,
-          count:1,
-          answers: [
-            {
-              id: null,
-              keys: [],
-              text: ""
-            }
-          ]
-        }
+        data: answersInitData
       };
     },
 

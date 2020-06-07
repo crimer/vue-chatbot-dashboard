@@ -69,7 +69,8 @@ export default {
             {
               id: null,
               keys: [],
-              text: ""
+              text: "",
+              next_question_id: null
             }
           ]
         }

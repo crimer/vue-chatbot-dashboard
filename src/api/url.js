@@ -4,7 +4,7 @@ import axios from "axios";
 export const url = {
   domain: process.env.VUE_APP_URL,
   paths: {
-    tree: "admin/chat/tree",
+    getTree: "admin/chat/tree",
     keys: "chat/keys",
     allKeys: "admin/key/list",
     registerKey: 'admin/key/create',

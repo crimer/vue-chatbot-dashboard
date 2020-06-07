@@ -42,6 +42,12 @@ export default {
   components: {
     VueTreeList
   },
+  props:{
+    tree:{
+      required: true,
+      type: Object,
+    }
+  },
   data() {
     return {
       newTree: {},

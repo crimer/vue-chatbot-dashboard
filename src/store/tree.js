@@ -13,9 +13,10 @@ export default {
     }
   },
   actions: {
-    async FETCH_TREE({ commit }) {
+    async FETCH_TREE({ rootGetters,commit }) {
       try {
-        const res = await api.getTree("f9sl2e");
+        const key = rootGetters["keys/GET_KEY"];
+        const res = await api.getTree(key);
         if (res.status === 200) {
           commit("SET_TREE", res.data.tree);
         } else {

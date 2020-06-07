@@ -65,7 +65,7 @@ export default {
       }
     },
     
-    async EDIT_QUESTION({ rootGetters, commit }, question) {
+    async EDIT_QUESTION({ rootGetters }, question) {
       const key = rootGetters["keys/GET_KEY"];
       
       try {
@@ -73,6 +73,22 @@ export default {
         if (res.status === 200) {
           return true;
         }
+      } catch (error) {
+        console.log(error);
+        return false;
+      }
+    },
+
+    async ADD_NEW_ANSWERS({ rootGetters }, answersArray) {
+      const key = rootGetters["keys/GET_KEY"];
+      console.log(answersArray);
+      
+      try {
+        answersArray.map(async (answer) => {
+          const res = await api.addNewAnswers(key,answer.text,answer.question_id,answer.next_question_id,answer.keys)
+        })
+
+        return true;
       } catch (error) {
         console.log(error);
         return false;
