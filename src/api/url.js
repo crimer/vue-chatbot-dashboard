@@ -15,6 +15,7 @@ export const url = {
     allQuestions: 'admin/chat/questions',
     addNewQuestion: 'admin/chat/add/question',
     editQuestion: 'admin/chat/edit/question',
+    deleteQuestion: 'admin/chat/remove/question',
     
     allAnswers: 'admin/chat/answers',
     addNewAnswers: 'admin/chat/add/answer'

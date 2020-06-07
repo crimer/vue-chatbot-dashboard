@@ -16,7 +16,22 @@
     >
       <template #top>
         <v-toolbar flat color="white">
-          <v-menu bottom left>
+          <v-tooltip bottom v-if="table === 'key'">
+            <template #activator="{ on }">
+              <v-btn
+                v-on="on"
+                @click="$emit('add-new-key')"
+                fab
+                dark
+                color="primary"
+                small
+                class="mr-5">
+                <v-icon dark>$vuetify.icons.plus</v-icon>
+              </v-btn>
+            </template>
+            <span>Добавить ключ</span>
+          </v-tooltip>
+          <v-menu bottom left v-else>
             <template #activator="{ on }">
               <v-btn color="primary" class="mr-10" v-on="on">
                 Добавить
@@ -156,6 +171,10 @@ export default {
     expandable: {
       type: Boolean,
       default: false
+    },
+    table:{
+      required: false,
+      default: 'questions'
     }
   },
   data() {

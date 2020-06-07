@@ -42,16 +42,16 @@
               :key="answer.id"
               :value="`tab-${i}`"
             >
-              <div class="d-flex align-center mt-5">
+              <div class="d-flex align-center">
                 <v-btn
                   fab
                   small
                   dark
                   @click="removeVariant(i)"
-                  color="primary"
+                  color="error"
                   class="mr-5"
                 >
-                  <v-icon dark>$vuetify.icons.minus</v-icon>
+                  <v-icon dark>$vuetify.icons.delete</v-icon>
                 </v-btn>
                 <v-text-field
                   disabled
@@ -74,8 +74,6 @@
                 multiple
                 chips
               ></v-combobox>
-              <!-- TODO: сделать чтоб они были разными -->
-              <!-- TODO: делать запросы к апи -->
               <v-select
                 label="Вопрос на который ссылается ответ"
                 :items="questions"
@@ -150,19 +148,22 @@ export default {
     },
     async saveAnswers() {
       this.addEditAnswers.data.id = this.addEditAnswers.data.id.id;
-
+      console.log(this.addEditAnswers.data);
+      
       const questionId = this.addEditAnswers.data.id;
 
       this.answers = this.addEditAnswers.data.answers.map(a =>
         this.buildAnswer(a, questionId)
       );
+      console.log(this.answers);
+      
 
       let ok = await this.ADD_NEW_ANSWERS(this.answers);
       if(ok)
         this.OPEN_SNACKBAR({color: "success",text: "Вы добавили новые варианты ответа"})
       else
         this.OPEN_SNACKBAR({color: "error",text: "Что-то пошло не так"});
-        
+
       this.CLEAR_ANSWERS();
       this.LOAD_ALL_QUESTIONS();
       this.$router.push({ name: "home" });
@@ -172,7 +173,7 @@ export default {
         question_id: questionId,
         text: answer.text,
         keys: answer.keys.join(" "),
-        next_question_id: answer.next_question_id.id
+        next_question_id: answer.next_question_id?.id
       };
     }
   }

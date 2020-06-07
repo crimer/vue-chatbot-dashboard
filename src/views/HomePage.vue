@@ -4,7 +4,7 @@
       @cancel-delete="cancelDelete"
       @yes-delete="yesDelete"
       title="Удалить вопрос?"
-      text="Вы уверены? Вопрос будет удален навсегда"
+      text="Вы уверены? Вопрос вместе со всеми его ответами будет удален навсегда"
     />
     <Table
       :head="headers"
@@ -32,7 +32,7 @@ export default {
   data() {
     return {
       modalValid: false,
-      deleteKeyId: null,
+      deleteQuestionId: null,
       loading: false,
       modalRule: [v => !!v || "Поле обязательно"],
       headers: [
@@ -46,12 +46,21 @@ export default {
     ...mapState("questions", ["questions", "isFirstDataLoaded"])
   },
   methods: {
-    ...mapActions("questions", ["LOAD_ALL_QUESTIONS", "LOAD_ALL_ANSWERS"]),
+    ...mapActions("questions", [
+      "LOAD_ALL_QUESTIONS",
+      "LOAD_ALL_ANSWERS",
+      "DELETE_QUESTION"
+    ]),
     ...mapActions("snackbar", ["OPEN_SNACKBAR"]),
     ...mapMutations("deleteModal", ["CLOSE_DELETE_MODAL", "OPEN_DELETE_MODAL"]),
     ...mapMutations("createEditModal", ["OPEN_MODAL", "CLOSE_MODAL"]),
     ...mapMutations("addEditEntity", ["SET_QUESTION", "SET_ANSWERS"]),
-
+    refreshTable() {
+      this.loading = true;
+      this.LOAD_ALL_QUESTIONS();
+      this.LOAD_ALL_ANSWERS();
+      this.loading = false;
+    },
     addNewQuestion() {
       this.SET_QUESTION({
         id: null,
@@ -88,6 +97,7 @@ export default {
       });
       this.$router.push({ name: "addQuestion" });
     },
+
     editAnswers(item) {
       console.log(item);
       const payload = {
@@ -99,34 +109,25 @@ export default {
     },
     deleteQuestion(item) {
       console.log(item);
-      this.deleteKeyId = item.id;
+      this.deleteQuestionId = item.id;
       this.OPEN_DELETE_MODAL();
     },
-    refreshTable() {
-      this.loading = true;
-      this.LOAD_ALL_QUESTIONS();
-      this.LOAD_ALL_ANSWERS();
-      this.loading = false;
-    },
-    // create and edit modal
-    // closeModal() {
-    //   this.CLOSE_MODAL();
-    // },
-    // saveModal(item) {
-    //   console.log(item);
-    //   this.CLOSE_MODAL();
-    // },
 
     // delete modal
     cancelDelete() {
       this.CLOSE_DELETE_MODAL();
-      this.deleteKeyId = null;
+      this.deleteQuestionId = null;
     },
     async yesDelete() {
-      // await this.DELETE_KEY(this.deleteKeyId);
-      // this.CLOSE_DELETE_MODAL();
-      // this.OPEN_SNACKBAR({ color: "error", text: "Вы удалили ключ" });
-      // this.deleteKeyId = null;
+      let ok = await this.DELETE_QUESTION(this.deleteQuestionId);
+      if (ok) {
+        this.CLOSE_DELETE_MODAL();
+        this.OPEN_SNACKBAR({ color: "success", text: "Вы удалили вопрос" });
+        this.deleteQuestionId = null;
+      } else {
+        this.OPEN_SNACKBAR({ color: "error", text: "Что-то пошло не так" });
+      }
+      this.LOAD_ALL_QUESTIONS();
     }
   },
   mounted() {

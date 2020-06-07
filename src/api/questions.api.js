@@ -20,6 +20,10 @@ export const addNewQuestion = (key, text) => {
 export const editQuestion = (key, id, text) => {
   return http.post(url.paths.editQuestion, { key, id, text });
 };
+export const deleteQuestion = (key, id) => {
+  return http.post(url.paths.deleteQuestion, { key, id });
+};
+
 // ANSWERS
 export const addNewAnswers = (key, text, question_id, next_question_id, sort) => {
   return http.post(url.paths.addNewAnswers, { key, text, question_id, next_question_id, sort });

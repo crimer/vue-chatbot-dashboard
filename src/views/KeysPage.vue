@@ -11,7 +11,8 @@
       :head="headers"
       :data="keysList"
       :loading="loading"
-      @add-new-item="addNewKey"
+      table="key"
+      @add-new-key="addNewKey"
       @delete-item="deleteKey"
       @refresh-table="FETCH_ALL_KEYS"
     />

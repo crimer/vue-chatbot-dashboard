@@ -78,10 +78,26 @@ export default {
         return false;
       }
     },
+    async DELETE_QUESTION({ rootGetters }, id) {
+      const key = rootGetters["keys/GET_KEY"];
+      
+      try {
+        const res = await api.deleteQuestion(key, id);
+        console.log(res.data);
+        
+        if (res.data.status === 'ok') {
+          return true;
+        }else{
+          return false;
+        }
+      } catch (error) {
+        console.log(error);
+        return false;
+      }
+    },
 
     async ADD_NEW_ANSWERS({ rootGetters }, answersArray) {
       const key = rootGetters["keys/GET_KEY"];
-      console.log(answersArray);
       
       try {
         answersArray.map(async (answer) => {
