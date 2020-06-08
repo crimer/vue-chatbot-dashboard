@@ -1,12 +1,12 @@
 <template>
   <div class="ma-5">
-    <TreeTable />
+    <TreeTable :tree="tree"/>
   </div>
 </template>
 
 <script>
 import TreeTable from "@/components/TreeTable.vue";
-import { mapActions } from "vuex";
+import { mapActions, mapState } from "vuex";
 
 export default {
   name: "TreeTablePage",
@@ -15,6 +15,9 @@ export default {
   },
   data() {
     return {};
+  },
+  computed: {
+    ...mapState('tree',['tree']),
   },
   methods:{
     ...mapActions("tree", ['FETCH_TREE']),

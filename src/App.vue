@@ -9,8 +9,7 @@
 <script>
 import EmptyLayout from "@/layouts/EmptyLayout.vue";
 import MainLayout from "@/layouts/MainLayout.vue";
-import { mapState, mapGetters } from "vuex";
-import axios from "axios";
+import { mapActions } from "vuex";
 
 export default {
   name: "App",
@@ -23,6 +22,14 @@ export default {
       return `${this.$route.meta.layout || "Empty"}Layout`;
     }
   },
+  methods:{
+    ...mapActions("questions", ["LOAD_ALL_QUESTIONS", "LOAD_ALL_ANSWERS"]),
+  },
+  mounted() {
+    // первая загрузка данный
+    this.LOAD_ALL_QUESTIONS();
+    this.LOAD_ALL_ANSWERS();
+  }
 };
 </script>
 <style lang="scss"></style>

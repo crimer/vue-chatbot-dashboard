@@ -7,7 +7,9 @@ import dateFilter from "@/filters/date.filter.js";
 import Vuelidate from "vuelidate";
 import VueTreeList from 'vue-tree-list'
 import Snackbar from '@/components/Snackbar.vue';
+import Vue2Editor from "vue2-editor";
 
+Vue.use(Vue2Editor);
 Vue.use(VueTreeList)
 Vue.use(Vuelidate);
 

@@ -11,7 +11,8 @@
       :head="headers"
       :data="keysList"
       :loading="loading"
-      @add-new-item="addNewKey"
+      table="key"
+      @add-new-key="addNewKey"
       @delete-item="deleteKey"
       @refresh-table="FETCH_ALL_KEYS"
     />
@@ -20,7 +21,7 @@
 
 <script>
 import { mapGetters, mapActions, mapMutations, mapState } from "vuex";
-import DeleteModal from "@/components/Modal/DeleteModal.vue";
+import DeleteModal from "@/components/DeleteModal.vue";
 import Table from "@/components/Table.vue";
 import store from "@/store/index.js";
 
