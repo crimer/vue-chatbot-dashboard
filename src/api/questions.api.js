@@ -31,4 +31,7 @@ export const addNewAnswers = (key, text, question_id, next_question_id,keys) => 
 export const editAnswers = (key, id, text, question_id, next_question_id,keys) => {
   return http.post(url.paths.editAnswers, { key, id, text, keys, question_id, next_question_id });
 };
+export const deleteAnswer = (key, id) => {
+  return http.post(url.paths.deleteAnswer, { key, id });
+};
 

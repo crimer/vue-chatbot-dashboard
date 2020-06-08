@@ -20,6 +20,7 @@ export const url = {
     allAnswers: 'admin/chat/answers',
     addNewAnswers: 'admin/chat/add/answer',
     editAnswers: 'admin/chat/edit/answer',
+    deleteAnswer: 'admin/chat/remove/answer'
   }
 };
 

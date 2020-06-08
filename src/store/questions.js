@@ -115,7 +115,6 @@ export default {
     async EDIT_ANSWERS({ rootGetters }, answersArray) {
       const key = rootGetters["keys/GET_KEY"];
       
-      
       try {
         answersArray.map(async (answer) => {
           const res = await api.editAnswers(key, answer.id, answer.text, answer.keys, answer.question_id, answer.next_question_id)
@@ -125,6 +124,20 @@ export default {
         console.log(error);
         return false;
       }
-    }
+    },
+    async DELETE_ANSWER({ rootGetters }, answerId) {
+      const key = rootGetters["keys/GET_KEY"];
+      try {
+        const res = await api.deleteAnswer(key, answerId)
+        if (res.data.status === 'ok') {
+          return true;
+        }else{
+          return false;
+        }
+      } catch (error) {
+        console.log(error);
+        return false;
+      }
+    },
   }
 };

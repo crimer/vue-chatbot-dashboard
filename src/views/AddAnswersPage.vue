@@ -130,7 +130,9 @@ export default {
         ["background", "color"],
         ["clean"]
       ],
-      answers: []
+      answers: [],
+      deleteAnswerId: null,
+      tabIndex: null,
     };
   },
   computed: {
@@ -139,7 +141,7 @@ export default {
   },
   methods: {
     ...mapActions("snackbar", ["OPEN_SNACKBAR"]),
-    ...mapActions("questions", ["LOAD_ALL_QUESTIONS", "ADD_NEW_ANSWERS","EDIT_ANSWERS"]),
+    ...mapActions("questions", ["LOAD_ALL_QUESTIONS", "ADD_NEW_ANSWERS","EDIT_ANSWERS","DELETE_ANSWER"]),
     ...mapMutations("addEditEntity", ["CLEAR_ANSWERS"]),
     ...mapMutations("deleteModal", ["CLOSE_DELETE_MODAL", "OPEN_DELETE_MODAL"]),
     addVariant() {
@@ -151,15 +153,13 @@ export default {
       });
     },
     removeVariant(tabIndex) {
-      console.log(this.addEditAnswers.data.answers);
+      this.tabIndex = tabIndex;
+      this.deleteAnswerId = this.addEditAnswers.data.answers[tabIndex].id;
       this.OPEN_DELETE_MODAL();
-      // this.addEditAnswers.data.answers.splice(tabIndex, 1);
     },
     saveAnswers() {
       const questionId = this.addEditAnswers.type === 'ADD' ? this.addEditAnswers.data.id.id : this.addEditAnswers.data.id;
       console.log("questionId",questionId);
-      
-      
       this.answers = this.addEditAnswers.data.answers.map(a =>
         this.buildAnswer(a, questionId)
       );
@@ -174,6 +174,7 @@ export default {
       this.LOAD_ALL_QUESTIONS();
       this.$router.push({ name: "home" });
     },
+
     async add(answers) {
       console.log(answers);
       let ok = await this.ADD_NEW_ANSWERS(answers);
@@ -203,21 +204,25 @@ export default {
         next_question_id: answer.next_question_id?.id
       };
     },
+
     // delete modal
     cancelDelete() {
       this.CLOSE_DELETE_MODAL();
-      // this.deleteQuestionId = null;
+      this.tabIndex = null;
+      this.deleteAnswerId = null;
     },
     async yesDelete() {
-      // let ok = await this.DELETE_QUESTION(this.deleteQuestionId);
-      // if (ok) {
+      let ok = await this.DELETE_ANSWER(this.deleteAnswerId);
+      if (ok) {
+        this.deleteAnswerId = null;
         this.CLOSE_DELETE_MODAL();
-      //   this.OPEN_SNACKBAR({ color: "success", text: "Вы удалили вопрос" });
-      //   this.deleteQuestionId = null;
-      // } else {
-      //   this.OPEN_SNACKBAR({ color: "error", text: "Что-то пошло не так" });
-      // }
-      // this.LOAD_ALL_QUESTIONS();
+        this.OPEN_SNACKBAR({ color: "success", text: "Вы удалили вопрос" });
+        this.addEditAnswers.data.answers.splice(this.tabIndex, 1)
+      } else {
+        this.OPEN_SNACKBAR({ color: "error", text: "Что-то пошло не так" });
+      }
+      this.tabIndex = null;
+      this.deleteAnswerId = null;
     }
 
   }
