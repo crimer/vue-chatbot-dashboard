@@ -5,7 +5,7 @@ export default {
   namespaced: true,
   state: {
     // ключ вошедшего юзера (который сейчас работаем в админке)
-    currentUserKey: VueCookie.get("session") || null,
+    currentUserKey: VueCookie.get("key_session") || null,
     isLogged: false,
     keysList: [],
     isFirstDataLoaded: false,
@@ -18,10 +18,10 @@ export default {
   },
   mutations: {
     SET_COOKIE(state, payload) {
-      VueCookie.set("session", payload, { expires: "15m" });
+      VueCookie.set("key_session", payload, { expires: "15m" });
     },
     CLEAR_COOKIE(state) {
-      VueCookie.delete("session");
+      VueCookie.delete("key_session");
     },
     SET_LOGGED(state, payload) {
       state.currentUserKey = payload;
