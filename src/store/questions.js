@@ -101,7 +101,7 @@ export default {
       console.log("answersArray",answersArray);
       try {
         answersArray.map(async (answer) => {
-          const res = await api.addNewAnswers(key, answer.text, answer.question_id, answer.next_question_id,answer.keys)
+          const res = await api.addNewAnswers(key, answer.text, answer.question_id, answer.next_question_id, answer.keys)
           console.log(res);
           
         })
@@ -117,7 +117,7 @@ export default {
       
       try {
         answersArray.map(async (answer) => {
-          const res = await api.editAnswers(key, answer.id, answer.text, answer.keys, answer.question_id, answer.next_question_id)
+          const res = await api.editAnswers(key, answer.id, answer.text, answer.question_id, answer.next_question_id, answer.keys)
         })
         return true;
       } catch (error) {
