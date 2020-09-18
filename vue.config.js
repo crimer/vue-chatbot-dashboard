@@ -1,5 +1,5 @@
 module.exports = {
   publicPath: process.env.NODE_ENV === 'production'
-    ? '/vue-chatbot-dashboard/'
+    ? '/vvsu-chat-bot/vue-chatbot-dashboard/'
     : '/'
 }
