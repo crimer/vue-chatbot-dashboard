@@ -105,8 +105,8 @@
           <v-menu bottom left v-if="editable">
             <template #activator="{ on }">
               <v-btn dark icon v-on="on">
-                <v-icon dark color="primary"
-                  >$vuetify.icons.dotsVertical</v-icon
+                <v-icon class="mr-3" dark color="primary"
+                  >mdi-pencil</v-icon
                 >
               </v-btn>
             </template>
