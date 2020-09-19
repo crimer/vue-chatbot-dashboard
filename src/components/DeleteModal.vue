@@ -12,7 +12,7 @@
       <v-card-actions>
         <v-spacer />
         <v-btn color="primary white" @click="$emit('cancel-delete')">
-          <v-icon>$vuetify.icons.arrorLeft</v-icon>
+          <v-icon class="mr-3">mdi-cancel</v-icon>
           Отменить
         </v-btn>
         <v-btn color="error" @click="$emit('yes-delete')">
