@@ -48,11 +48,6 @@ export default {
     return {
       pages: [
         {
-          title: "Таблица ключей",
-          icon: "$vuetify.icons.key",
-          route: "/keystable"
-        },
-        {
           title: "Таблица ответов",
           icon: "$vuetify.icons.table",
           route: "/",
@@ -63,6 +58,11 @@ export default {
           icon: "$vuetify.icons.tree",
           route: "/tree"
         },
+        {
+          title: "Таблица ключей",
+          icon: "$vuetify.icons.key",
+          route: "/keystable"
+        }
         // {
         //   title: "Добавить ответ",
         //   icon: "$vuetify.icons.answer",
