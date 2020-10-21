@@ -20,7 +20,7 @@
         <template #item="{item}">
           <v-list-item-group>
             <v-list-item-content>
-              <v-list-item-title v-html="item.text"></v-list-item-title>
+              <v-list-item-title v-html="item.text + ' (id - ' + item.id + ')'"></v-list-item-title>
             </v-list-item-content>
           </v-list-item-group>
         </template>
