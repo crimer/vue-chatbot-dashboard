@@ -2,8 +2,8 @@
 
 include 'config.php';
 
-if (isset($_GET['a'])) {
-  $method = $_GET['a'];
+if (isset($_POST['a'])) {
+  $method = $_POST['a'];
 } else {
   $method = null;
 }
@@ -53,11 +53,11 @@ function editAnswer($answer_id, $text)
 
 switch ($method) {
   case 'addanswer':
-    addAnswer($_GET['question_id'], $_GET['text']);
+    addAnswer($_POST['question_id'], $_POST['text']);
     break;
 
   case 'editanswer':
-    editAnswer($_GET['answer_id'], $_GET['text']);
+    editAnswer($_POST['answer_id'], $_POST['text']);
     break;
 
   default:

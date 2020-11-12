@@ -47,7 +47,7 @@ function drawTree($data)
   <!-- Modal -->
   <div class="modal fade" id="addAnswerModal" tabindex="-1">
     <div class="modal-dialog modal-lg">
-      <form action="/">
+      <form method="post" action="/">
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title">Добавление варианта ответа</h5>
@@ -70,7 +70,7 @@ function drawTree($data)
   <!-- Modal Edit -->
   <div class="modal fade" id="editAnswerModal" tabindex="-1">
     <div class="modal-dialog modal-lg">
-      <form action="/">
+      <form method="post" action="/">
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title">Редактирование варианта ответа</h5>
