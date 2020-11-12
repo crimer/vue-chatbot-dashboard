@@ -8,7 +8,7 @@ $tree = json_decode($tree, true);
 function drawTree($data)
 {
   echo ('<div class="h6 mt-3">' . $data['text'] . '</div>');
-  echo ('<a class="btn btn-success btn-sm" href="" role="button">Добавить вариант</a>');
+  echo ('<button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#addAnswerModal">Добавить вариант</button>');
   echo (' <a class="btn btn-warning btn-sm" href="question_editor.php?id=' . $data['id'] . '" role="button">Изменить</a>');
   echo (' <a class="btn btn-danger btn-sm" href="" role="button">Удалить</a>');
   if (!$data['answers']) return;
@@ -42,6 +42,26 @@ function drawTree($data)
     <h1 class="mb-4">Дерево диалога</h1>
     <?php drawTree($tree['tree']); ?>
   </div>
+
+  <!-- Modal -->
+  <div class="modal fade" id="addAnswerModal" tabindex="-1">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Добавление варианта ответа</h5>
+          <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          ...
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <script src="js/bootstrap.bundle.min.js"></script>
 </body>
 
