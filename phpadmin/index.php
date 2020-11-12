@@ -19,7 +19,11 @@ function drawTree($data)
     echo ('<div>ANSWER ' . $answer['text'] . '</div>');
     echo ('<button type="button" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#editAnswerModal" data-id="' . $answer['id'] . '" data-text="' . $answer['text'] . '">Редактировать вариант</button>');
     echo (' <a class="btn btn-danger btn-sm" href="" role="button">Удалить</a>');
-    drawTree($answer['question']);
+    if (isset($answer['question'])) {
+      drawTree($answer['question']);
+    } else {
+      echo (' <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#addQuestionModal"">Добавить ответ</button>');
+    }
     echo ('</li>');
   }
   echo ('</ul>');
