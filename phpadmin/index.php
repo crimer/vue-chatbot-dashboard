@@ -17,8 +17,7 @@ function drawTree($data)
   foreach ($data['answers'] as $answer) {
     echo ('<li class="mt-3 border border-primary rounded p-2">');
     echo ('<div>ANSWER ' . $answer['text'] . '</div>');
-    echo ('<a class="btn btn-warning btn-sm"href="answer_editor.php?id=' . $answer['id'] . '" role="button">Изменить</a>');
-    echo ('<button type="button" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#editAnswerModal" data-id="' . $answer['id'] . '">Редактировать вариант</button>');
+    echo ('<button type="button" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#editAnswerModal">Редактировать вариант</button>');
     echo (' <a class="btn btn-danger btn-sm" href="" role="button">Удалить</a>');
     drawTree($answer['question']);
     echo ('</li>');
@@ -63,6 +62,7 @@ function drawTree($data)
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
             <button type="submit" class="btn btn-primary">Save changes</button>
           </div>
+        </div>
       </form>
     </div>
   </div>
@@ -73,7 +73,7 @@ function drawTree($data)
       <form action="/">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title">Добавление варианта ответа</h5>
+            <h5 class="modal-title">Редактирование варианта ответа</h5>
             <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
@@ -85,6 +85,7 @@ function drawTree($data)
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
             <button type="submit" class="btn btn-primary">Save changes</button>
           </div>
+        </div>
       </form>
     </div>
   </div>
