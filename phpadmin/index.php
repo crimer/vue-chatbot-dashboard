@@ -106,7 +106,30 @@ function drawTree($data)
           <div class="modal-body">
             <input type="hidden" name="a" value="editquestion">
             <input class="data_id" type="hidden" name="question_id" value="">
-            <textarea class="data_text" name="text" class="form-control" aria-label="With textarea"></textarea>
+            <textarea name="text" class="form-control data_text" aria-label="With textarea"></textarea>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary">Save changes</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal Add Question-->
+  <div class="modal fade" id="addQuestionModal" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+      <form method="post" action="/">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Добавление ответа</h5>
+            <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <input type="hidden" name="a" value="addquestion">
+            <input class="data_id" type="hidden" name="question_id" value="">
+            <textarea name="text" class="form-control data_text" aria-label="With textarea"></textarea>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
