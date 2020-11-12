@@ -8,8 +8,8 @@ $tree = json_decode($tree, true);
 
 function drawTree($data)
 {
-  echo ('<div class="h6 mt-3">QUESTION ('.$data['id'].') ' . $data['text'] . '</div>');
-  echo ('<button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#addAnswerModal">Добавить вариант</button>');
+  echo ('<div class="h6 mt-3">QUESTION (' . $data['id'] . ') ' . $data['text'] . '</div>');
+  echo ('<button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#addAnswerModal" data-id="' . $data['id'] . '">Добавить вариант</button>');
   echo (' <a class="btn btn-warning btn-sm" href="question_editor.php?id=' . $data['id'] . '" role="button">Изменить</a>');
   echo (' <a class="btn btn-danger btn-sm" href="" role="button">Удалить</a>');
   if (!$data['answers']) return;
@@ -47,14 +47,16 @@ function drawTree($data)
   <!-- Modal -->
   <div class="modal fade" id="addAnswerModal" tabindex="-1">
     <div class="modal-dialog">
-      <form action="api_gutter.php">
+      <form action="/">
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title">Добавление варианта ответа</h5>
             <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
-            <textarea name="text" class="form-control" aria-label="With textarea"><?php echo $question['text'] ?></textarea>
+            <input type="hidden" name="a" value="addanswer">
+            <input class="data_id" type="hidden" name="question_id" value="addanswer">
+            <textarea name="text" class="form-control" aria-label="With textarea"></textarea>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -66,6 +68,29 @@ function drawTree($data)
   </div>
 
   <script src="js/bootstrap.bundle.min.js"></script>
+
+  <script>
+    var addAnswerModal = document.getElementById('addAnswerModal')
+    addAnswerModal.addEventListener('show.bs.modal', function(event) {
+      // Button that triggered the modal
+      var button = event.relatedTarget
+      // Extract info from data-* attributes
+      var id = button.getAttribute('data-id')
+      // If necessary, you could initiate an AJAX request here
+      // and then do the updating in a callback.
+      //
+      // Update the modal's content.
+      //var modalTitle = addAnswerModal.querySelector('.modal-title')
+      //var modalBodyInput = addAnswerModal.querySelector('.modal-body input')
+
+      var modalId = addAnswerModal.querySelector('.data_id')
+
+      modalId.value = id
+
+      //modalTitle.textContent = 'New message to ' + recipient
+      //modalBodyInput.value = recipient
+    })
+  </script>
 </body>
 
 </html>

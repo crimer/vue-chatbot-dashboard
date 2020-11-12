@@ -2,8 +2,11 @@
 
 include 'config.php';
 
-$method = $_GET['a'];
-
+if (isset($_GET['a'])) {
+  $method = $_GET['a'];
+} else {
+  $method = null;
+}
 
 function addAnswer($question_id)
 {
