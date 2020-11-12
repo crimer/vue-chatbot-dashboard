@@ -18,6 +18,7 @@ function drawTree($data)
     echo ('<li class="mt-3 border border-primary rounded p-2">');
     echo ('<div>ANSWER ' . $answer['text'] . '</div>');
     echo ('<a class="btn btn-warning btn-sm"href="answer_editor.php?id=' . $answer['id'] . '" role="button">Изменить</a>');
+    echo ('<button type="button" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#editAnswerModal" data-id="' . $answer['id'] . '">Редактировать вариант</button>');
     echo (' <a class="btn btn-danger btn-sm" href="" role="button">Удалить</a>');
     drawTree($answer['question']);
     echo ('</li>');
@@ -46,7 +47,7 @@ function drawTree($data)
 
   <!-- Modal -->
   <div class="modal fade" id="addAnswerModal" tabindex="-1">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-lg">
       <form action="/">
         <div class="modal-content">
           <div class="modal-header">
@@ -65,6 +66,27 @@ function drawTree($data)
       </form>
     </div>
   </div>
+
+  <!-- Modal Edit -->
+  <div class="modal fade" id="editAnswerModal" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+      <form action="/">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Добавление варианта ответа</h5>
+            <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <input type="hidden" name="a" value="editanswer">
+            <input class="data_id" type="hidden" name="answer_id" value="">
+            <textarea name="text" class="form-control" aria-label="With textarea"></textarea>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary">Save changes</button>
+          </div>
+      </form>
+    </div>
   </div>
 
   <script src="js/bootstrap.bundle.min.js"></script>
