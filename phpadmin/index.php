@@ -17,7 +17,7 @@ function drawTree($data)
   foreach ($data['answers'] as $answer) {
     echo ('<li class="mt-3 border border-primary rounded p-2">');
     echo ('<div>ANSWER ' . $answer['text'] . '</div>');
-    echo ('<button type="button" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#editAnswerModal">Редактировать вариант</button>');
+    echo ('<button type="button" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#editAnswerModal" data-id="' . $answer['id'] . '" data-text="' . $answer['text'] . '">Редактировать вариант</button>');
     echo (' <a class="btn btn-danger btn-sm" href="" role="button">Удалить</a>');
     drawTree($answer['question']);
     echo ('</li>');
@@ -79,7 +79,7 @@ function drawTree($data)
           <div class="modal-body">
             <input type="hidden" name="a" value="editanswer">
             <input class="data_id" type="hidden" name="answer_id" value="">
-            <textarea name="text" class="form-control" aria-label="With textarea"></textarea>
+            <textarea class="data_text" name="text" class="form-control" aria-label="With textarea"></textarea>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -93,25 +93,29 @@ function drawTree($data)
   <script src="js/bootstrap.bundle.min.js"></script>
 
   <script>
+    // For add answer
     var addAnswerModal = document.getElementById('addAnswerModal')
     addAnswerModal.addEventListener('show.bs.modal', function(event) {
-      // Button that triggered the modal
       var button = event.relatedTarget
-      // Extract info from data-* attributes
       var id = button.getAttribute('data-id')
-      // If necessary, you could initiate an AJAX request here
-      // and then do the updating in a callback.
-      //
-      // Update the modal's content.
-      //var modalTitle = addAnswerModal.querySelector('.modal-title')
-      //var modalBodyInput = addAnswerModal.querySelector('.modal-body input')
 
       var modalId = addAnswerModal.querySelector('.data_id')
 
       modalId.value = id
+    })
 
-      //modalTitle.textContent = 'New message to ' + recipient
-      //modalBodyInput.value = recipient
+    // For edit answer
+    var editAnswerModal = document.getElementById('editAnswerModal')
+    editAnswerModal.addEventListener('show.bs.modal', function(event) {
+      var button = event.relatedTarget
+      var id = button.getAttribute('data-id')
+      var text = button.getAttribute('data-text')
+
+      var modalId = editAnswerModal.querySelector('.data_id')
+      var modalText = editAnswerModal.querySelector('.data_text')
+
+      modalId.value = id
+      modalText.value = text
     })
   </script>
 </body>
