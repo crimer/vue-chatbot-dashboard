@@ -1,13 +1,14 @@
 <?php
 
 include 'config.php';
+include 'api_gutter.php';
 
 $tree = file_get_contents($CONFIG['api_url'] . 'admin/chat/tree?key=' . $CONFIG['api_key']);
 $tree = json_decode($tree, true);
 
 function drawTree($data)
 {
-  echo ('<div class="h6 mt-3">' . $data['text'] . '</div>');
+  echo ('<div class="h6 mt-3">QUESTION ('.$data['id'].') ' . $data['text'] . '</div>');
   echo ('<button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#addAnswerModal">Добавить вариант</button>');
   echo (' <a class="btn btn-warning btn-sm" href="question_editor.php?id=' . $data['id'] . '" role="button">Изменить</a>');
   echo (' <a class="btn btn-danger btn-sm" href="" role="button">Удалить</a>');
@@ -15,7 +16,7 @@ function drawTree($data)
   echo ('<ul>');
   foreach ($data['answers'] as $answer) {
     echo ('<li class="mt-3 border border-primary rounded p-2">');
-    echo ('<div>' . $answer['text'] . '</div>');
+    echo ('<div>ANSWER ' . $answer['text'] . '</div>');
     echo ('<a class="btn btn-warning btn-sm"href="answer_editor.php?id=' . $answer['id'] . '" role="button">Изменить</a>');
     echo (' <a class="btn btn-danger btn-sm" href="" role="button">Удалить</a>');
     drawTree($answer['question']);
