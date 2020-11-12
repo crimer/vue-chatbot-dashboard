@@ -46,20 +46,22 @@ function drawTree($data)
   <!-- Modal -->
   <div class="modal fade" id="addAnswerModal" tabindex="-1">
     <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title">Добавление варианта ответа</h5>
-          <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          ...
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary">Save changes</button>
-        </div>
-      </div>
+      <form action="api_gutter.php">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Добавление варианта ответа</h5>
+            <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <textarea name="text" class="form-control" aria-label="With textarea"><?php echo $question['text'] ?></textarea>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary">Save changes</button>
+          </div>
+      </form>
     </div>
+  </div>
   </div>
 
   <script src="js/bootstrap.bundle.min.js"></script>
