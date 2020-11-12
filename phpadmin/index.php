@@ -22,7 +22,7 @@ function drawTree($data)
     if (isset($answer['question'])) {
       drawTree($answer['question']);
     } else {
-      echo (' <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#addQuestionModal"">Добавить ответ</button>');
+      echo (' <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#addQuestionModal" data-id="' . $answer['id'] . '">Добавить ответ</button>');
     }
     echo ('</li>');
   }
@@ -128,7 +128,7 @@ function drawTree($data)
           </div>
           <div class="modal-body">
             <input type="hidden" name="a" value="addquestion">
-            <input class="data_id" type="hidden" name="question_id" value="">
+            <input class="data_id" type="hidden" name="answer_id" value="">
             <textarea name="text" class="form-control data_text" aria-label="With textarea"></textarea>
           </div>
           <div class="modal-footer">
@@ -173,6 +173,17 @@ function drawTree($data)
       var id = button.getAttribute('data-id')
 
       var modalId = addAnswerModal.querySelector('.data_id')
+
+      modalId.value = id
+    })
+
+    // For add question
+    var addQuestionModal = document.getElementById('addQuestionModal')
+    addQuestionModal.addEventListener('show.bs.modal', function(event) {
+      var button = event.relatedTarget
+      var id = button.getAttribute('data-id')
+
+      var modalId = addQuestionModal.querySelector('.data_id')
 
       modalId.value = id
     })
