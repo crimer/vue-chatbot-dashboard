@@ -50,6 +50,27 @@ function editAnswer($answer_id, $text)
   return $result;
 }
 
+function editQuestion($question_id, $text)
+{
+  global $CONFIG;
+  $url = $CONFIG['api_url'] . 'admin/chat/edit/question';
+  $data = array('key' => $CONFIG['api_key']);
+  $data['text'] = $text;
+  $data['id'] = $question_id;
+
+  $options = array(
+    'http' => array(
+      'header'  => "Content-type: application/x-www-form-urlencoded\r\n",
+      'method'  => 'POST',
+      'content' => http_build_query($data)
+    )
+  );
+  $context  = stream_context_create($options);
+  $result = file_get_contents($url, false, $context);
+
+  return $result;
+}
+
 function deleteAnswer($answer_id)
 {
   global $CONFIG;
@@ -97,6 +118,10 @@ switch ($method) {
 
   case 'editanswer':
     editAnswer($_POST['answer_id'], $_POST['text']);
+    break;
+
+  case 'editquestion':
+    editQuestion($_POST['question_id'], $_POST['text']);
     break;
 
   case 'deleteanswer':

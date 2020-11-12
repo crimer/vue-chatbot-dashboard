@@ -10,14 +10,14 @@ function drawTree($data)
 {
   echo ('<div class="h6 mt-3">QUESTION (' . $data['id'] . ') ' . $data['text'] . '</div>');
   echo ('<button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#addAnswerModal" data-id="' . $data['id'] . '">Добавить вариант</button>');
-  echo (' <a class="btn btn-warning btn-sm" data-toggle="modal" data-target="#editQuestionModal" data-id="' . $data['id'] . '">Изменить</a>');
+  echo (' <a class="btn btn-warning btn-sm" data-toggle="modal" data-target="#editQuestionModal" data-id="' . $data['id'] . '" data-text="' . htmlspecialchars($data['text']) . '">Изменить</a>');
   echo (' <a class="btn btn-danger btn-sm" data-toggle="modal" data-target="#deleteModal" data-id="' . $data['id'] . '" data-a="deletequestion">Удалить</a>');
   if (!$data['answers']) return;
   echo ('<ul>');
   foreach ($data['answers'] as $answer) {
     echo ('<li class="mt-3 border border-primary rounded p-2">');
     echo ('<div>ANSWER ' . $answer['text'] . '</div>');
-    echo ('<button type="button" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#editAnswerModal" data-id="' . $answer['id'] . '" data-text="' . $answer['text'] . '">Редактировать вариант</button>');
+    echo ('<button type="button" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#editAnswerModal" data-id="' . $answer['id'] . '" data-text="' . htmlspecialchars($answer['text']) . '">Редактировать вариант</button>');
     echo (' <a class="btn btn-danger btn-sm" data-toggle="modal" data-target="#deleteModal" data-id="' . $answer['id'] . '" data-a="deleteanswer">Удалить</a>');
     if (isset($answer['question'])) {
       drawTree($answer['question']);
@@ -105,7 +105,7 @@ function drawTree($data)
           </div>
           <div class="modal-body">
             <input type="hidden" name="a" value="editquestion">
-            <input class="data_id" type="hidden" name="answer_id" value="">
+            <input class="data_id" type="hidden" name="question_id" value="">
             <textarea class="data_text" name="text" class="form-control" aria-label="With textarea"></textarea>
           </div>
           <div class="modal-footer">
@@ -163,6 +163,20 @@ function drawTree($data)
 
       var modalId = editAnswerModal.querySelector('.data_id')
       var modalText = editAnswerModal.querySelector('.data_text')
+
+      modalId.value = id
+      modalText.value = text
+    })
+
+    // For edit question
+    var editQuestionModal = document.getElementById('editQuestionModal')
+    editQuestionModal.addEventListener('show.bs.modal', function(event) {
+      var button = event.relatedTarget
+      var id = button.getAttribute('data-id')
+      var text = button.getAttribute('data-text')
+
+      var modalId = editQuestionModal.querySelector('.data_id')
+      var modalText = editQuestionModal.querySelector('.data_text')
 
       modalId.value = id
       modalText.value = text
