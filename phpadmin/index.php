@@ -11,14 +11,14 @@ function drawTree($data)
   echo ('<div class="h6 mt-3">QUESTION (' . $data['id'] . ') ' . $data['text'] . '</div>');
   echo ('<button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#addAnswerModal" data-id="' . $data['id'] . '">Добавить вариант</button>');
   echo (' <a class="btn btn-warning btn-sm" href="question_editor.php?id=' . $data['id'] . '" role="button">Изменить</a>');
-  echo (' <a class="btn btn-danger btn-sm" href="" role="button">Удалить</a>');
+  echo (' <a class="btn btn-danger btn-sm" data-toggle="modal" data-target="#deleteModal" data-id="' . $data['id'] . '" data-a="deletequestion">Удалить</a>');
   if (!$data['answers']) return;
   echo ('<ul>');
   foreach ($data['answers'] as $answer) {
     echo ('<li class="mt-3 border border-primary rounded p-2">');
     echo ('<div>ANSWER ' . $answer['text'] . '</div>');
     echo ('<button type="button" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#editAnswerModal" data-id="' . $answer['id'] . '" data-text="' . $answer['text'] . '">Редактировать вариант</button>');
-    echo (' <a class="btn btn-danger btn-sm" href="" role="button">Удалить</a>');
+    echo (' <a class="btn btn-danger btn-sm" data-toggle="modal" data-target="#deleteModal" data-id="' . $answer['id'] . '" data-a="deleteanswer">Удалить</a>');
     if (isset($answer['question'])) {
       drawTree($answer['question']);
     } else {
@@ -94,6 +94,29 @@ function drawTree($data)
     </div>
   </div>
 
+  <!-- Modal del -->
+  <div class="modal fade" id="deleteModal" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+      <form method="post" action="/">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Удаление</h5>
+            <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <p>Вы уверены что хотите удалить этот вопрос?</p>
+            <input class="data_a" type="hidden" name="a" value="">
+            <input class="data_id" type="hidden" name="id" value="">
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-danger">Delete</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
   <script src="js/bootstrap.bundle.min.js"></script>
 
   <script>
@@ -119,7 +142,21 @@ function drawTree($data)
       var modalText = editAnswerModal.querySelector('.data_text')
 
       modalId.value = id
-      modalText.value = text
+      //modalText.value = text
+    })
+
+    // For delete answer/question
+    var deleteModal = document.getElementById('deleteModal')
+    deleteModal.addEventListener('show.bs.modal', function(event) {
+      var button = event.relatedTarget
+      var id = button.getAttribute('data-id')
+      var method = button.getAttribute('data-a')
+
+      var modalId = deleteModal.querySelector('.data_id')
+      var modalMethod = deleteModal.querySelector('.data_a')
+
+      modalId.value = id
+      modalMethod.value = method
     })
   </script>
 </body>
