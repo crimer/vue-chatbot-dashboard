@@ -8,7 +8,8 @@ if (isset($_POST['a'])) {
   $method = null;
 }
 
-function keyCheck($key) {
+function keyCheck($key)
+{
   global $CONFIG;
   $url = $CONFIG['api_url'] . 'admin/key/check';
   $data = array('key' => $key);
@@ -32,7 +33,9 @@ function addAnswer($question_id, $text, $keys)
   $url = $CONFIG['api_url'] . 'admin/chat/add/answer';
   $data = array('key' => $CONFIG['api_key']);
   $data['text'] = $text;
-  $data['keys'] = $keys;
+  if ($keys != "") {
+    $data['keys'] = $keys;
+  }
   $data['question_id'] = $question_id;
 
   $options = array(
@@ -94,7 +97,11 @@ function editAnswer($answer_id, $text, $keys)
   $url = $CONFIG['api_url'] . 'admin/chat/edit/answer';
   $data = array('key' => $CONFIG['api_key']);
   $data['text'] = $text;
-  $data['keys'] = $keys;
+  if ($keys != "") {
+    $data['keys'] = $keys;
+  } else {
+    $data['keys'] = "null";
+  }
   $data['id'] = $answer_id;
 
   $options = array(
