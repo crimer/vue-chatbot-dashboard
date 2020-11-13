@@ -27,7 +27,7 @@ function drawTree($data, $level)
   }
   foreach ($data['answers'] as $answer) {
     if ($level % 2) {
-      echo ('<li class="mt-3 border border-primary rounded p-2" style="background-color: #e3e3e3;">');
+      echo ('<li class="mt-3 border border-danger rounded p-2" style="background-color: #e3e3e3;">');
     } else {
       echo ('<li class="mt-3 border border-primary rounded p-2" style="background-color: #fff;">');
     }
