@@ -87,7 +87,7 @@ function drawTree($data)
             <div>Текст ответа</div>
             <input type="hidden" name="a" value="addanswer">
             <input class="data_id" type="hidden" name="question_id" value="addanswer">
-            <textarea name="text" class="form-control" aria-label="With textarea" placeholder="Введите текст"></textarea>
+            <textarea style="height: 250px;" name="text" class="form-control" aria-label="With textarea" placeholder="Введите текст"></textarea>
             <div class="col-md">
               <div class="mt-3">Ключевые слова</div>
               <div class="form-floating">
@@ -117,7 +117,7 @@ function drawTree($data)
             <div>Текст ответа</div>
             <input type="hidden" name="a" value="editanswer">
             <input class="data_id" type="hidden" name="answer_id" value="">
-            <textarea name="text" class="form-control data_text" aria-label="With textarea"></textarea>
+            <textarea style="height: 250px;" name="text" class="form-control data_text" aria-label="With textarea"></textarea>
             <div class="col-md">
               <div class="mt-3">Ключевые слова</div>
               <div class="form-floating">
@@ -147,7 +147,7 @@ function drawTree($data)
             <div>Текст вопроса</div>
             <input type="hidden" name="a" value="editquestion">
             <input class="data_id" type="hidden" name="question_id" value="">
-            <textarea name="text" class="form-control data_text" aria-label="With textarea"></textarea>
+            <textarea style="height: 250px;" name="text" class="form-control data_text" aria-label="With textarea"></textarea>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -171,7 +171,7 @@ function drawTree($data)
             <label>Текст вопроса</label>
             <input type="hidden" name="a" value="addquestion">
             <input class="data_id" type="hidden" name="answer_id" value="">
-            <textarea name="text" class="form-control data_text" aria-label="With textarea" placeholder="Введите текст"></textarea>
+            <textarea style="height: 250px;" name="text" class="form-control data_text" aria-label="With textarea" placeholder="Введите текст"></textarea>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
