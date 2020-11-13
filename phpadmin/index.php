@@ -53,20 +53,20 @@ function drawTree($data)
 <body>
 
   <nav class="navbar navbar-expand navbar-dark bg-dark">
-      <div class="container container-fluid">
-        <a class="navbar-brand">VVSU-Chatbot CP</a>
-        <div class="collapse navbar-collapse" id="navbarNav">
-          <!-- <ul class="navbar-nav">
+    <div class="container container-fluid">
+      <a class="navbar-brand">VVSU-Chatbot CP</a>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <!-- <ul class="navbar-nav">
           <li class="nav-item">
             <a class="nav-link active" aria-current="page" href="#">Дерево ключей</a>
           </li>
         </ul> -->
-        </div>
-        <form method="post" action="/">
-          <input type="hidden" name="a" value="logout">
-          <button type="submit" href="?a=logout" class="btn btn btn-secondary">Выход</button>
-        </form>
       </div>
+      <form method="post" action="/">
+        <input type="hidden" name="a" value="logout">
+        <button type="submit" href="?a=logout" class="btn btn btn-secondary">Выход</button>
+      </form>
+    </div>
   </nav>
 
   <div class="container mt-3">
@@ -87,7 +87,7 @@ function drawTree($data)
             <div>Текст ответа</div>
             <input type="hidden" name="a" value="addanswer">
             <input class="data_id" type="hidden" name="question_id" value="addanswer">
-            <textarea style="height: 250px;" name="text" class="form-control" aria-label="With textarea" placeholder="Введите текст"></textarea>
+            <textarea style="height: 250px;" name="text" class="form-control" aria-label="With textarea" placeholder="Введите текст" id="addanstext"></textarea>
             <div class="col-md">
               <div class="mt-3">Ключевые слова</div>
               <div class="form-floating">
@@ -117,7 +117,7 @@ function drawTree($data)
             <div>Текст ответа</div>
             <input type="hidden" name="a" value="editanswer">
             <input class="data_id" type="hidden" name="answer_id" value="">
-            <textarea style="height: 250px;" name="text" class="form-control data_text" aria-label="With textarea"></textarea>
+            <textarea style="height: 250px;" name="text" class="form-control data_text" aria-label="With textarea" id="editanstext"></textarea>
             <div class="col-md">
               <div class="mt-3">Ключевые слова</div>
               <div class="form-floating">
@@ -147,7 +147,7 @@ function drawTree($data)
             <div>Текст вопроса</div>
             <input type="hidden" name="a" value="editquestion">
             <input class="data_id" type="hidden" name="question_id" value="">
-            <textarea style="height: 250px;" name="text" class="form-control data_text" aria-label="With textarea"></textarea>
+            <textarea style="height: 250px;" name="text" class="form-control data_text" aria-label="With textarea" id="editquetext"></textarea>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -171,7 +171,7 @@ function drawTree($data)
             <label>Текст вопроса</label>
             <input type="hidden" name="a" value="addquestion">
             <input class="data_id" type="hidden" name="answer_id" value="">
-            <textarea style="height: 250px;" name="text" class="form-control data_text" aria-label="With textarea" placeholder="Введите текст"></textarea>
+            <textarea style="height: 250px;" name="text" class="form-control data_text" aria-label="With textarea" placeholder="Введите текст" id="addquetext"></textarea>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -218,6 +218,10 @@ function drawTree($data)
       var modalId = addAnswerModal.querySelector('.data_id')
 
       modalId.value = id
+
+      setTimeout(function() {
+        document.getElementById("addanstext").focus();
+      }, 500);
     })
 
     // For add question
@@ -229,6 +233,10 @@ function drawTree($data)
       var modalId = addQuestionModal.querySelector('.data_id')
 
       modalId.value = id
+
+      setTimeout(function() {
+        document.getElementById("addquetext").focus();
+      }, 500);
     })
 
     // For edit answer
@@ -246,6 +254,10 @@ function drawTree($data)
       modalId.value = id
       modalText.value = text
       modalKeys.value = keys
+
+      setTimeout(function() {
+        document.getElementById("editanstext").focus();
+      }, 500);
     })
 
     // For edit question
@@ -260,6 +272,11 @@ function drawTree($data)
 
       modalId.value = id
       modalText.value = text
+
+
+      setTimeout(function() {
+        document.getElementById("editquetext").focus();
+      }, 500);
     })
 
     // For delete answer/question
