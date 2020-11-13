@@ -13,7 +13,7 @@ $tree = json_decode($tree, true);
 
 function drawTree($data)
 {
-  echo ('<div class="h6 mt-3">QUESTION (' . $data['id'] . ') ' . $data['text'] . '</div>');
+  echo ('<div class="h6 mt-3">QUESTION (' . $data['id'] . ') ' . $data['text'] . '</div> <br>');
   echo ('<button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#addAnswerModal" data-id="' . $data['id'] . '">Добавить вариант</button>');
   echo (' <a class="btn btn-warning btn-sm" data-toggle="modal" data-target="#editQuestionModal" data-id="' . $data['id'] . '" data-text="' . htmlspecialchars($data['text']) . '">Изменить</a>');
   if ($data['id'] != 1) {
@@ -23,7 +23,7 @@ function drawTree($data)
   echo ('<ul>');
   foreach ($data['answers'] as $answer) {
     echo ('<li class="mt-3 border border-primary rounded p-2">');
-    echo ('<div>ANSWER ' . $answer['text'] . '</div>');
+    echo ('<div>ANSWER ' . $answer['text'] . '</div> <br>');
     echo ('<button type="button" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#editAnswerModal" data-id="' . $answer['id'] . '" data-text="' . htmlspecialchars($answer['text']) . '" data-keys="' . htmlspecialchars($answer['keys']) . '">Изменить</button>');
     echo (' <a class="btn btn-danger btn-sm" data-toggle="modal" data-target="#deleteModal" data-id="' . $answer['id'] . '" data-a="deleteanswer">Удалить</a>');
     if (isset($answer['question'])) {
@@ -84,7 +84,7 @@ function drawTree($data)
             <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
-            <div>Поле для ввода текста</div>
+            <div>Текст ответа</div>
             <input type="hidden" name="a" value="addanswer">
             <input class="data_id" type="hidden" name="question_id" value="addanswer">
             <textarea name="text" class="form-control" aria-label="With textarea" placeholder="Введите текст"></textarea>
@@ -114,6 +114,7 @@ function drawTree($data)
             <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
+            <div>Текст ответа</div>
             <input type="hidden" name="a" value="editanswer">
             <input class="data_id" type="hidden" name="answer_id" value="">
             <textarea name="text" class="form-control data_text" aria-label="With textarea"></textarea>
@@ -143,6 +144,7 @@ function drawTree($data)
             <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
+            <div>Текст вопроса</div>
             <input type="hidden" name="a" value="editquestion">
             <input class="data_id" type="hidden" name="question_id" value="">
             <textarea name="text" class="form-control data_text" aria-label="With textarea"></textarea>
@@ -166,9 +168,10 @@ function drawTree($data)
             <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
+            <label>Текст вопроса</label>
             <input type="hidden" name="a" value="addquestion">
             <input class="data_id" type="hidden" name="answer_id" value="">
-            <textarea name="text" class="form-control data_text" aria-label="With textarea"></textarea>
+            <textarea name="text" class="form-control data_text" aria-label="With textarea" placeholder="Введите текст"></textarea>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
