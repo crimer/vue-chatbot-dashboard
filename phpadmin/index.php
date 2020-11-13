@@ -11,7 +11,7 @@ include 'api_gutter.php';
 $tree = file_get_contents($CONFIG['api_url'] . 'admin/chat/tree?key=' . $CONFIG['api_key']);
 $tree = json_decode($tree, true);
 
-function drawTree($data)
+function drawTree($data, $level)
 {
   echo ('<div class="rounded" style="background-color: #fff;"><div class="h6 mt-3">Q [' . $data['id'] . ']</div><div>' . $data['text'] . '</div></div> <br>');
   echo ('<button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#addAnswerModal" data-id="' . $data['id'] . '">Добавить вариант</button>');
@@ -20,14 +20,21 @@ function drawTree($data)
     echo (' <a class="btn btn-danger btn-sm" data-toggle="modal" data-target="#deleteModal" data-id="' . $data['id'] . '" data-a="deletequestion">Удалить</a>');
   }
   if (!$data['answers']) return;
-  echo ('<ul>');
+  if ($level == 0) {
+    echo ('<ul id="treeUL">');
+  } else {
+    echo ('<ul class="nested">');
+  }
   foreach ($data['answers'] as $answer) {
     echo ('<li class="mt-3 border border-primary rounded p-2" style="background-color: #eee;">');
-    echo ('<div>A ['. $answer['id'] .']</div><div>' . $answer['text'] . '</div> <br>');
+    if (isset($answer['question']) && $answer['question']['count'] > 0) {
+      echo ('<span class="caret"></span>');
+    }
+    echo ('<div>A [' . $answer['id'] . ']</div><div>' . $answer['text'] . '</div> <br>');
     echo ('<button type="button" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#editAnswerModal" data-id="' . $answer['id'] . '" data-text="' . htmlspecialchars($answer['text']) . '" data-keys="' . htmlspecialchars($answer['keys']) . '">Изменить</button>');
     echo (' <a class="btn btn-danger btn-sm" data-toggle="modal" data-target="#deleteModal" data-id="' . $answer['id'] . '" data-a="deleteanswer">Удалить</a>');
     if (isset($answer['question'])) {
-      drawTree($answer['question']);
+      drawTree($answer['question'], $level + 1);
     } else {
       echo (' <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#addQuestionModal" data-id="' . $answer['id'] . '">Добавить ответ</button>');
     }
@@ -50,6 +57,42 @@ function drawTree($data)
   <title>Chatbot admin</title>
 </head>
 
+<style>
+  ul,
+  #treeUL {
+    list-style-type: none;
+  }
+
+  #treeUL {
+    margin: 0;
+    padding: 0;
+  }
+
+  .caret {
+    cursor: pointer;
+    user-select: none;
+  }
+
+  .caret::before {
+    content: "\25B6";
+    color: black;
+    display: inline-block;
+    margin-right: 6px;
+  }
+
+  .caret-down::before {
+    transform: rotate(90deg);
+  }
+
+  .nested {
+    display: none;
+  }
+
+  .active {
+    display: block;
+  }
+</style>
+
 <body>
 
   <nav class="navbar navbar-expand navbar-dark bg-dark">
@@ -71,7 +114,7 @@ function drawTree($data)
 
   <div class="container mt-3">
     <h1 class="mb-4">Дерево диалога</h1>
-    <?php drawTree($tree['tree']); ?>
+    <?php drawTree($tree['tree'], 0); ?>
   </div>
 
   <!-- Modal Add Answers-->
@@ -209,6 +252,18 @@ function drawTree($data)
   <script src="js/jquery.min.js"></script>
 
   <script>
+    var toggler = document.getElementsByClassName("caret");
+    console.log(toggler)
+    var i;
+
+    for (i = 0; i < toggler.length; i++) {
+      toggler[i].addEventListener("click", function() {
+        console.log(this.parentElement.querySelector(".nested"))
+        this.parentElement.querySelector(".nested").classList.toggle("active");
+        this.classList.toggle("caret-down");
+      });
+    }
+
     // For add answer
     var addAnswerModal = document.getElementById('addAnswerModal')
     addAnswerModal.addEventListener('show.bs.modal', function(event) {
