@@ -356,7 +356,7 @@ function drawTree($data, $level)
     $(document).ready(function() {
 
       if (localStorage.getItem("cpchatbot-quote-scroll") != null) {
-        $(window).scrollTop(localStorage.getItem("my_app_name_here-quote-scroll"));
+        $(window).scrollTop(localStorage.getItem("cpchatbot-quote-scroll"));
       }
 
       $(window).on("scroll", function() {
