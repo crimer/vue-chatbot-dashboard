@@ -22,7 +22,7 @@ function drawTree($data)
   foreach ($data['answers'] as $answer) {
     echo ('<li class="mt-3 border border-primary rounded p-2">');
     echo ('<div>ANSWER ' . $answer['text'] . '</div>');
-    echo ('<button type="button" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#editAnswerModal" data-id="' . $answer['id'] . '" data-text="' . htmlspecialchars($answer['text']) . '">Редактировать вариант</button>');
+    echo ('<button type="button" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#editAnswerModal" data-id="' . $answer['id'] . '" data-text="' . htmlspecialchars($answer['text']) . '">Изменить</button>');
     echo (' <a class="btn btn-danger btn-sm" data-toggle="modal" data-target="#deleteModal" data-id="' . $answer['id'] . '" data-a="deleteanswer">Удалить</a>');
     if (isset($answer['question'])) {
       drawTree($answer['question']);
