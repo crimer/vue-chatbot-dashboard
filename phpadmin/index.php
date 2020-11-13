@@ -24,7 +24,7 @@ function drawTree($data)
   foreach ($data['answers'] as $answer) {
     echo ('<li class="mt-3 border border-primary rounded p-2">');
     echo ('<div>ANSWER ' . $answer['text'] . '</div>');
-    echo ('<button type="button" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#editAnswerModal" data-id="' . $answer['id'] . '" data-text="' . htmlspecialchars($answer['text']) . '">Изменить</button>');
+    echo ('<button type="button" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#editAnswerModal" data-id="' . $answer['id'] . '" data-text="' . htmlspecialchars($answer['text']) . '" data-keys="' . htmlspecialchars($answer['keys']) . '">Изменить</button>');
     echo (' <a class="btn btn-danger btn-sm" data-toggle="modal" data-target="#deleteModal" data-id="' . $answer['id'] . '" data-a="deleteanswer">Удалить</a>');
     if (isset($answer['question'])) {
       drawTree($answer['question']);
@@ -91,7 +91,7 @@ function drawTree($data)
             <div class="col-md">
               <div class="mt-3">Ключевые слова</div>
               <div class="form-floating">
-                <input class="form-control" id="floatingInputGrid" placeholder="KEYWORDS" value="">
+                <input name="keys" class="form-control" id="floatingInputGrid" placeholder="KEYWORDS" value="">
               </div>
             </div>
           </div>
@@ -120,7 +120,7 @@ function drawTree($data)
             <div class="col-md">
               <div class="mt-3">Ключевые слова</div>
               <div class="form-floating">
-                <input class="form-control" id="floatingInputGrid" placeholder="KEYWORDS" value="">
+                <input name="keys" class="form-control data_keys" id="floatingInputGrid" placeholder="KEYWORDS">
               </div>
             </div>
           </div>
@@ -234,12 +234,15 @@ function drawTree($data)
       var button = event.relatedTarget
       var id = button.getAttribute('data-id')
       var text = button.getAttribute('data-text')
+      var keys = button.getAttribute('data-keys')
 
       var modalId = editAnswerModal.querySelector('.data_id')
       var modalText = editAnswerModal.querySelector('.data_text')
+      var modalKeys = editAnswerModal.querySelector('.data_keys')
 
       modalId.value = id
       modalText.value = text
+      modalKeys.value = keys
     })
 
     // For edit question

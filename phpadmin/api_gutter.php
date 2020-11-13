@@ -26,12 +26,13 @@ function keyCheck($key) {
   return $result;
 }
 
-function addAnswer($question_id, $text)
+function addAnswer($question_id, $text, $keys)
 {
   global $CONFIG;
   $url = $CONFIG['api_url'] . 'admin/chat/add/answer';
   $data = array('key' => $CONFIG['api_key']);
   $data['text'] = $text;
+  $data['keys'] = $keys;
   $data['question_id'] = $question_id;
 
   $options = array(
@@ -87,12 +88,13 @@ function addQuestion($answer_id, $text)
   return $result;
 }
 
-function editAnswer($answer_id, $text)
+function editAnswer($answer_id, $text, $keys)
 {
   global $CONFIG;
   $url = $CONFIG['api_url'] . 'admin/chat/edit/answer';
   $data = array('key' => $CONFIG['api_key']);
   $data['text'] = $text;
+  $data['keys'] = $keys;
   $data['id'] = $answer_id;
 
   $options = array(
@@ -171,7 +173,7 @@ function deleteQuestion($question_id)
 
 switch ($method) {
   case 'addanswer':
-    addAnswer($_POST['question_id'], $_POST['text']);
+    addAnswer($_POST['question_id'], $_POST['text'], $_POST['keys']);
     break;
 
   case 'addquestion':
@@ -179,7 +181,7 @@ switch ($method) {
     break;
 
   case 'editanswer':
-    editAnswer($_POST['answer_id'], $_POST['text']);
+    editAnswer($_POST['answer_id'], $_POST['text'], $_POST['keys']);
     break;
 
   case 'editquestion':
