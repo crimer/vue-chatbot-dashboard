@@ -194,6 +194,12 @@ switch ($method) {
     deleteQuestion($_POST['id']);
     break;
 
+  case 'logout':
+    setcookie('api_key', '', time() - 3600);
+    header("Location: auth.php");
+    exit();
+    break;
+
   default:
     break;
 }

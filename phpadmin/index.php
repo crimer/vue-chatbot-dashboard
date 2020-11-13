@@ -60,7 +60,10 @@ function drawTree($data)
           </li>
         </ul>
       </div>
-      <button class="btn btn btn-secondary" type="button">Выход</button>
+      <form method="post" action="/">
+        <input type="hidden" name="a" value="logout">
+        <button type="submit" href="?a=logout" class="btn btn btn-secondary">Выход</button>
+      </form>
     </div>
   </nav>
 
