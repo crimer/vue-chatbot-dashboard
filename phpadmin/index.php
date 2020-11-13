@@ -67,7 +67,7 @@ function drawTree($data)
     </div>
   </nav>
 
-  <div class="container">
+  <div class="container mt-3">
     <h1 class="mb-4">Дерево диалога</h1>
     <?php drawTree($tree['tree']); ?>
   </div>
