@@ -190,6 +190,7 @@ function drawTree($data)
   </div>
 
   <script src="js/bootstrap.bundle.min.js"></script>
+  <script src="js/jquery.min.js"></script>
 
   <script>
     // For add answer
@@ -255,6 +256,19 @@ function drawTree($data)
       modalId.value = id
       modalMethod.value = method
     })
+
+    // Save scroll position
+    $(document).ready(function() {
+
+      if (localStorage.getItem("my_app_name_here-quote-scroll") != null) {
+        $(window).scrollTop(localStorage.getItem("my_app_name_here-quote-scroll"));
+      }
+
+      $(window).on("scroll", function() {
+        localStorage.setItem("my_app_name_here-quote-scroll", $(window).scrollTop());
+      });
+
+    });
   </script>
 </body>
 
