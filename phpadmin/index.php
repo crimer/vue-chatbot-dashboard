@@ -13,7 +13,7 @@ $tree = json_decode($tree, true);
 
 function drawTree($data, $level)
 {
-  echo ('<div class="rounded" style="background-color: #fff;"><div class="h6 mt-3">Q [' . $data['id'] . ']</div><div>' . $data['text'] . '</div></div> <br>');
+  echo ('<div class="rounded"><div class="h6 mt-3">Q [' . $data['id'] . ']</div><div>' . $data['text'] . '</div></div> <br>');
   echo ('<button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#addAnswerModal" data-id="' . $data['id'] . '">Добавить вариант</button>');
   echo (' <a class="btn btn-warning btn-sm" data-toggle="modal" data-target="#editQuestionModal" data-id="' . $data['id'] . '" data-text="' . htmlspecialchars($data['text']) . '">Изменить</a>');
   if ($data['id'] != 1) {
@@ -26,7 +26,11 @@ function drawTree($data, $level)
     echo ('<ul class="nested active">');
   }
   foreach ($data['answers'] as $answer) {
-    echo ('<li class="mt-3 border border-primary rounded p-2" style="background-color: #eee;">');
+    if ($level % 2) {
+      echo ('<li class="mt-3 border border-primary rounded p-2" style="background-color: #e3e3e3;">');
+    } else {
+      echo ('<li class="mt-3 border border-primary rounded p-2" style="background-color: #fff;">');
+    }
     if (isset($answer['question']) && $answer['question']['count'] > 0) {
       echo ('<span class="caret caret-down"></span>');
     }
