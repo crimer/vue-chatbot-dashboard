@@ -13,7 +13,7 @@ $tree = json_decode($tree, true);
 
 function drawTree($data)
 {
-  echo ('<div class="h6 mt-3">QUESTION (' . $data['id'] . ') ' . $data['text'] . '</div> <br>');
+  echo ('<div class="h6 mt-3" style="background-color: #fff;">QUESTION (' . $data['id'] . ') ' . $data['text'] . '</div> <br>');
   echo ('<button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#addAnswerModal" data-id="' . $data['id'] . '">Добавить вариант</button>');
   echo (' <a class="btn btn-warning btn-sm" data-toggle="modal" data-target="#editQuestionModal" data-id="' . $data['id'] . '" data-text="' . htmlspecialchars($data['text']) . '">Изменить</a>');
   if ($data['id'] != 1) {
@@ -22,7 +22,7 @@ function drawTree($data)
   if (!$data['answers']) return;
   echo ('<ul>');
   foreach ($data['answers'] as $answer) {
-    echo ('<li class="mt-3 border border-primary rounded p-2">');
+    echo ('<li class="mt-3 border border-primary rounded p-2" style="background-color: #eee;">');
     echo ('<div>ANSWER ' . $answer['text'] . '</div> <br>');
     echo ('<button type="button" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#editAnswerModal" data-id="' . $answer['id'] . '" data-text="' . htmlspecialchars($answer['text']) . '" data-keys="' . htmlspecialchars($answer['keys']) . '">Изменить</button>');
     echo (' <a class="btn btn-danger btn-sm" data-toggle="modal" data-target="#deleteModal" data-id="' . $answer['id'] . '" data-a="deleteanswer">Удалить</a>');
