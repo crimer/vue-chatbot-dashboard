@@ -84,9 +84,16 @@ function drawTree($data)
             <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
+            <div>Поле для ввода текста</div>
             <input type="hidden" name="a" value="addanswer">
             <input class="data_id" type="hidden" name="question_id" value="addanswer">
-            <textarea name="text" class="form-control" aria-label="With textarea"></textarea>
+            <textarea name="text" class="form-control" aria-label="With textarea" placeholder="Введите текст"></textarea>
+            <div class="col-md">
+              <div class="mt-3">Ключевые слова</div>
+              <div class="form-floating">
+                <input class="form-control" id="floatingInputGrid" placeholder="KEYWORDS" value="">
+              </div>
+            </div>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -110,6 +117,12 @@ function drawTree($data)
             <input type="hidden" name="a" value="editanswer">
             <input class="data_id" type="hidden" name="answer_id" value="">
             <textarea name="text" class="form-control data_text" aria-label="With textarea"></textarea>
+            <div class="col-md">
+              <div class="mt-3">Ключевые слова</div>
+              <div class="form-floating">
+                <input class="form-control" id="floatingInputGrid" placeholder="KEYWORDS" value="">
+              </div>
+            </div>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
