@@ -49,15 +49,15 @@ function drawTree($data)
 
 <body>
 
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <nav class="navbar navbar-expand navbar-dark bg-dark">
     <div class="container-fluid">
       <a class="navbar-brand">VVSU-Chatbot CP</a>
       <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav">
+        <!-- <ul class="navbar-nav">
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="#">Место под ключи</a>
+            <a class="nav-link active" aria-current="page" href="#">Дерево ключей</a>
           </li>
-        </ul>
+        </ul> -->
       </div>
       <button class="btn btn btn-secondary" type="button">Выход</button>
     </div>
