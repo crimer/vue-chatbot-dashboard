@@ -1,5 +1,10 @@
 <?php
 
+if (!isset($_COOKIE['api_key'])) {
+  header("Location: auth.php");
+  exit();
+}
+
 include 'config.php';
 include 'api_gutter.php';
 
