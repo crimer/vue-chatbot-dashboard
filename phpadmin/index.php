@@ -23,7 +23,7 @@ function drawTree($data, $level)
   if ($level == 0) {
     echo ('<ul id="treeUL">');
   } else {
-    echo ('<ul class="nested active">');
+    echo ('<ul class="nested">');
   }
   foreach ($data['answers'] as $answer) {
     if ($level % 2) {
@@ -32,7 +32,7 @@ function drawTree($data, $level)
       echo ('<li class="mt-3 border border-primary rounded p-2" style="background-color: #fff;">');
     }
     if (isset($answer['question']) && $answer['question']['count'] > 0) {
-      echo ('<span class="caret caret-down"></span>');
+      echo ('<span class="caret" data-id="' . $answer['id'] . '"></span>');
     }
     echo ('<div>A [' . $answer['id'] . ']</div><div>' . $answer['text'] . '</div> <br>');
     echo ('<button type="button" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#editAnswerModal" data-id="' . $answer['id'] . '" data-text="' . htmlspecialchars($answer['text']) . '" data-keys="' . htmlspecialchars($answer['keys']) . '">Изменить</button>');
@@ -116,7 +116,7 @@ function drawTree($data, $level)
     </div>
   </nav>
 
-  <div class="container mt-3">
+  <div class="container my-3">
     <h1 class="mb-4">Дерево диалога</h1>
     <?php drawTree($tree['tree'], 0); ?>
   </div>
@@ -257,14 +257,23 @@ function drawTree($data, $level)
 
   <script>
     var toggler = document.getElementsByClassName("caret");
-    console.log(toggler)
     var i;
 
     for (i = 0; i < toggler.length; i++) {
-      toggler[i].addEventListener("click", function() {
-        console.log(this.parentElement.querySelector(".nested"))
+      var t = toggler[i];
+      var saveState = localStorage.getItem("cpchatbot-caret-" + t.getAttribute('data-id'));
+
+      if (saveState && saveState == "true") {
+        t.parentElement.querySelector(".nested").classList.toggle("active");
+        t.classList.toggle("caret-down");
+      }
+
+      t.addEventListener("click", function() {
         this.parentElement.querySelector(".nested").classList.toggle("active");
         this.classList.toggle("caret-down");
+        //console.log(this.classList.contains("caret-down"))
+        //console.log("test " + this.getAttribute('data-id'));
+        localStorage.setItem("cpchatbot-caret-" + this.getAttribute('data-id'), this.classList.contains("caret-down"));
       });
     }
 
