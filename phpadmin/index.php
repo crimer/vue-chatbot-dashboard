@@ -131,20 +131,20 @@ function drawTree($data, $level)
             <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
-            <div>Текст ответа</div>
+            <div>Текст ответа: </div>
             <input type="hidden" name="a" value="addanswer">
             <input class="data_id" type="hidden" name="question_id" value="addanswer">
             <textarea style="height: 250px;" name="text" class="form-control" aria-label="With textarea" placeholder="Введите текст" id="addanstext"></textarea>
             <div class="col-md">
-              <div class="mt-3">Ключевые слова</div>
+              <div class="mt-3">Ключевые слова: </div>
               <div class="form-floating">
                 <input name="keys" class="form-control" id="floatingInputGrid" placeholder="KEYWORDS" value="">
               </div>
             </div>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <button type="submit" class="btn btn-primary">Save changes</button>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Отмена</button>
+            <button type="submit" class="btn btn-primary">Сохранить</button>
           </div>
         </div>
       </form>
@@ -161,20 +161,20 @@ function drawTree($data, $level)
             <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
-            <div>Текст ответа</div>
+            <div>Текст ответа: </div>
             <input type="hidden" name="a" value="editanswer">
             <input class="data_id" type="hidden" name="answer_id" value="">
             <textarea style="height: 250px;" name="text" class="form-control data_text" aria-label="With textarea" id="editanstext"></textarea>
             <div class="col-md">
-              <div class="mt-3">Ключевые слова</div>
+              <div class="mt-3">Ключевые слова: </div>
               <div class="form-floating">
                 <input name="keys" class="form-control data_keys" id="floatingInputGrid" placeholder="KEYWORDS">
               </div>
             </div>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <button type="submit" class="btn btn-primary">Save changes</button>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Отмена</button>
+            <button type="submit" class="btn btn-primary">Сохранить</button>
           </div>
         </div>
       </form>
@@ -191,14 +191,14 @@ function drawTree($data, $level)
             <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
-            <div>Текст вопроса</div>
+            <div>Текст вопроса: </div>
             <input type="hidden" name="a" value="editquestion">
             <input class="data_id" type="hidden" name="question_id" value="">
             <textarea style="height: 250px;" name="text" class="form-control data_text" aria-label="With textarea" id="editquetext"></textarea>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <button type="submit" class="btn btn-primary">Save changes</button>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Отмена</button>
+            <button type="submit" class="btn btn-primary">Сохранить</button>
           </div>
         </div>
       </form>
@@ -215,14 +215,14 @@ function drawTree($data, $level)
             <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
-            <label>Текст вопроса</label>
+            <label>Текст ответа: </label>
             <input type="hidden" name="a" value="addquestion">
             <input class="data_id" type="hidden" name="answer_id" value="">
             <textarea style="height: 250px;" name="text" class="form-control data_text" aria-label="With textarea" placeholder="Введите текст" id="addquetext"></textarea>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <button type="submit" class="btn btn-primary">Save changes</button>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Отмена</button>
+            <button type="submit" class="btn btn-primary">Сохранить</button>
           </div>
         </div>
       </form>
@@ -244,8 +244,8 @@ function drawTree($data, $level)
             <input class="data_id" type="hidden" name="id" value="">
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <button type="submit" class="btn btn-danger">Delete</button>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Отмена</button>
+            <button type="submit" class="btn btn-danger">Удалить</button>
           </div>
         </div>
       </form>
