@@ -23,12 +23,12 @@ function drawTree($data, $level)
   if ($level == 0) {
     echo ('<ul id="treeUL">');
   } else {
-    echo ('<ul class="nested">');
+    echo ('<ul class="nested active">');
   }
   foreach ($data['answers'] as $answer) {
     echo ('<li class="mt-3 border border-primary rounded p-2" style="background-color: #eee;">');
     if (isset($answer['question']) && $answer['question']['count'] > 0) {
-      echo ('<span class="caret"></span>');
+      echo ('<span class="caret caret-down"></span>');
     }
     echo ('<div>A [' . $answer['id'] . ']</div><div>' . $answer['text'] . '</div> <br>');
     echo ('<button type="button" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#editAnswerModal" data-id="' . $answer['id'] . '" data-text="' . htmlspecialchars($answer['text']) . '" data-keys="' . htmlspecialchars($answer['keys']) . '">Изменить</button>');
@@ -351,12 +351,12 @@ function drawTree($data, $level)
     // Save scroll position
     $(document).ready(function() {
 
-      if (localStorage.getItem("my_app_name_here-quote-scroll") != null) {
+      if (localStorage.getItem("cpchatbot-quote-scroll") != null) {
         $(window).scrollTop(localStorage.getItem("my_app_name_here-quote-scroll"));
       }
 
       $(window).on("scroll", function() {
-        localStorage.setItem("my_app_name_here-quote-scroll", $(window).scrollTop());
+        localStorage.setItem("cpchatbot-quote-scroll", $(window).scrollTop());
       });
 
     });
