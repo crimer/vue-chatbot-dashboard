@@ -4,10 +4,11 @@ include 'config.php';
 
 if (isset($_POST['a'])) {
   $method = $_POST['a'];
+} else if(isset($_GET['a'])) {
+  $method = $_GET['a'];
 } else {
   $method = null;
 }
-
 function keyCheck($key)
 {
   global $CONFIG;
@@ -206,6 +207,18 @@ switch ($method) {
   case 'logout':
     setcookie('api_key', '', time() - 3600);
     header("Location: auth.php");
+    exit();
+    break;
+
+  case 'sort_alphabet':
+    setcookie('sort', 'alphabet', time() + 3600 * 24 * 120);
+    header("Location: index.php");
+    exit();
+    break;
+
+  case 'sort_time':
+    setcookie('sort', 'time', time() + 3600 * 24 * 120);
+    header("Location: index.php");
     exit();
     break;
 

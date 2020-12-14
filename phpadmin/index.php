@@ -11,8 +11,22 @@ include 'api_gutter.php';
 $tree = file_get_contents($CONFIG['api_url'] . 'admin/chat/tree?key=' . $CONFIG['api_key']);
 $tree = json_decode($tree, true);
 
+function stable_usort(&$array, $cmp)
+{
+  $i = 0;
+  $array = array_map(function ($elt) use (&$i) {
+    return [$i++, $elt];
+  }, $array);
+  usort($array, function ($a, $b) use ($cmp) {
+    return $cmp($a[1], $b[1]) ?: ($a[0] - $b[0]);
+  });
+  $array = array_column($array, 1);
+}
+
 function drawTree($data, $level)
 {
+  //usort($data, "usortTest");
+  //sort($data, "usortTest");
   echo ('<div class="rounded"><div class="h6 mt-3">Q [' . $data['id'] . ']</div><div>' . $data['text'] . '</div></div> <br>');
   echo ('<button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#addAnswerModal" data-id="' . $data['id'] . '">Добавить вариант</button>');
   echo (' <a class="btn btn-warning btn-sm" data-toggle="modal" data-target="#editQuestionModal" data-id="' . $data['id'] . '" data-text="' . htmlspecialchars($data['text']) . '">Изменить</a>');
@@ -117,6 +131,13 @@ function drawTree($data, $level)
   </nav>
 
   <div class="container my-3">
+    <?php if (isset($_COOKIE['sort']) && $_COOKIE['sort'] == 'alphabet'){
+      echo('<a type="button" href="?a=sort_time" class="btn pull-right">Сортировать по времени</a>');
+    }
+    else{
+      echo ('<a type="button" href="?a=sort_alphabet" class="btn pull-right">Сортировать по алфавиту</a>');
+    }
+    ?>
     <h1 class="mb-4">Дерево диалога</h1>
     <?php drawTree($tree['tree'], 0); ?>
   </div>
