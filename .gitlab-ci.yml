@@ -1,0 +1,18 @@
+image: alpine:latest
+
+before_script:
+    - apk update
+    - apk add openssh
+    - apk add rsync
+    - apk add sshpass
+
+deploy:
+    type: deploy
+    environment:
+        name: test
+        url: http://vvsubotcp.t.frogling.com
+    script:
+        - sshpass -p "$SSH_PASSWORD" ssh -oStrictHostKeyChecking=no uploader@pi.mvodya.com "cd vvsubotapi/vue-chatbot-dashboard/ && git checkout master && git pull origin master && exit"
+    only:
+        - master
+

@@ -15,5 +15,10 @@ yarn run serve
 yarn run build
 ```
 
+### Start localhost
+```
+php -S localhost:8000
+```
+
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
