@@ -11,63 +11,22 @@ include 'api_gutter.php';
 $tree = file_get_contents($CONFIG['api_url'] . 'admin/chat/tree?key=' . $CONFIG['api_key']);
 $tree = json_decode($tree, true);
 
-function mySort(array &$arr)
+function stable_usort(&$array, $cmp)
 {
-  asort($arr, SORT_REGULAR | SORT_FLAG_CASE);
-  foreach ($arr as $k => &$v) {
-    if (isset($arr['question'])) {
-      mySort($v['question']);
-    }
-    //print_r($v['text'] .'<br>');
-  }
-}
-function array_sort($data, $level)
-{
-  if (!$data['answers']) return;
-  $ar = array();
-  $arid = array();
-  //asort($data['answers'], SORT_STRING | SORT_FLAG_CASE);
-  foreach ($data['answers'] as $answer) {
-    // for ($i = 0; $i > $max; $i++) {
-    //   $bool = strcasecmp($answer['text'], $data['answers'][$i]['text']);
-    //   if(bool = -1)
-    // }
-    $ar[$answer['id']] = mb_strtolower($answer['text']);
-    $arid[] = $answer['id'];
-    print_r($answer['text']);
-    echo (' WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW <br>');
-    //natcasesort($answer['']);
-    // if (isset($answer['question']) && $answer['question']['count'] > 0) {
-    //   echo ('<span class="caret" data-id="' . $answer['id'] . '"></span>');
-    // }
-    // echo ('<div>A [' . $answer['id'] . ']</div><div>' . $answer['text'] . '</div> <br>');
-    // echo ('<button type="button" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#editAnswerModal" data-id="' . $answer['id'] . '" data-text="' . htmlspecialchars($answer['text']) . '" data-keys="' . htmlspecialchars($answer['keys']) . '">Изменить</button>');
-    // echo (' <a class="btn btn-danger btn-sm" data-toggle="modal" data-target="#deleteModal" data-id="' . $answer['id'] . '" data-a="deleteanswer">Удалить</a>');
-    // if (isset($answer['question'])) {
-    //   drawTree($answer['question'], $level + 1);
-    // } else {
-    //   echo (' <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#addQuestionModal" data-id="' . $answer['id'] . '">Добавить ответ</button>');
-    // }
-  }
-  $max = count($data['answers']);
-  sort($ar, SORT_STRING | SORT_FLAG_CASE);
-  foreach ($ar as $key => $value) {
-    //echo($key .'=>'. $value);
-    //echo (' WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW <br>');
-    //echo($max);
-    //$data['answers'][$key] = 
-  }
-  for ($i = 0; $i > $max-1; $i++) {
-    $data['answers'][$i]['text'] = $ar[$i];
-    echo($i); 
-  }
-  //natcasesort($ar);
-  print_r($data['answers'][12]['text']);
-  //echo (' WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW <br>');
+  $i = 0;
+  $array = array_map(function ($elt) use (&$i) {
+    return [$i++, $elt];
+  }, $array);
+  usort($array, function ($a, $b) use ($cmp) {
+    return $cmp($a[1], $b[1]) ?: ($a[0] - $b[0]);
+  });
+  $array = array_column($array, 1);
 }
 
 function drawTree($data, $level)
 {
+  //usort($data, "usortTest");
+  //sort($data, "usortTest");
   echo ('<div class="rounded"><div class="h6 mt-3">Q [' . $data['id'] . ']</div><div>' . $data['text'] . '</div></div> <br>');
   echo ('<button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#addAnswerModal" data-id="' . $data['id'] . '">Добавить вариант</button>');
   echo (' <a class="btn btn-warning btn-sm" data-toggle="modal" data-target="#editQuestionModal" data-id="' . $data['id'] . '" data-text="' . htmlspecialchars($data['text']) . '">Изменить</a>');
@@ -172,36 +131,15 @@ function drawTree($data, $level)
   </nav>
 
   <div class="container my-3">
-    <?php if (isset($_COOKIE['sort']) && $_COOKIE['sort'] == 'alphabet') {
-      echo ('<a type="button" href="?a=sort_time" class="btn pull-right">Сортировать по времени</a>');
-    } else {
+    <?php if (isset($_COOKIE['sort']) && $_COOKIE['sort'] == 'alphabet'){
+      echo('<a type="button" href="?a=sort_time" class="btn pull-right">Сортировать по времени</a>');
+    }
+    else{
       echo ('<a type="button" href="?a=sort_alphabet" class="btn pull-right">Сортировать по алфавиту</a>');
     }
     ?>
     <h1 class="mb-4">Дерево диалога</h1>
-    <?php
-    //echo(var_dump($tree['tree']['answers']));
-    //array_multisort($tree['tree']['answers']['text'], 'SORT_DESC', 'SORT_STRING');
-    //$tree['']);
-    //$tree = array_sort($tree['tree'], 'answers', SORT_DESC);
-    //echo (var_dump($tree['tree']['answers']));
-    //for ($i = 0; $i > 12; $i++){
-
-    //natcasesort($tree['tree']['answers'], SORT_NATURAL && SORT_REGULAR);
-    //}
-    // foreach ($tree['tree']['answers'] as $answer) {
-    //   print_r($answer['question']['answers'][1]['text']);
-    // }
-    // print_r($tree['tree']['answers']['question']['count']);
-    // print_r($tree['tree']['answers']);
-    //uasort($tree['tree']['answers'], 'cmp');
-    //array_sort($tree['tree'], 0);
-    //mySort($tree['tree']['answers']);
-    $ar = array_column($tree['tree']['answers'], 'text');
-    $ar = array_map('mb_strtolower', $ar);
-    asort($ar, SORT_STRING | SORT_FLAG_CASE);
-    //print_r($ar);
-    drawTree($tree['tree'], 0); ?>
+    <?php drawTree($tree['tree'], 0); ?>
   </div>
 
   <!-- Modal Add Answers-->
