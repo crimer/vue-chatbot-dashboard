@@ -11,22 +11,44 @@ include 'api_gutter.php';
 $tree = file_get_contents($CONFIG['api_url'] . 'admin/chat/tree?key=' . $CONFIG['api_key']);
 $tree = json_decode($tree, true);
 
-function stable_usort(&$array, $cmp)
+function array_sort($data, $level)
 {
-  $i = 0;
-  $array = array_map(function ($elt) use (&$i) {
-    return [$i++, $elt];
-  }, $array);
-  usort($array, function ($a, $b) use ($cmp) {
-    return $cmp($a[1], $b[1]) ?: ($a[0] - $b[0]);
-  });
-  $array = array_column($array, 1);
+  if (!$data['answers']) return;
+  $ar = array();
+  //$arid = array();
+  // Записываем в новый массив id и text
+  foreach ($data['answers'] as $answer) {
+    // Этот массив может быть $ar[$answer['id']] = mb_strtolower($answer['text']);
+    $ar[] = mb_strtolower($answer['text']);
+    //$arid[] = $answer['id'];
+    //print_r($answer['text']);
+    //echo (' WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW <br>');
+  }
+  $max = count($data['answers']);
+  // Сортировка
+  asort($ar, SORT_STRING | SORT_FLAG_CASE);
+  // Попытка засунуть отсортированный массив обратно в дерево
+  foreach ($ar as $key => $value) {
+    echo($key .'=>'. $value);
+    echo("<br>");
+    //$data['answers'][0]['id'] = $key;
+    $data['answers'][$key]['text'] = $value;
+    //echo (' WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW <br>');
+    //echo($max);
+    //$data['answers'][$key] = 
+  }
+  // for ($i = 0; $i > $max - 1; $i++) {
+  //   $data['answers'][$i]['text'] = $ar[$i];
+  //   echo ($i);
+  // }
+  //natcasesort($ar);
+  //echo (' WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW <br>');
+  //print_r($data['answers'][12]['text']);
+  print_r($data['answers'][0]['id']);
 }
 
 function drawTree($data, $level)
 {
-  //usort($data, "usortTest");
-  //sort($data, "usortTest");
   echo ('<div class="rounded"><div class="h6 mt-3">Q [' . $data['id'] . ']</div><div>' . $data['text'] . '</div></div> <br>');
   echo ('<button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#addAnswerModal" data-id="' . $data['id'] . '">Добавить вариант</button>');
   echo (' <a class="btn btn-warning btn-sm" data-toggle="modal" data-target="#editQuestionModal" data-id="' . $data['id'] . '" data-text="' . htmlspecialchars($data['text']) . '">Изменить</a>');
@@ -131,15 +153,23 @@ function drawTree($data, $level)
   </nav>
 
   <div class="container my-3">
-    <?php if (isset($_COOKIE['sort']) && $_COOKIE['sort'] == 'alphabet'){
-      echo('<a type="button" href="?a=sort_time" class="btn pull-right">Сортировать по времени</a>');
-    }
-    else{
+    <?php if (isset($_COOKIE['sort']) && $_COOKIE['sort'] == 'alphabet') {
+      echo ('<a type="button" href="?a=sort_time" class="btn pull-right">Сортировать по времени</a>');
+    } else {
       echo ('<a type="button" href="?a=sort_alphabet" class="btn pull-right">Сортировать по алфавиту</a>');
     }
     ?>
     <h1 class="mb-4">Дерево диалога</h1>
-    <?php drawTree($tree['tree'], 0); ?>
+    <?php
+    // Вызов функции сортировкм
+    array_sort($tree['tree'], 0);
+    //mySort($tree['tree']['answers']);
+    //$ar = array_column($tree['tree']['answers'], 'text');
+    //$ar = array_map('mb_strtolower', $ar);
+    //asort($ar, SORT_STRING | SORT_FLAG_CASE);
+    //print_r($ar);
+    //print_r($tree['tree']['answers'][0]['text']);
+    drawTree($tree['tree'], 0); ?>
   </div>
 
   <!-- Modal Add Answers-->
