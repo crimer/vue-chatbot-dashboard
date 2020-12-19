@@ -11,50 +11,24 @@ include 'api_gutter.php';
 $tree = file_get_contents($CONFIG['api_url'] . 'admin/chat/tree?key=' . $CONFIG['api_key']);
 $tree = json_decode($tree, true);
 
-function array_sort(&$data, $level)
+function array_sort(&$data)
 {
   if (!$data['answers']) return;
   $ar = array();
   $sorted_answers = array();
-  //$arid = array();
   // Записываем в новый массив id и text
-  foreach ($data['answers'] as $answer) {
-    // Этот массив может быть $ar[$answer['id']] = mb_strtolower($answer['text']);
+  foreach ($data['answers'] as &$answer) {
+    if (isset($answer['question'])) {
+      array_sort($answer['question']);
+    }
     $ar[] = mb_strtolower($answer['text']);
-    //$arid[] = $answer['id'];
-    //print_r($answer['text']);
-    //echo (' WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW <br>');
   }
-  $max = count($data['answers']);
   // Сортировка
   asort($ar, SORT_STRING | SORT_FLAG_CASE);
-  // Попытка засунуть отсортированный массив обратно в дерево
   foreach ($ar as $key => $value) {
-    //echo($key .'=>'. $value);
-    echo("<br>");
-    //$data['answers'][0]['id'] = $key;
-    
-    //$data['answers'][$key]['text'] = $value;
     $sorted_answers[] = $data['answers'][$key];
-    //echo (' WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW <br>');
-    //$data['answers'][$key] = 
-  }
-  echo($sorted_answers[0]['text']);
-  //print_r($sorted_answers);
+  };
   $data['answers'] = $sorted_answers;
-
-  // foreach ($data['answers'] as $answer) {
-  //   echo ($answer['id'] . '=>' . $answer['text']);
-  //   echo ("<br>");
-  // }
-  // for ($i = 0; $i > $max - 1; $i++) {
-  //   $data['answers'][$i]['text'] = $ar[$i];
-  //   echo ($i);
-  // }
-  //natcasesort($ar);
-  //echo (' WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW <br>');
-  //print_r($data['answers'][12]['text']);
-  //print_r($data['answers']);
 }
 
 function drawTree($data, $level)
@@ -165,21 +139,13 @@ function drawTree($data, $level)
   <div class="container my-3">
     <?php if (isset($_COOKIE['sort']) && $_COOKIE['sort'] == 'alphabet') {
       echo ('<a type="button" href="?a=sort_time" class="btn pull-right">Сортировать по времени</a>');
-      array_sort($tree['tree'], 0);
+      array_sort($tree['tree']);
     } else {
       echo ('<a type="button" href="?a=sort_alphabet" class="btn pull-right">Сортировать по алфавиту</a>');
     }
     ?>
     <h1 class="mb-4">Дерево диалога</h1>
     <?php
-    // Вызов функции сортировкм
-    //mySort($tree['tree']['answers']);
-    //$ar = array_column($tree['tree']['answers'], 'text');
-    //$ar = array_map('mb_strtolower', $ar);
-    //asort($ar, SORT_STRING | SORT_FLAG_CASE);
-    //print_r($ar);
-    //print_r($tree['tree']);
-
     drawTree($tree['tree'], 0); ?>
   </div>
 
