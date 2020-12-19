@@ -27,7 +27,7 @@ function array_sort(&$data)
   asort($ar, SORT_STRING | SORT_FLAG_CASE);
   foreach ($ar as $key => $value) {
     $sorted_answers[] = $data['answers'][$key];
-  };
+  }
   $data['answers'] = $sorted_answers;
 }
 
