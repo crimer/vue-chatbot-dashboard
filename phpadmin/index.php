@@ -15,6 +15,7 @@ function array_sort($data, $level)
 {
   if (!$data['answers']) return;
   $ar = array();
+  $sorted_answers = array();
   //$arid = array();
   // Записываем в новый массив id и text
   foreach ($data['answers'] as $answer) {
@@ -32,11 +33,15 @@ function array_sort($data, $level)
     echo($key .'=>'. $value);
     echo("<br>");
     //$data['answers'][0]['id'] = $key;
-    $data['answers'][$key]['text'] = $value;
+    
+    //$data['answers'][$key]['text'] = $value;
+    $sorted_answers[] = $data['answers'][$key];
+
     //echo (' WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW <br>');
     //echo($max);
     //$data['answers'][$key] = 
   }
+  $data['answers'] = $sorted_answers;
   // for ($i = 0; $i > $max - 1; $i++) {
   //   $data['answers'][$i]['text'] = $ar[$i];
   //   echo ($i);
