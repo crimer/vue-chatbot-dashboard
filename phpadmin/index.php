@@ -128,6 +128,19 @@ function drawTree($data, $level)
             <a class="nav-link active" aria-current="page" href="#">Дерево ключей</a>
           </li>
         </ul> -->
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="index.php">Дерево диалога</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="keys.php">Ключи</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="phones.php">Телефоны</a>
+            </li>
+          </ul>
+        </div>
       </div>
       <form method="post" action="/">
         <input type="hidden" name="a" value="logout">
