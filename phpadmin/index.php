@@ -119,22 +119,10 @@ function drawTree($data, $level)
 
 <body>
 
-  <nav class="navbar navbar-expand navbar-dark bg-dark">
-    <div class="container container-fluid">
-      <a class="navbar-brand">VVSU-Chatbot CP</a>
-      <div class="collapse navbar-collapse" id="navbarNav">
-        <!-- <ul class="navbar-nav">
-          <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="#">Дерево ключей</a>
-          </li>
-        </ul> -->
-      </div>
-      <form method="post" action="/">
-        <input type="hidden" name="a" value="logout">
-        <button type="submit" href="?a=logout" class="btn btn btn-secondary">Выход</button>
-      </form>
-    </div>
-  </nav>
+  <?php
+    $page = "main";
+    include "menu.php";
+  ?>
 
   <div class="container my-3">
     <?php if (isset($_COOKIE['sort']) && $_COOKIE['sort'] == 'alphabet') {
