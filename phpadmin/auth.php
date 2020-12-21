@@ -3,6 +3,11 @@
 include 'config.php';
 include 'api_gutter.php';
 
+if (isset($_COOKIE['api_key'])){
+  header("Location: index.php");
+  exit();
+}
+
 if (isset($_POST['key'])) {
   $result = keyCheck($_POST['key']);
   $q = json_decode($result);
