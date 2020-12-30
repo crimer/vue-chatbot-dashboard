@@ -120,8 +120,8 @@ function drawTree($data, $level)
 <body>
 
   <?php
-    $page = "main";
-    include "menu.php";
+  $page = "main";
+  include "menu.php";
   ?>
 
   <div class="container my-3">
@@ -285,110 +285,126 @@ function drawTree($data, $level)
       }
 
       t.addEventListener("click", function() {
-        this.parentElement.querySelector(".nested").classList.toggle("active");
-        this.classList.toggle("caret-down");
-        //console.log(this.classList.contains("caret-down"))
-        //console.log("test " + this.getAttribute('data-id'));
-        localStorage.setItem("cpchatbot-caret-" + this.getAttribute('data-id'), this.classList.contains("caret-down"));
-      });
-    }
-
-    // For add answer
-    var addAnswerModal = document.getElementById('addAnswerModal')
-    addAnswerModal.addEventListener('show.bs.modal', function(event) {
-      var button = event.relatedTarget
-      var id = button.getAttribute('data-id')
-
-      var modalId = addAnswerModal.querySelector('.data_id')
-
-      modalId.value = id
-
-      setTimeout(function() {
-        document.getElementById("addanstext").focus();
-      }, 500);
-    })
-
-    // For add question
-    var addQuestionModal = document.getElementById('addQuestionModal')
-    addQuestionModal.addEventListener('show.bs.modal', function(event) {
-      var button = event.relatedTarget
-      var id = button.getAttribute('data-id')
-
-      var modalId = addQuestionModal.querySelector('.data_id')
-
-      modalId.value = id
-
-      setTimeout(function() {
-        document.getElementById("addquetext").focus();
-      }, 500);
-    })
-
-    // For edit answer
-    var editAnswerModal = document.getElementById('editAnswerModal')
-    editAnswerModal.addEventListener('show.bs.modal', function(event) {
-      var button = event.relatedTarget
-      var id = button.getAttribute('data-id')
-      var text = button.getAttribute('data-text')
-      var keys = button.getAttribute('data-keys')
-
-      var modalId = editAnswerModal.querySelector('.data_id')
-      var modalText = editAnswerModal.querySelector('.data_text')
-      var modalKeys = editAnswerModal.querySelector('.data_keys')
-
-      modalId.value = id
-      modalText.value = text
-      modalKeys.value = keys
-
-      setTimeout(function() {
-        document.getElementById("editanstext").focus();
-      }, 500);
-    })
-
-    // For edit question
-    var editQuestionModal = document.getElementById('editQuestionModal')
-    editQuestionModal.addEventListener('show.bs.modal', function(event) {
-      var button = event.relatedTarget
-      var id = button.getAttribute('data-id')
-      var text = button.getAttribute('data-text')
-
-      var modalId = editQuestionModal.querySelector('.data_id')
-      var modalText = editQuestionModal.querySelector('.data_text')
-
-      modalId.value = id
-      modalText.value = text
-
-
-      setTimeout(function() {
-        document.getElementById("editquetext").focus();
-      }, 500);
-    })
-
-    // For delete answer/question
-    var deleteModal = document.getElementById('deleteModal')
-    deleteModal.addEventListener('show.bs.modal', function(event) {
-      var button = event.relatedTarget
-      var id = button.getAttribute('data-id')
-      var method = button.getAttribute('data-a')
-
-      var modalId = deleteModal.querySelector('.data_id')
-      var modalMethod = deleteModal.querySelector('.data_a')
-
-      modalId.value = id
-      modalMethod.value = method
-    })
-
-    // Save scroll position
-    $(document).ready(function() {
-
-      if (localStorage.getItem("cpchatbot-quote-scroll") != null) {
-        $(window).scrollTop(localStorage.getItem("cpchatbot-quote-scroll"));
+          if ($(this).hasClass("caret-down")) {
+            $('span [class^="caret-down"]').html("caret");
+            $('span').each(function(i, elem) {
+                //console.log("Остановлено на " + i + "-м пункте списка. -");
+                if ($(this).hasClass("caret-down")) {
+                  elem.parentElement.querySelector(".nested").classList.toggle("active");
+                  elem.classList.toggle("caret-down");
+                  //console.log(elem.parentElement.querySelector(".nested"));
+                  localStorage.setItem("cpchatbot-caret-" + elem.getAttribute('data-id'), elem.classList.contains("caret-down"));
+                }
+                  //return false;
+                });
+            }
+            else {
+              this.parentElement.querySelector(".nested").classList.toggle("active");
+              this.classList.toggle("caret-down");
+              console.log(this.parentElement.querySelector(".nested"));
+              //console.log(this.classList.contains("caret-down"))
+              //console.log("test " + this.getAttribute('data-id'));
+              localStorage.setItem("cpchatbot-caret-" + this.getAttribute('data-id'), this.classList.contains("caret-down"));
+            }
+          });
       }
 
-      $(window).on("scroll", function() {
-        localStorage.setItem("cpchatbot-quote-scroll", $(window).scrollTop());
-      });
+      // For add answer
+      var addAnswerModal = document.getElementById('addAnswerModal')
+      addAnswerModal.addEventListener('show.bs.modal', function(event) {
+        var button = event.relatedTarget
+        var id = button.getAttribute('data-id')
 
-    });
+        var modalId = addAnswerModal.querySelector('.data_id')
+
+        modalId.value = id
+
+        setTimeout(function() {
+          document.getElementById("addanstext").focus();
+        }, 500);
+      })
+
+      // For add question
+      var addQuestionModal = document.getElementById('addQuestionModal')
+      addQuestionModal.addEventListener('show.bs.modal', function(event) {
+        var button = event.relatedTarget
+        var id = button.getAttribute('data-id')
+
+        var modalId = addQuestionModal.querySelector('.data_id')
+
+        modalId.value = id
+
+        setTimeout(function() {
+          document.getElementById("addquetext").focus();
+        }, 500);
+      })
+
+      // For edit answer
+      var editAnswerModal = document.getElementById('editAnswerModal')
+      editAnswerModal.addEventListener('show.bs.modal', function(event) {
+        var button = event.relatedTarget
+        var id = button.getAttribute('data-id')
+        var text = button.getAttribute('data-text')
+        var keys = button.getAttribute('data-keys')
+
+        var modalId = editAnswerModal.querySelector('.data_id')
+        var modalText = editAnswerModal.querySelector('.data_text')
+        var modalKeys = editAnswerModal.querySelector('.data_keys')
+
+        modalId.value = id
+        modalText.value = text
+        modalKeys.value = keys
+
+        setTimeout(function() {
+          document.getElementById("editanstext").focus();
+        }, 500);
+      })
+
+      // For edit question
+      var editQuestionModal = document.getElementById('editQuestionModal')
+      editQuestionModal.addEventListener('show.bs.modal', function(event) {
+        var button = event.relatedTarget
+        var id = button.getAttribute('data-id')
+        var text = button.getAttribute('data-text')
+
+        var modalId = editQuestionModal.querySelector('.data_id')
+        var modalText = editQuestionModal.querySelector('.data_text')
+
+        modalId.value = id
+        modalText.value = text
+
+
+        setTimeout(function() {
+          document.getElementById("editquetext").focus();
+        }, 500);
+      })
+
+      // For delete answer/question
+      var deleteModal = document.getElementById('deleteModal')
+      deleteModal.addEventListener('show.bs.modal', function(event) {
+        var button = event.relatedTarget
+        var id = button.getAttribute('data-id')
+        var method = button.getAttribute('data-a')
+
+        var modalId = deleteModal.querySelector('.data_id')
+        var modalMethod = deleteModal.querySelector('.data_a')
+
+        modalId.value = id
+        modalMethod.value = method
+      })
+
+      // Save scroll position
+      $(document).ready(function() {
+
+        if (localStorage.getItem("cpchatbot-quote-scroll") != null) {
+          $(window).scrollTop(localStorage.getItem("cpchatbot-quote-scroll"));
+        }
+
+        $(window).on("scroll", function() {
+          localStorage.setItem("cpchatbot-quote-scroll", $(window).scrollTop());
+        });
+
+      });
   </script>
 </body>
 
