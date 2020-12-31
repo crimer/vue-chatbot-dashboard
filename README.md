@@ -1,4 +1,6 @@
-# vue-chatbot-dashboard
+# Chatbot dashboad
+
+Админ панель для администраторов чат бота
 
 ### Start localhost
 ```
