@@ -286,28 +286,25 @@ function drawTree($data, $level)
 
       t.addEventListener("click", function() {
           if ($(this).hasClass("caret-down")) {
-            $('span [class^="caret-down"]').html("caret");
-            $('span').each(function(i, elem) {
-                //console.log("Остановлено на " + i + "-м пункте списка. -");
-                if ($(this).hasClass("caret-down")) {
-                  elem.parentElement.querySelector(".nested").classList.toggle("active");
-                  elem.classList.toggle("caret-down");
-                  //console.log(elem.parentElement.querySelector(".nested"));
-                  localStorage.setItem("cpchatbot-caret-" + elem.getAttribute('data-id'), elem.classList.contains("caret-down"));
-                }
-                  //return false;
-                });
-            }
-            else {
-              this.parentElement.querySelector(".nested").classList.toggle("active");
-              this.classList.toggle("caret-down");
-              console.log(this.parentElement.querySelector(".nested"));
-              //console.log(this.classList.contains("caret-down"))
-              //console.log("test " + this.getAttribute('data-id'));
-              localStorage.setItem("cpchatbot-caret-" + this.getAttribute('data-id'), this.classList.contains("caret-down"));
-            }
-          });
-      }
+            // Find lists
+            $(this.parentElement).children(".nested").children().each(function(i, elem) {
+              // Find opened childrens
+              var caret = $(elem).children(".caret-down").each(function(i, elem) {
+                // Send event click
+                elem.click();
+              });
+            });
+
+            this.parentElement.querySelector(".nested").classList.toggle("active");
+            this.classList.toggle("caret-down");
+            localStorage.setItem("cpchatbot-caret-" + this.getAttribute('data-id'), this.classList.contains("caret-down"));
+          } else {
+            this.parentElement.querySelector(".nested").classList.toggle("active");
+            this.classList.toggle("caret-down");
+            localStorage.setItem("cpchatbot-caret-" + this.getAttribute('data-id'), this.classList.contains("caret-down"));
+          }
+      });
+    }
 
       // For add answer
       var addAnswerModal = document.getElementById('addAnswerModal')
