@@ -1,2 +1,5 @@
 .vscode
 phpadmin/vendor
+
+# Sentry ignore changes
+phpadmin/sentry.php
