@@ -34,10 +34,10 @@ function array_sort(&$data)
 function drawTree($data, $level)
 {
   echo ('<div class="rounded"><div class="h6 mt-3">Q [' . $data['id'] . ']</div><div>' . $data['text'] . '</div></div> <br>');
-  echo ('<button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#addAnswerModal" data-id="' . $data['id'] . '">Добавить вариант</button>');
-  echo (' <a class="btn btn-warning btn-sm" data-toggle="modal" data-target="#editQuestionModal" data-id="' . $data['id'] . '" data-text="' . htmlspecialchars($data['text']) . '">Изменить</a>');
+  echo ('<button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#addAnswerModal" data-id="' . $data['id'] . '"><i class="fa fa-plus-square" aria-hidden="true"></i> Добавить вариант</button>');
+  echo (' <a class="btn btn-warning btn-sm" data-toggle="modal" data-target="#editQuestionModal" data-id="' . $data['id'] . '" data-text="' . htmlspecialchars($data['text']) . '"><i class="fa fa-pencil" aria-hidden="true"></i> Изменить</a>');
   if ($data['id'] != 1) {
-    echo (' <a class="btn btn-danger btn-sm" data-toggle="modal" data-target="#deleteModal" data-id="' . $data['id'] . '" data-a="deletequestion">Удалить</a>');
+    echo (' <a class="btn btn-danger btn-sm" data-toggle="modal" data-target="#deleteModal" data-id="' . $data['id'] . '" data-a="deletequestion"><i class="fa fa-trash" aria-hidden="true"></i> Удалить</a>');
   }
   if (!$data['answers']) return;
   if ($level == 0) {
@@ -55,12 +55,12 @@ function drawTree($data, $level)
       echo ('<span class="caret" data-id="' . $answer['id'] . '"></span>');
     }
     echo ('<div>A [' . $answer['id'] . ']</div><div>' . $answer['text'] . '</div> <br>');
-    echo ('<button type="button" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#editAnswerModal" data-id="' . $answer['id'] . '" data-text="' . htmlspecialchars($answer['text']) . '" data-keys="' . htmlspecialchars($answer['keys']) . '">Изменить</button>');
-    echo (' <a class="btn btn-danger btn-sm" data-toggle="modal" data-target="#deleteModal" data-id="' . $answer['id'] . '" data-a="deleteanswer">Удалить</a>');
+    echo ('<button type="button" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#editAnswerModal" data-id="' . $answer['id'] . '" data-text="' . htmlspecialchars($answer['text']) . '" data-keys="' . htmlspecialchars($answer['keys']) . '"><i class="fa fa-pencil" aria-hidden="true"></i> Изменить</button>');
+    echo (' <a class="btn btn-danger btn-sm" data-toggle="modal" data-target="#deleteModal" data-id="' . $answer['id'] . '" data-a="deleteanswer"><i class="fa fa-trash" aria-hidden="true"></i> Удалить</a>');
     if (isset($answer['question'])) {
       drawTree($answer['question'], $level + 1);
     } else {
-      echo (' <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#addQuestionModal" data-id="' . $answer['id'] . '">Добавить ответ</button>');
+      echo (' <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#addQuestionModal" data-id="' . $answer['id'] . '"><i class="fa fa-plus-square" aria-hidden="true"></i> Добавить ответ</button>');
     }
     echo ('</li>');
   }
