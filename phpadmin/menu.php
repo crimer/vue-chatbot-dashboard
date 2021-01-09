@@ -5,13 +5,13 @@
              <div class="collapse navbar-collapse" id="navbarNav">
                  <ul class="navbar-nav">
                      <li class="nav-item">
-                         <a class="nav-link <?php if ($page == "main") echo "active" ?>" href="index.php">Дерево диалога</a>
+                         <a class="nav-link <?php if ($page == "main") echo "active" ?>" href="index.php"><i class="fa fa-cubes" aria-hidden="true"></i> Дерево диалога</a>
                      </li>
                      <li class="nav-item">
-                         <a class="nav-link <?php if ($page == "keys") echo "active" ?>" href="keys.php">Ключи</a>
+                         <a class="nav-link <?php if ($page == "keys") echo "active" ?>" href="keys.php"><i class="fa fa-key-modern" aria-hidden="true"></i> Ключи</a>
                      </li>
                      <li class="nav-item">
-                         <a class="nav-link <?php if ($page == "phones") echo "active" ?>" href="phones.php">Телефоны</a>
+                         <a class="nav-link <?php if ($page == "phones") echo "active" ?>" href="phones.php"><i class="fa fa-phone" aria-hidden="true"></i> Телефоны</a>
                      </li>
                  </ul>
              </div>
