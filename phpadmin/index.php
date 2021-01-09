@@ -126,10 +126,10 @@ function drawTree($data, $level)
 
   <div class="container my-3">
     <?php if (isset($_COOKIE['sort']) && $_COOKIE['sort'] == 'alphabet') {
-      echo ('<a type="button" href="?a=sort_time" class="btn pull-right">Сортировать по времени</a>');
+      echo ('<a type="button" href="?a=sort_time" class="btn pull-right"><i class="fa fa-sort-amount-asc" aria-hidden="true"></i> Сортировать по времени</a>');
       array_sort($tree['tree']);
     } else {
-      echo ('<a type="button" href="?a=sort_alphabet" class="btn pull-right">Сортировать по алфавиту</a>');
+      echo ('<a type="button" href="?a=sort_alphabet" class="btn pull-right"><i class="fa fa-sort-alpha-asc" aria-hidden="true"></i> Сортировать по алфавиту</a>');
     }
     ?>
     <h1 class="mb-4">Дерево диалога</h1>
