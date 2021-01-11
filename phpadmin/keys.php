@@ -53,8 +53,8 @@
     include "config.php";
     $page = "keys";
     include "menu.php";
-    if (isset($_COOKIE['api_key'])) {
-        $keys = keyList($_COOKIE['api_key']);
+    if (isset($CONFIG['api_key'])) {
+        $keys = keyList($CONFIG['api_key']);
         $keys = json_decode($keys, true);
     }
     //$keys = keyList('key');
