@@ -49,8 +49,31 @@
 <body>
 
     <?php
+    include "config.php";
     $page = "keys";
     include "menu.php";
+    $keys = file_get_contents($CONFIG['api_url'] . 'admin/key/list?key=' . $CONFIG['api_key']);
+    $keys = json_decode($keys, true);
+    echo ('<table class="table">
+        <thead class="table-dark">
+            <tr>
+                <th scope="col">id</th>
+                <th scope="col">key</th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
+        <tbody>');
+    foreach ($keys['keys'] as $key => $value) {
+        echo ('<tr>
+                <th scope="row">' . $value['id'] . '</th>
+                <td>' . $value['key'] . '</td>
+                <td><a class="btn btn-danger btn-sm"><i class="fa fa-trash" aria-hidden="true"></i> Удалить</a></td>
+            </tr>');
+    }
+    echo ("</tbody>
+    </table>");
+
+
     ?>
 
     <script src="js/bootstrap.bundle.min.js"></script>
