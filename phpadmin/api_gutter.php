@@ -28,6 +28,45 @@ function keyCheck($key)
   return $result;
 }
 
+function keyList($key)
+{
+  global $CONFIG;
+  $url = $CONFIG['api_url'] . 'admin/key/list';
+  $data = array('key' => $key);
+
+  $options = array(
+    'http' => array(
+      'header'  => "Content-type: application/x-www-form-urlencoded\r\n",
+      'method'  => 'POST',
+      'content' => http_build_query($data),
+    )
+  );
+  $context  = stream_context_create($options);
+  $result = file_get_contents($url, false, $context);
+
+  return $result;
+}
+
+function deleteKey($key_id)
+{
+  global $CONFIG;
+  $url = $CONFIG['api_url'] . 'admin/key/remove';
+  $data = array('key' => $CONFIG['api_key']);
+  $data['id'] = $key_id;
+
+  $options = array(
+    'http' => array(
+      'header'  => "Content-type: application/x-www-form-urlencoded\r\n",
+      'method'  => 'POST',
+      'content' => http_build_query($data)
+    )
+  );
+  $context  = stream_context_create($options);
+  $result = file_get_contents($url, false, $context);
+
+  return $result;
+}
+
 function addAnswer($question_id, $text, $keys)
 {
   global $CONFIG;
