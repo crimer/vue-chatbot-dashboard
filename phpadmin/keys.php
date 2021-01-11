@@ -57,10 +57,7 @@
         $keys = keyList($CONFIG['api_key']);
         $keys = json_decode($keys, true);
     }
-    //$keys = keyList('key');
-    // $keys = file_get_contents($CONFIG['api_url'] . 'admin/key/list?key=' . $CONFIG['api_key']);
-    // $keys = json_decode($keys, true);
-    echo ('<table class="table">
+    echo ('<table class="table table-hover table-striped">
         <thead class="table-dark">
             <tr>
                 <th scope="col">id</th>
@@ -76,12 +73,15 @@
                 <td><a class="btn btn-danger btn-sm" data-toggle="modal" data-target="#deleteModal" data-id="' . $value['id'] . '" data-a="deletekey"><i class="fa fa-trash" aria-hidden="true"></i> Удалить</a></td>
             </tr>');
     }
-    echo ("</tbody>
-    </table>");
+    echo ('</tbody>
+    <tfoot>
+    <tr>
+    <th scope="row"> <button type="button" class="btn btn-success btn-sm" data-toggle="modal"><i class="fa fa-plus-square" aria-hidden="true"></i> Добавить вариант</button></th>
+    <th></th><th></th></tr></tfoot>
+    </table>');
 
 
     ?>
-
     <script src="js/bootstrap.bundle.min.js"></script>
     <script src="js/jquery.min.js"></script>
 
