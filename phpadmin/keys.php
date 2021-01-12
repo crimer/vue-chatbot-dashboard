@@ -70,7 +70,7 @@
         echo ('<tr>
                 <th scope="row">' . $value['id'] . '</th>
                 <td>' . $value['key'] . '</td>
-                <td><a class="btn btn-danger btn-sm" data-toggle="modal" data-target="#deleteModal" data-id="' . $value['id'] . '" data-a="deletekey"><i class="fa fa-trash" aria-hidden="true"></i> Удалить</a></td>
+                <td><a class="btn btn-danger btn-sm" data-toggle="modal" href="keys.php?deletekey=' . $value['id'] . '"><i class="fa fa-trash" aria-hidden="true"></i> Удалить</a></td>
             </tr>');
     }
     echo ('</tbody>
