@@ -76,12 +76,57 @@
     echo ('</tbody>
     <tfoot>
     <tr>
-    <th scope="row"> <button type="button" class="btn btn-success btn-sm" data-toggle="modal"><i class="fa fa-plus-square" aria-hidden="true"></i> Добавить вариант</button></th>
+    <th scope="row"> <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#addKeyModal" data-id="' . $CONFIG['api_key'] . '"><i class="fa fa-plus-square" aria-hidden="true"></i> Добавить вариант</button></th>
     <th></th><th></th></tr></tfoot>
     </table>');
 
 
     ?>
+
+    <!-- Modal Add Answers-->
+    <div class="modal fade" id="addKeyModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <form method="post" action="/">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Добавление варианта ответа</h5>
+                        <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p>Вы уверены что хотите удалить этот вопрос?</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Отмена</button>
+                        <button type="submit" class="btn btn-primary">Сохранить</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal del -->
+    <div class="modal fade" id="deleteModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <form method="post" action="/">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Удаление</h5>
+                        <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p>Вы уверены что хотите удалить этот вопрос?</p>
+                        <input class="data_a" type="hidden" name="a" value="">
+                        <input class="data_id" type="hidden" name="id" value="">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Отмена</button>
+                        <button type="submit" class="btn btn-danger">Удалить</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
     <script src="js/bootstrap.bundle.min.js"></script>
     <script src="js/jquery.min.js"></script>
 

@@ -67,6 +67,25 @@ function deleteKey($key_id)
   return $result;
 }
 
+function addKey($key)
+{
+  global $CONFIG;
+  $url = $CONFIG['api_url'] . 'admin/key/create';
+  $data = array('key' => $key);
+
+  $options = array(
+    'http' => array(
+      'header'  => "Content-type: application/x-www-form-urlencoded\r\n",
+      'method'  => 'POST',
+      'content' => http_build_query($data),
+    )
+  );
+  $context  = stream_context_create($options);
+  $result = file_get_contents($url, false, $context);
+
+  return $result;
+}
+
 function addAnswer($question_id, $text, $keys)
 {
   global $CONFIG;
@@ -241,6 +260,14 @@ switch ($method) {
 
   case 'deletequestion':
     deleteQuestion($_POST['id']);
+    break;
+
+  case 'addkey':
+    addKey($_POST['key']);
+    break;
+
+  case 'deletekey':
+    deleteKey($_POST['id']);
     break;
 
   case 'logout':
