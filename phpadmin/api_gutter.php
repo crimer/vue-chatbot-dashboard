@@ -32,7 +32,7 @@ function keyList()
 {
   global $CONFIG;
   $url = $CONFIG['api_url'] . 'admin/key/list';
-  $data = array('key' => $key);
+  $data = array('key' => $CONFIG['api_key']);
 
   $options = array(
     'http' => array(
