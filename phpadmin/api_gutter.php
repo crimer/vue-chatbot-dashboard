@@ -66,7 +66,7 @@ function deleteKey($id)
   return $result;
 }
 
-function addKey($key)
+function addKey()
 {
   global $CONFIG;
   $url = $CONFIG['api_url'] . 'admin/key/create';
