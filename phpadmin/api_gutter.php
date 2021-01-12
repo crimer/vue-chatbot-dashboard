@@ -70,7 +70,7 @@ function addKey()
 {
   global $CONFIG;
   $url = $CONFIG['api_url'] . 'admin/key/create';
-  $data = array('key' => $key);
+  $data = array('key' => $CONFIG['api_key']);
 
   $options = array(
     'http' => array(
