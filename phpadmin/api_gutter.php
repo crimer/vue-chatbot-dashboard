@@ -28,7 +28,7 @@ function keyCheck($key)
   return $result;
 }
 
-function keyList($key)
+function keyList()
 {
   global $CONFIG;
   $url = $CONFIG['api_url'] . 'admin/key/list';
