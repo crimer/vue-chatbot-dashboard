@@ -47,12 +47,11 @@ function keyList($key)
   return $result;
 }
 
-function deleteKey($key_id)
+function deleteKey($id)
 {
   global $CONFIG;
   $url = $CONFIG['api_url'] . 'admin/key/remove';
-  $data = array('key' => $CONFIG['api_key']);
-  $data['id'] = $key_id;
+  $data = array('key' => $CONFIG['api_key'], 'key_id' => $id);
 
   $options = array(
     'http' => array(
@@ -267,7 +266,7 @@ switch ($method) {
     break;
 
   case 'deletekey':
-    deleteKey($_POST['id']);
+    deleteKey($_GET['id']);
     break;
 
   case 'logout':
