@@ -81,7 +81,7 @@
         }
     }
     echo ('</tbody>
-    <caption><a class="btn btn-success btn-sm" href="keys.php?a=addkey"><i class="fa fa-plus-square" aria-hidden="true"></i> Добавить вариант</a></caption>
+    <caption><a class="btn btn-success btn-sm" href="keys.php?a=addkey"><i class="fa fa-plus-square" aria-hidden="true"></i> Добавить ключ</a></caption>
     </table>');
     echo ('</div>');
 
