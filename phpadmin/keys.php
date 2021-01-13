@@ -68,7 +68,7 @@
                 </tr>
             </thead>
          <tbody>');
-    foreach ($keys['keys'] as $key => $value) {
+    foreach ($keys['keys'] as $value) {
         echo ('<tr>
                 <th scope="row">' . $value['id'] . '</th>
                 <td>' . $value['key'] . '</td>');
