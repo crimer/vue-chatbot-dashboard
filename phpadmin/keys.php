@@ -54,7 +54,7 @@
     $page = "keys";
     include "menu.php";
     if (isset($CONFIG['api_key'])) {
-        $keys = keyList($CONFIG['api_key']);
+        $keys = keyList();
         $keys = json_decode($keys, true);
     }
     echo ('<table class="table table-hover table-striped">
@@ -76,7 +76,7 @@
     echo ('</tbody>
     <tfoot>
     <tr>
-    <th scope="row"> <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#addKeyModal" data-id="' . $CONFIG['api_key'] . '"><i class="fa fa-plus-square" aria-hidden="true"></i> Добавить вариант</button></th>
+    <th scope="row"> <button type="button" class="btn btn-success btn-sm" data-toggle="modal" href="keys.php?addkey><i class="fa fa-plus-square" aria-hidden="true"></i> Добавить вариант</button></th>
     <th></th><th></th></tr></tfoot>
     </table>');
 
