@@ -50,6 +50,31 @@
     <?php
     $page = "phones";
     include "menu.php";
+    echo ('<br>');
+    echo ('<div class="container">');
+    echo ('<table class="table table-hover table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Номер телефона</th>
+                    <th scope="col">История</th>
+                    <th scope="col">Дата</th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody>');
+            for ($i=1; $i <= 10; $i++) { 
+                echo('        <tr>
+            <th scope ="row">'.$i.'</th>
+            <td></td>
+            <td></td>
+            <td></td>
+            <th></th>
+        </tr>');
+            }
+    echo ('</tbody>
+            </table>');
+    echo ('</div>');
     ?>
 
     <script src="js/bootstrap.bundle.min.js"></script>
