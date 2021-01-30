@@ -50,9 +50,15 @@
     <?php
     $page = "phones";
     include "menu.php";
+    include "api_gutter.php";
+    if (isset($CONFIG['api_key'])) {
+        $phones = phoneList();
+        $phones = json_decode($phones, true);
+        //print_r($phones);
+    }
     echo ('<br>');
     echo ('<div class="container">');
-    echo ('<table class="table table-hover table-striped">
+    echo ('<table class="table table-hover table-striped table">
             <thead>
                 <tr>
                     <th scope="col">#</th>
@@ -63,15 +69,28 @@
                 </tr>
             </thead>
             <tbody>');
-            for ($i=1; $i <= 10; $i++) { 
-                echo('        <tr>
-            <th scope ="row">'.$i.'</th>
-            <td></td>
-            <td></td>
-            <td></td>
-            <th></th>
+    foreach ($phones['phones'] as $key => $value) {
+        echo ('        <tr>
+            <th scope ="row">' . $key . '</th>
+            <td>' . $value['phone'] .'</td>
+            <td>
+                <div id="accordion">
+                    <div class="card">
+                        <div class="card-header" id="headingOne">
+                            <h5 class="mb-0">
+                                <button class="btn btn-link" data-toggle="collapse" data-target="#collapse' . $value['id'] .'" aria-expanded="true" aria-controls="collapse' . $value['id'] . '">История</button>
+                            </h5>
+                        </div>
+                        <div id="collapse' . $value['id'] .'" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+                            <div class="card-body">' . $value['history'] .'</div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+            <td>' . $value['created_at'] .'</td>
+            <th><button class="btn btn-danger btn-sm" href=""><i class="fa fa-trash" aria-hidden="true"></i> Удалить</button></th>
         </tr>');
-            }
+    }
     echo ('</tbody>
             </table>');
     echo ('</div>');
