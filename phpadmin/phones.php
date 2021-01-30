@@ -72,9 +72,9 @@
     foreach ($phones['phones'] as $key => $value) {
         echo ('        <tr>
             <th scope ="row">' . $key . '</th>
-            <td>' . $value['phone'] .'</td>
+            <td>' . $value['phone'] . '</td>
             <td>
-                <button type="button" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#ModalHistory' . $value['id'] .'"><i class="fa fa-pencil" aria-hidden="true"></i>История</button>
+                <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#ModalHistory' . $value['id'] .'"><i class="fa fa-history" aria-hidden="true"></i> Посмотреть историю</button>
 
                 <div class="modal fade" id="ModalHistory' . $value['id'] .'" tabindex="-1">
                     <div class="modal-dialog modal-lg">
@@ -95,7 +95,7 @@
                         </form>
                     </div>
                 </div>
-                
+
             </td>
             <td>' . $value['created_at'] . '</td>
             <th><button class="btn btn-danger btn-sm" href=""><i class="fa fa-trash" aria-hidden="true"></i> Удалить</button></th>
