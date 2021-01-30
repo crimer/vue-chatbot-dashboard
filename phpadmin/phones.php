@@ -74,26 +74,37 @@
             <th scope ="row">' . $key . '</th>
             <td>' . $value['phone'] .'</td>
             <td>
-                <div id="accordion">
-                    <div class="card">
-                        <div class="card-header" id="headingOne">
-                            <h5 class="mb-0">
-                                <button class="btn btn-link" data-toggle="collapse" data-target="#collapse' . $value['id'] .'" aria-expanded="true" aria-controls="collapse' . $value['id'] . '">История</button>
-                            </h5>
-                        </div>
-                        <div id="collapse' . $value['id'] .'" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
-                            <div class="card-body">' . $value['history'] .'</div>
-                        </div>
+                <button type="button" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#ModalHistory' . $value['id'] .'"><i class="fa fa-pencil" aria-hidden="true"></i>История</button>
+
+                <div class="modal fade" id="ModalHistory' . $value['id'] .'" tabindex="-1">
+                    <div class="modal-dialog modal-lg">
+                        <form method="post" action="/">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title">История ' . $value['phone'] .'</h5>
+                                    <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <div>История: </div>
+                                    <div>' . $value['history'] . '</div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
+                                </div>
+                            </div>
+                        </form>
                     </div>
                 </div>
+                
             </td>
-            <td>' . $value['created_at'] .'</td>
+            <td>' . $value['created_at'] . '</td>
             <th><button class="btn btn-danger btn-sm" href=""><i class="fa fa-trash" aria-hidden="true"></i> Удалить</button></th>
         </tr>');
     }
     echo ('</tbody>
             </table>');
     echo ('</div>');
+
     ?>
 
     <script src="js/bootstrap.bundle.min.js"></script>
