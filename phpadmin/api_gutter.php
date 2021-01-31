@@ -308,7 +308,7 @@ switch ($method) {
     break;
 
   case 'deletephone':
-    deletePhone($_GET['id']);
+    deletePhone($_POST['id']);
     break;
 
   case 'logout':

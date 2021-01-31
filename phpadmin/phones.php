@@ -95,8 +95,14 @@
                 </div>
 
             </td>
-            <td>' . $value['created_at'] .'</td>
-            <th><a class="btn btn-danger btn-sm" href="phones.php?a=deletephone&id='.$value['id'].'"><i class="fa fa-trash" aria-hidden="true"></i> Удалить</a></th>
+            <td>' . $value['created_at'] . '</td>
+            <th><form method="post" action="phones.php">
+                    <input class="data_a" type="hidden" name="a" value="deletephone">
+                    <input class="phone_id" type="hidden" name="id" value="' . $value['id'] . '">
+                    <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-trash" aria-hidden="true"></i> Удалить</button>
+                </form>
+            
+            </th>
         </tr>');
     }
     echo ('</tbody>
