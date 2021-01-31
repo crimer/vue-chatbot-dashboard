@@ -54,7 +54,6 @@
     if (isset($CONFIG['api_key'])) {
         $phones = phoneList();
         $phones = json_decode($phones, true);
-        //print_r($phones);
     }
     echo ('<br>');
     echo ('<div class="container">');
