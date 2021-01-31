@@ -101,11 +101,16 @@
                     <input class="phone_id" type="hidden" name="id" value="' . $value['id'] . '">
                     <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-trash" aria-hidden="true"></i> Удалить</button>
                 </form>
-            
             </th>
         </tr>');
     }
     echo ('</tbody>
+    <caption>
+        <form method="post" action="phones.php">
+            <input class="data_a" type="hidden" name="a" value="deleteallphones">
+            <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-trash" aria-hidden="true"></i> Удалить все данные о телефонах</button>
+        </form>
+    </caption>
             </table>');
     echo ('</div>');
 
