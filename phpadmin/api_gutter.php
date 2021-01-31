@@ -236,6 +236,44 @@ function deleteQuestion($question_id)
   return $result;
 }
 
+function phoneList()
+{
+  global $CONFIG;
+  $url = $CONFIG['api_url'] . 'admin/phone/list';
+  $data = array('key' => $CONFIG['api_key']);
+
+  $options = array(
+    'http' => array(
+      'header'  => "Content-type: application/x-www-form-urlencoded\r\n",
+      'method'  => 'POST',
+      'content' => http_build_query($data),
+    )
+  );
+  $context  = stream_context_create($options);
+  $result = file_get_contents($url, false, $context);
+
+  return $result;
+}
+
+function deletePhone($id)
+{
+  global $CONFIG;
+  $url = $CONFIG['api_url'] . 'admin/phone/remove';
+  $data = array('key' => $CONFIG['api_key'], 'phone_id' => $id);
+
+  $options = array(
+    'http' => array(
+      'header'  => "Content-type: application/x-www-form-urlencoded\r\n",
+      'method'  => 'POST',
+      'content' => http_build_query($data)
+    )
+  );
+  $context  = stream_context_create($options);
+  $result = file_get_contents($url, false, $context);
+
+  return $result;
+}
+
 switch ($method) {
   case 'addanswer':
     addAnswer($_POST['question_id'], $_POST['text'], $_POST['keys']);
@@ -267,6 +305,10 @@ switch ($method) {
 
   case 'deletekey':
     deleteKey($_GET['id']);
+    break;
+
+  case 'deletephone':
+    deletePhone($_POST['id']);
     break;
 
   case 'logout':
