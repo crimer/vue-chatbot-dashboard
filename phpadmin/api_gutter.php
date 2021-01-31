@@ -9,6 +9,7 @@ if (isset($_POST['a'])) {
 } else {
   $method = null;
 }
+
 function keyCheck($key)
 {
   global $CONFIG;
@@ -25,6 +26,63 @@ function keyCheck($key)
   $context  = stream_context_create($options);
   $result = file_get_contents($url, false, $context);
 
+  return $result;
+}
+
+function keyList()
+{
+  global $CONFIG;
+  $url = $CONFIG['api_url'] . 'admin/key/list';
+  $data = array('key' => $CONFIG['api_key']);
+
+  $options = array(
+    'http' => array(
+      'header'  => "Content-type: application/x-www-form-urlencoded\r\n",
+      'method'  => 'POST',
+      'content' => http_build_query($data),
+    )
+  );
+  $context  = stream_context_create($options);
+  $result = file_get_contents($url, false, $context);
+
+  return $result;
+}
+
+function deleteKey($id)
+{
+  global $CONFIG;
+  $url = $CONFIG['api_url'] . 'admin/key/remove';
+  $data = array('key' => $CONFIG['api_key'], 'key_id' => $id);
+
+  $options = array(
+    'http' => array(
+      'header'  => "Content-type: application/x-www-form-urlencoded\r\n",
+      'method'  => 'POST',
+      'content' => http_build_query($data)
+    )
+  );
+  $context  = stream_context_create($options);
+  $result = file_get_contents($url, false, $context);
+
+  return $result;
+}
+
+function addKey()
+{
+  global $CONFIG;
+  $url = $CONFIG['api_url'] . 'admin/key/create';
+  $data = array('key' => $CONFIG['api_key']);
+
+  $options = array(
+    'http' => array(
+      'header'  => "Content-type: application/x-www-form-urlencoded\r\n",
+      'method'  => 'POST',
+      'content' => http_build_query($data),
+    )
+  );
+  $context  = stream_context_create($options);
+  $result = file_get_contents($url, false, $context);
+  
   return $result;
 }
 
@@ -179,6 +237,63 @@ function deleteQuestion($question_id)
   return $result;
 }
 
+function phoneList()
+{
+  global $CONFIG;
+  $url = $CONFIG['api_url'] . 'admin/phone/list';
+  $data = array('key' => $CONFIG['api_key']);
+
+  $options = array(
+    'http' => array(
+      'header'  => "Content-type: application/x-www-form-urlencoded\r\n",
+      'method'  => 'POST',
+      'content' => http_build_query($data),
+    )
+  );
+  $context  = stream_context_create($options);
+  $result = file_get_contents($url, false, $context);
+
+  return $result;
+}
+
+function deletePhone($id)
+{
+  global $CONFIG;
+  $url = $CONFIG['api_url'] . 'admin/phone/remove';
+  $data = array('key' => $CONFIG['api_key'], 'phone_id' => $id);
+
+  $options = array(
+    'http' => array(
+      'header'  => "Content-type: application/x-www-form-urlencoded\r\n",
+      'method'  => 'POST',
+      'content' => http_build_query($data)
+    )
+  );
+  $context  = stream_context_create($options);
+  $result = file_get_contents($url, false, $context);
+
+  return $result;
+}
+
+function deleteAllPhones()
+{
+  global $CONFIG;
+  $url = $CONFIG['api_url'] . 'admin/phone/remove/all';
+  $data = array('key' => $CONFIG['api_key']);
+
+  $options = array(
+    'http' => array(
+      'header'  => "Content-type: application/x-www-form-urlencoded\r\n",
+      'method'  => 'POST',
+      'content' => http_build_query($data),
+    )
+  );
+  $context  = stream_context_create($options);
+  $result = file_get_contents($url, false, $context);
+
+  return $result;
+}
+
 switch ($method) {
   case 'addanswer':
     addAnswer($_POST['question_id'], $_POST['text'], $_POST['keys']);
@@ -202,6 +317,22 @@ switch ($method) {
 
   case 'deletequestion':
     deleteQuestion($_POST['id']);
+    break;
+
+  case 'addkey':
+    addKey();
+    break;
+
+  case 'deletekey':
+    deleteKey($_GET['id']);
+    break;
+
+  case 'deletephone':
+    deletePhone($_POST['id']);
+    break;
+
+  case 'deleteallphones':
+    deleteAllPhones();
     break;
 
   case 'logout':
