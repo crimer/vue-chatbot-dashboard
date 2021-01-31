@@ -84,22 +84,20 @@
                                 <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
-                                <div class="form-floating">
-                                    <textarea class="form-control" style="height: 500px" required readonly>История:
+                                    <textarea style="height: 250px;" name="text" class="form-control" readonly>История:
 ' . $value['history'] . '
                                     </textarea>
-                                </div>
                             </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
-                                </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
                             </div>
+                        </div>
                     </div>
                 </div>
 
             </td>
-            <td>' . $value['created_at'] . '</td>
-            <th><button class="btn btn-danger btn-sm" href=""><i class="fa fa-trash" aria-hidden="true"></i> Удалить</button></th>
+            <td>' . $value['created_at'] .'</td>
+            <th><a class="btn btn-danger btn-sm" href="phones.php?a=deletephone&id='.$value['id'].'"><i class="fa fa-trash" aria-hidden="true"></i> Удалить</a></th>
         </tr>');
     }
     echo ('</tbody>
