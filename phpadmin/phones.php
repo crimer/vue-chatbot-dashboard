@@ -74,25 +74,26 @@
             <th scope ="row">' . $key . '</th>
             <td>' . $value['phone'] . '</td>
             <td>
-                <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#ModalHistory' . $value['id'] .'"><i class="fa fa-history" aria-hidden="true"></i> Посмотреть историю</button>
+                <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#ModalHistory' . $value['id'] . '"><i class="fa fa-history" aria-hidden="true"></i> Посмотреть историю</button>
 
-                <div class="modal fade" id="ModalHistory' . $value['id'] .'" tabindex="-1">
-                    <div class="modal-dialog modal-lg">
-                        <form method="post" action="/">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title">История ' . $value['phone'] .'</h5>
-                                    <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+                <div class="modal fade" id="ModalHistory' . $value['id'] . '" role="dialog" aria-modal="true" role="dialog" tabindex="-1">
+                    <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title">История ' . $value['phone'] . '</h5>
+                                <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="form-floating">
+                                    <textarea class="form-control" style="height: 500px" required readonly>История:
+' . $value['history'] . '
+                                    </textarea>
                                 </div>
-                                <div class="modal-body">
-                                    <div>История: </div>
-                                    <div>' . $value['history'] . '</div>
-                                </div>
+                            </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
                                 </div>
                             </div>
-                        </form>
                     </div>
                 </div>
 
