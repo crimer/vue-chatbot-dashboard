@@ -267,7 +267,7 @@ function deleteAnswer($answer_id)
   return $result;
 }
 
-// Удаление ответа
+// Удаление вопроса
 function deleteQuestion($question_id)
 {
   global $CONFIG;
