@@ -9,12 +9,17 @@ if (isset($_POST['a'])) {
 } else {
   $method = null;
 }
+
+// Проверка действительности ключа
 function keyCheck($key)
 {
   global $CONFIG;
+  // Адрес обращения к API
   $url = $CONFIG['api_url'] . 'admin/key/check';
+  // Параметры передаваемые API
   $data = array('key' => $key);
 
+  // Настройка http-запроса
   $options = array(
     'http' => array(
       'header'  => "Content-type: application/x-www-form-urlencoded\r\n",
@@ -22,18 +27,24 @@ function keyCheck($key)
       'content' => http_build_query($data)
     )
   );
+  // Создаёт контекст потока
   $context  = stream_context_create($options);
+  // Читает содержимое файла в строку
   $result = file_get_contents($url, false, $context);
 
   return $result;
 }
 
+// Вывод списока ключей
 function keyList()
 {
   global $CONFIG;
+  // Адрес обращения к API
   $url = $CONFIG['api_url'] . 'admin/key/list';
+  // Параметры передаваемые API
   $data = array('key' => $CONFIG['api_key']);
 
+  // Настройка http-запроса
   $options = array(
     'http' => array(
       'header'  => "Content-type: application/x-www-form-urlencoded\r\n",
@@ -41,18 +52,23 @@ function keyList()
       'content' => http_build_query($data),
     )
   );
+  // Создаёт контекст потока
   $context  = stream_context_create($options);
   $result = file_get_contents($url, false, $context);
 
   return $result;
 }
 
+// Удаление ключа
 function deleteKey($id)
 {
   global $CONFIG;
+  // Адрес обращения к API
   $url = $CONFIG['api_url'] . 'admin/key/remove';
+  // Параметры передаваемые API
   $data = array('key' => $CONFIG['api_key'], 'key_id' => $id);
 
+  // Настройка http-запроса
   $options = array(
     'http' => array(
       'header'  => "Content-type: application/x-www-form-urlencoded\r\n",
@@ -60,18 +76,23 @@ function deleteKey($id)
       'content' => http_build_query($data)
     )
   );
+  // Создаёт контекст потока
   $context  = stream_context_create($options);
   $result = file_get_contents($url, false, $context);
 
   return $result;
 }
 
+// Добавление ключа
 function addKey()
 {
   global $CONFIG;
+  // Адрес обращения к API
   $url = $CONFIG['api_url'] . 'admin/key/create';
+  // Параметры передаваемые API
   $data = array('key' => $CONFIG['api_key']);
 
+  // Настройка http-запроса
   $options = array(
     'http' => array(
       'header'  => "Content-type: application/x-www-form-urlencoded\r\n",
@@ -79,16 +100,20 @@ function addKey()
       'content' => http_build_query($data),
     )
   );
+  // Создаёт контекст потока
   $context  = stream_context_create($options);
   $result = file_get_contents($url, false, $context);
   
   return $result;
 }
 
+// Добавление ответа
 function addAnswer($question_id, $text, $keys)
 {
   global $CONFIG;
+  // Адрес обращения к API
   $url = $CONFIG['api_url'] . 'admin/chat/add/answer';
+  // Параметры передаваемые API
   $data = array('key' => $CONFIG['api_key']);
   $data['text'] = $text;
   if ($keys != "") {
@@ -96,6 +121,7 @@ function addAnswer($question_id, $text, $keys)
   }
   $data['question_id'] = $question_id;
 
+  // Настройка http-запроса
   $options = array(
     'http' => array(
       'header'  => "Content-type: application/x-www-form-urlencoded\r\n",
@@ -103,19 +129,24 @@ function addAnswer($question_id, $text, $keys)
       'content' => http_build_query($data)
     )
   );
+  // Создаёт контекст потока
   $context  = stream_context_create($options);
   $result = file_get_contents($url, false, $context);
 
   return $result;
 }
 
+// Добавление вопроса
 function addQuestion($answer_id, $text)
 {
   global $CONFIG;
+  // Адрес обращения к API
   $url = $CONFIG['api_url'] . 'admin/chat/add/question';
+  // Параметры передаваемые API
   $data = array('key' => $CONFIG['api_key']);
   $data['text'] = $text;
 
+  // Настройка http-запроса
   $options = array(
     'http' => array(
       'header'  => "Content-type: application/x-www-form-urlencoded\r\n",
@@ -123,6 +154,7 @@ function addQuestion($answer_id, $text)
       'content' => http_build_query($data)
     )
   );
+  // Создаёт контекст потока
   $context  = stream_context_create($options);
   $result = file_get_contents($url, false, $context);
 
@@ -130,11 +162,14 @@ function addQuestion($answer_id, $text)
   $qid = $q->{'question'}->{'id'};
 
   if ($result != FALSE) {
+    // Адрес обращения к API
     $url = $CONFIG['api_url'] . 'admin/chat/edit/answer';
+    // Параметры передаваемые API
     $data = array('key' => $CONFIG['api_key']);
     $data['id'] = $answer_id;
     $data['next_question_id'] = $qid;
 
+    // Настройка http-запроса
     $options = array(
       'http' => array(
         'header'  => "Content-type: application/x-www-form-urlencoded\r\n",
@@ -142,6 +177,7 @@ function addQuestion($answer_id, $text)
         'content' => http_build_query($data)
       )
     );
+    // Создаёт контекст потока
     $context  = stream_context_create($options);
     $result = file_get_contents($url, false, $context);
   }
@@ -149,10 +185,13 @@ function addQuestion($answer_id, $text)
   return $result;
 }
 
+// Изменение ответа
 function editAnswer($answer_id, $text, $keys)
 {
   global $CONFIG;
+  // Адрес обращения к API
   $url = $CONFIG['api_url'] . 'admin/chat/edit/answer';
+  // Параметры передаваемые API
   $data = array('key' => $CONFIG['api_key']);
   $data['text'] = $text;
   if ($keys != "") {
@@ -162,6 +201,7 @@ function editAnswer($answer_id, $text, $keys)
   }
   $data['id'] = $answer_id;
 
+  // Настройка http-запроса
   $options = array(
     'http' => array(
       'header'  => "Content-type: application/x-www-form-urlencoded\r\n",
@@ -169,20 +209,25 @@ function editAnswer($answer_id, $text, $keys)
       'content' => http_build_query($data)
     )
   );
+  // Создаёт контекст потока
   $context  = stream_context_create($options);
   $result = file_get_contents($url, false, $context);
 
   return $result;
 }
 
+// Изменение вопроса
 function editQuestion($question_id, $text)
 {
   global $CONFIG;
+  // Адрес обращения к API
   $url = $CONFIG['api_url'] . 'admin/chat/edit/question';
+  // Параметры передаваемые API
   $data = array('key' => $CONFIG['api_key']);
   $data['text'] = $text;
   $data['id'] = $question_id;
 
+  // Настройка http-запроса
   $options = array(
     'http' => array(
       'header'  => "Content-type: application/x-www-form-urlencoded\r\n",
@@ -190,19 +235,24 @@ function editQuestion($question_id, $text)
       'content' => http_build_query($data)
     )
   );
+  // Создаёт контекст потока
   $context  = stream_context_create($options);
   $result = file_get_contents($url, false, $context);
 
   return $result;
 }
 
+// Удаление ответа
 function deleteAnswer($answer_id)
 {
   global $CONFIG;
+  // Адрес обращения к API
   $url = $CONFIG['api_url'] . 'admin/chat/remove/answer';
+  // Параметры передаваемые API
   $data = array('key' => $CONFIG['api_key']);
   $data['id'] = $answer_id;
 
+  // Настройка http-запроса
   $options = array(
     'http' => array(
       'header'  => "Content-type: application/x-www-form-urlencoded\r\n",
@@ -210,19 +260,24 @@ function deleteAnswer($answer_id)
       'content' => http_build_query($data)
     )
   );
+  // Создаёт контекст потока
   $context  = stream_context_create($options);
   $result = file_get_contents($url, false, $context);
 
   return $result;
 }
 
+// Удаление вопроса
 function deleteQuestion($question_id)
 {
   global $CONFIG;
+  // Адрес обращения к API
   $url = $CONFIG['api_url'] . 'admin/chat/remove/question';
+  // Параметры передаваемые API
   $data = array('key' => $CONFIG['api_key']);
   $data['id'] = $question_id;
 
+  // Настройка http-запроса
   $options = array(
     'http' => array(
       'header'  => "Content-type: application/x-www-form-urlencoded\r\n",
@@ -230,18 +285,23 @@ function deleteQuestion($question_id)
       'content' => http_build_query($data)
     )
   );
+  // Создаёт контекст потока
   $context  = stream_context_create($options);
   $result = file_get_contents($url, false, $context);
 
   return $result;
 }
 
+// Вывод списка оставленных телефонов и их данных
 function phoneList()
 {
   global $CONFIG;
+  // Адрес обращения к API
   $url = $CONFIG['api_url'] . 'admin/phone/list';
+  // Параметры передаваемые API
   $data = array('key' => $CONFIG['api_key']);
 
+  // Настройка http-запроса
   $options = array(
     'http' => array(
       'header'  => "Content-type: application/x-www-form-urlencoded\r\n",
@@ -249,18 +309,23 @@ function phoneList()
       'content' => http_build_query($data),
     )
   );
+  // Создаёт контекст потока
   $context  = stream_context_create($options);
   $result = file_get_contents($url, false, $context);
 
   return $result;
 }
 
+// Удаление телефонов и их данных
 function deletePhone($id)
 {
   global $CONFIG;
+  // Адрес обращения к API
   $url = $CONFIG['api_url'] . 'admin/phone/remove';
+  // Параметры передаваемые API
   $data = array('key' => $CONFIG['api_key'], 'phone_id' => $id);
 
+  // Настройка http-запроса
   $options = array(
     'http' => array(
       'header'  => "Content-type: application/x-www-form-urlencoded\r\n",
@@ -268,18 +333,23 @@ function deletePhone($id)
       'content' => http_build_query($data)
     )
   );
+  // Создаёт контекст потока
   $context  = stream_context_create($options);
   $result = file_get_contents($url, false, $context);
 
   return $result;
 }
 
+// Удаление всех данных о телефонах
 function deleteAllPhones()
 {
   global $CONFIG;
+  // Адрес обращения к API
   $url = $CONFIG['api_url'] . 'admin/phone/remove/all';
+  // Параметры передаваемые API
   $data = array('key' => $CONFIG['api_key']);
 
+  // Настройка http-запроса
   $options = array(
     'http' => array(
       'header'  => "Content-type: application/x-www-form-urlencoded\r\n",
@@ -287,6 +357,7 @@ function deleteAllPhones()
       'content' => http_build_query($data),
     )
   );
+  // Создаёт контекст потока
   $context  = stream_context_create($options);
   $result = file_get_contents($url, false, $context);
 
